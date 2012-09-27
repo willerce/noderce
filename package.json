@@ -1,0 +1,23 @@
+{
+  "name": "noderce",
+  "preferGlobal": "true",
+  "version": "0.0.2",
+  "private": true,
+  "author": "Willerce.Jen <willerce@gmail.com>",
+  "description": "a simple nodejs blog program",
+  "scripts": {
+    "start": "node app"
+  },
+  "engines": {
+    "node": "0.8.8",
+    "npm": "1.1.41"
+  },
+  "dependencies": {
+    "express": "3.0.0rc4",
+    "jade": "0.27.2",
+    "data2xml": "0.5.0",
+    "mongoskin": "0.4.1",
+    "marked": "0.2.5",
+    "dateformat":"1.0.2-1.2.3"
+  }
+}

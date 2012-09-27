@@ -1,0 +1,43 @@
+doctype 5
+html
+  head
+    title Noderce 管理中心
+    link(rel='stylesheet', href='/stylesheets/admin.css')
+    script(src='/libs/jquery.min.js')
+    script(src='/libs/cal.js')
+  body
+    #wrapper
+      #nav
+        ul
+          li
+            a(href="/admin") Home
+            span  ›
+          li
+            a(href="/admin/post") Post
+            span  ›
+          li
+            a(href="/admin/post/write") Write
+          .quick
+            a(href="/admin/post/write",title="Write Post") <span>Write</span>
+      form#write_post(method="post")
+        #post_info
+          .item.title
+            label(for="post_title")
+              span Title
+            input(type="text", name ="title", id="post_title")
+          .item.slug
+            label(for="post_slug")
+              span Slug
+            input(type="text", name ="slug", id="post_slug")
+          .item.created
+            label(for="post_created")
+              span Created
+            input(type="text", name ="created", id="post_created",readonly='')
+          div.clearfix
+        #content
+          textarea(name="content", id="post_content")
+        #meta
+          button.btn.btn-small
+            a#post-it OK, Post It
+    script
+      $('input#post_created').simpleDatepicker({ startdate: 2008, enddate: 2012 });

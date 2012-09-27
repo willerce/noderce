@@ -1,0 +1,22 @@
+doctype 5
+html(lang="zh-cn")
+  head
+    title Noderce 管理中心
+    link(rel='stylesheet', href='/stylesheets/admin.css')
+    script(src='/libs/jquery/jquery.min.js')
+  body
+    .mod_login
+      header
+        h1.logo Noderce
+      .mod_login_main
+        form(method="POST",id="login-form")
+          .item
+            label(for="user_name") Username:
+            input(type="text",name="name",id="user_name")
+          .item
+            label(for="user_pass") Password:
+            input(type="password",name="pass",id="user_pass")
+          .item
+            button(type="submit",class="btn btn-small")
+              a Login
+        .clearfix

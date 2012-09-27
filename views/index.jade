@@ -1,0 +1,81 @@
+extends layout
+
+append head
+  title #{title}
+
+block content
+  section#main.container
+    div.content
+      section.posts
+        - posts.forEach(function(item){
+          article.post.block
+              h2.title
+                a(href="/post/" + item.slug) #{item.title}
+              div.meta
+                time #{item.created}
+              div.entry !{item.content}
+        - })
+        div.navigation.block
+          table(width="100%")
+            tbody
+              tr
+                td(width="120", align="left")
+                  - if (crtP > 1)
+                    div.alignleft
+                      a(href="/p/"+ (crtP -1))« 上一页
+                td(width="auto", align="center")
+                  strong.fade
+                    !{crtP} / !{maxP}
+                td(width="120", align="right)
+                  - if (nextP > crtP)
+                    div.alignright
+                      a(href="/p/"+nextP) 下一页 »
+    div.sidebar
+      div.widget.block.about
+        strong.wt 关于我
+        div.wc
+          p <img src="http://sfault-avatar.b0.upaiyun.com/249/218/2492188166_medium40" alt="willerce" align="left" style="margin-right: 7px;">willerce，前端工程师，强迫、偏执症；就职于<a href="http://tongbu.com/" target="_blank">同步网络</a> <sup><a href="http://tongbu.com/job/001.html" title="同步网络招聘" target="_blank">join</a></sup><br/>关注前端技术、用户体验，欢迎交流。<br/>GTalk: willerce@gmail.com
+          div.sep10
+          p.social
+            span
+              i.icon-feed
+              a(href="http://feeds.feedburner.com/willerce",target="_blank")订阅
+            span
+              i.icon-weibo
+              a(href="http://weibo.com/willerce",target="_blank") 关注我
+            span
+              i.icon-twitter
+              a(href="http://twitter.com/willerce",target="_blank") Follow Me
+      div.widget.block.links
+        strong.wt 基友们
+        div.wc
+          ul
+            li ›
+              a(href="http://www.acterce.com/") Acterce
+              span 哥、领路人、良师益友
+            li ›
+              a(href="http://blog.francistm.com/") Francis.TM
+              span 神一样的弗总
+            li ›
+              a(href="http://www.prower.cn/") Prower
+              span 摄神的博客
+            li ›
+              a(href="http://blog.specode.org/") Specode
+              span 小锅童鞋，VIM用得烂死了
+            li ›
+              a(href="http://lowxp.com/") lowxp
+              span 小斌童鞋
+            li ›
+              a(href="http://ycinn.diandian.com/") Cinn
+              span 昕昕小技师，用“废物”画画
+            li ›
+              a(href="http://www.h4ck.ws") 猥琐教授
+              span 整天在火星研究院瞎BB
+            li ›
+              a(href="http://ieqi.net/") G_will
+              span 郭老师一直在实验室里搞基
+            li.sep10
+      div.widget.block.imgblock.appfog
+        div.wc
+          a(href="http://www.appfog.com/",title="Simple, Powerful & Affordable PaaS for Developers",target="_blank")
+            img(src="http://blog.appfog.com/wp-content/themes/appfog/images/promo-app-fog-beta-198.png",alt="appfog.com")

@@ -1,0 +1,30 @@
+doctype 5
+html(lang="zh-cn")
+  head
+    title Noderce 管理中心
+    link(rel='stylesheet', href='/stylesheets/admin.css')
+    script(src='/libs/jquery/jquery.min.js')
+  body
+    #wrapper
+
+      #nav
+        ul
+          li
+            a(href="/admin") Home
+            span  ›
+          li
+            a(href="/admin/post") Post
+        .quick
+          a(href="/admin/post/write",title="Write Post") <span>Write</span>
+      #post-list
+        ul
+          - post_list.forEach(function(item){
+              li
+                a(href="/admin/post/edit/" + item.slug) #{item.title}
+                .action
+                  span.edit
+                    a(href="/post/" + item.slug, target="_blank") view
+                    a(href="/admin/post/delete/" + item.slug, target="_blank") x
+           - })
+
+      .clearfix

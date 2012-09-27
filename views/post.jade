@@ -1,0 +1,50 @@
+extends layout
+
+append head
+  title #{page_title}
+
+append footer
+  script(src="https://apis.google.com/js/plusone.js")
+  script
+     (function() {
+       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+       dsq.src = 'http://willerce.disqus.com/embed.js';
+       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+
+block content
+  div#main.container.post
+    div.content
+      article.post.block
+        h1.title #{title}
+        div.entry !{content}
+      div#comments.block
+        div#disqus_thread
+    div.sidebar
+      div.widget.block
+        strong.wt About This Post
+        div.wc
+          p @
+            time #{created}
+          div.sep10
+          p.share
+            script
+                (function(){var _w = 90 , _h = 24;
+                  var param = {url:location.href,type:'2',count:'1',title:'',pic:'',ralateUid:'', rnd:new Date().valueOf()};
+                  var temp = [];for( var p in param ){temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )}
+                  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+                })()
+            <g:plusone></g:plusone>
+      div.widget.block
+        div.wc
+          p
+            strong 声明:
+            本文采用
+            a(href="http://creativecommons.org/licenses/by-nc-sa/3.0/",rel="nofollow external")
+              abbr(title="署名-非商业性使用-相同方式共享") BY-NC-SA
+            协议进行授权。转载请注明转自：
+            a(href="http://willerce.com/post/"+slug,title=title) #{title}
+      div.widget.block.imgblock.reeoo
+        div.wc
+          a(href="http://reeoo.com",title="web design inspiraiton",target="_blank")
+            img(src="http://reeoo.com/images/reeoo_250.jpg",alt="reeoo.com - web design inspiration",width="230",height="230" )

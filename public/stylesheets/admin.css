@@ -1,0 +1,341 @@
+/* yui3 reset*/
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+abbr,acronym{border:0;font-variant:normal}
+sup{vertical-align:text-top}
+sub{vertical-align:text-bottom}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+*html .clearfix{height:1%;}
+*+html .clearfix{height:1%;}
+.clearfix{display:inline-block;}
+.clearfix {display:block;}
+
+/* style */
+html {
+
+    background: #E0E0E0;
+}
+body {
+    font-family: 'Microsoft YaHei';
+    padding-bottom: 20px;
+}
+a {
+}
+
+#wrapper {
+    background: #F5F5F5;
+    width: 1024px;
+    margin: 0 auto 20px auto;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+#nav {
+    background: -moz-linear-gradient(top, #c63a3a 0%, #c43837 29%, #c13635 55%, #bd3232 55%, #ba3030 77%, #b32b2b 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* W3C */
+    height: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+    margin-bottom: 10px;
+    position: relative;
+}
+#nav ul {
+    margin-left: 10px;
+}
+#nav ul li {
+    float: left;
+    height: 25px;
+    line-height: 35px;
+    font-size: 12px;
+    text-decoration: none;
+}
+#nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+#nav ul li a:hover,
+#nav .quick a:hover {
+    text-decoration: underline;
+}
+#nav ul li span {
+    margin-right: 5px;
+    color: #000;
+}
+#nav .quick {
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    color: #fff;
+    line-height: 35px;
+    height: 35px;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #616161), color-stop(1, #313131) );
+    background:-moz-linear-gradient( center top, #616161 5%, #313131 100% );
+    color: #fff;
+    padding: 0 5px;
+}
+
+#nav .quick a {
+    color: #fff;
+    text-decoration: none;
+    background: url('../images/admin/write.png') no-repeat 0 10px;
+    width: 16px;
+    height: 35px;
+    display: inline-block;
+}
+
+#nav .quick a span {
+    display: none;
+}
+
+#action {
+    margin-left:10px;
+}
+
+#post-list ul li{
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 0 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    width: 48%;
+    float: left;
+    white-space:nowrap;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+#post-list ul li:hover {
+    background: #fffec9;
+}
+
+#post-list ul li a{
+    text-decoration: none;
+    color: #000;
+    margin-right: 5px;
+}
+
+#post-list ul li a:hover{
+    text-decoration: underline;
+}
+
+#post-list ul li .action{
+    display: none;
+    position: absolute;
+    right: 8px;
+    margin-left: 10px;
+}
+
+#post-list ul li:hover .action span {
+    margin-left: 5px;
+}
+
+#post-list ul li:hover .action{
+    display: inline;
+}
+
+#write_post {
+    margin: 0 10px;
+}
+
+#post_info .item  {
+    float: left;
+    position: relative;
+}
+#post_info .item input {
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 40px;
+}
+
+#post_info .item input:focus,
+#content textarea:focus{
+    outline: none;
+    background: #FFFFDF;
+    border: 1px solid #ABADB3;
+}
+
+#post_info .item label {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    border-right: 1px solid #ABADB3;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background: #eee no-repeat 7px 8px;
+}
+
+#post_info .item label span {
+    display: none;
+}
+
+#post_info .item input {
+    border: 1px solid #ABADB3;
+}
+
+#post_title,
+#page_title{
+    width: 470px;
+    margin-right: 20px;
+}
+#post_info .item.title label{
+    background-image: url('../images/admin/title.png');
+}
+#post_info .item.slug label{
+    background-image: url('../images/admin/slug.png');
+}
+#post_info .item.created label{
+    background-image: url('../images/admin/created.png');
+}
+
+#post_slug,
+#page_slug{
+    width: 300px;
+    margin-right: 20px;
+}
+#post_created,
+#page_created{
+    width: 186px;
+}
+
+#content {
+    margin: 10px 0;
+}
+#post_content,
+#page_content{
+    font-size: 15px;
+    width: 990px;
+    height: 510px;
+    padding: 3px 5px;
+    line-height: 1.8;
+}
+
+#meta {
+    position: relative;
+    height: 35px;
+}
+
+#meta .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+.mod_login  {
+    width: 350px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -200px;
+}
+
+.mod_login header {
+    position: relative;
+    height: 35px;
+    border: 1px solid #b32b2b;
+    border-width: 1px 1px 0;
+    background-color: #b32b2b;
+    background: -moz-linear-gradient(top, #c63a3a 0%, #c43837 29%, #c13635 55%, #bd3232 55%, #ba3030 77%, #b32b2b 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #c63a3a 0%,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%); /* W3C */
+    background-position: 50% 50%;
+}
+.mod_login header h1 {
+    line-height: 35px;
+    text-indent: 20px;
+    color: #fff;
+}
+
+.mod_login_main {
+    border: 1px solid #b32b2b;
+    background: #fff;
+    padding: 25px 20px 20px;
+}
+
+.mod_login_main .item {
+    margin: 10px 0;
+}
+
+.mod_login_main .item label {
+    width: 30%;
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.mod_login_main .item input {
+    width: 68%;
+    line-height: 25px;
+    margin-top: 5px;
+}
+
+.mod_login_main .item .btn {
+    float: right;
+}
+
+button.btn {
+    font-family: 'Arvo', courier, serif;
+    -moz-box-shadow: inset 0px 1px 0px 0px #CCC, rgba(0, 0, 0, 0.1) 0 2px 5px;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #CCC, rgba(0, 0, 0, 0.1) 0 2px 5px;
+    box-shadow: inset 0px 1px 0px 0px #CCC, rgba(0, 0, 0, 0.1) 0 2px 5px;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #616161), color-stop(1, #313131) );
+    background:-moz-linear-gradient( center top, #616161 5%, #313131 100% );
+    background-color:#616161;
+    border:1px solid #333;
+    display:inline-block;
+    color:#777777;
+    padding:12px 14px 6px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ffffff;
+    cursor: pointer;
+}
+button.btn:active {
+    box-shadow:none;
+}
+button.btn a {
+    display: block;
+    border: none;
+    padding: 6px 0;
+    font-size:18px;
+    color: #fff;
+    text-shadow: #000 0 -1px 0;
+}
+button.btn-small {
+    padding:2px 8px;
+}
+button.btn-small a {
+    font-size:14px;
+}
+
+/*datepicker*/
+.datepicker { border-collapse: collapse; border: 2px solid #999; position: absolute; z-index: 9999;}
+.datepicker tr.controls th { height: 19px; font-size: 11px; }
+.datepicker select { font-size: 11px; }
+.datepicker tr.days th { height: 19px; text-align: center;}
+.datepicker tfoot td { height: 19px; text-align: center; text-transform: capitalize; }
+.datepicker th, .datepicker tfoot td { background: #eee; font: 10px/19px Verdana, Arial, Helvetica, sans-serif; }
+.datepicker th span, .datepicker tfoot td span { font-weight: bold; }
+
+.datepicker tbody td { width: 19px; height: 19px; border: 1px solid #ccc; font: 11px/19px Arial, Helvetica, sans-serif; text-align: center; background: #fff; }
+.datepicker tbody td.date { cursor: pointer; }
+.datepicker tbody td.date.over { background-color: #99ffff; }
+.datepicker tbody td.date.chosen { font-weight: bold; background-color: #ccffcc; }

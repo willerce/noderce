@@ -1,0 +1,11 @@
+extends layout
+
+append head
+  title #{page_title}
+
+block content
+  div#main.container.page
+    div.content
+      article.post.block
+        h1.title #{title}
+        div.entry !{content}

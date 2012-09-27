@@ -1,0 +1,25 @@
+doctype 5
+html(lang="zh-cn")
+  head
+    title Noderce 管理中心
+    link(rel='stylesheet', href='/stylesheets/admin.css')
+    script(src='/libs/jquery/jquery-1.8.1.min.js')
+  body
+    #wrapper
+      #nav
+        ul
+          li
+            a(href="/admin") Home
+        .quick
+          a(href="/admin/post/write",title="Write Post") <span>Write</span>
+      #action
+        div
+          a(href="/admin/post") 日志列表
+        div
+          a(href="/admin/post/write") 新建日志
+        hr
+        div
+          a(href="/admin/page") 页面列表
+        div
+          a(href="/admin/page/write") 新建页面
+      .clearfix
