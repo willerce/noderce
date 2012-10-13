@@ -1,0 +1,32 @@
+extends layout
+
+append head
+  title #{title}
+
+block content
+  section#main.container
+    div.content
+      section.posts
+        - posts.forEach(function(item){
+          article.post.block
+              h2.title
+                a(href="/post/" + item.slug) #{item.title}
+              div.meta
+                time #{item.created}
+              div.entry !{item.content}
+        - })
+        div.navigation.block
+          table(width="100%")
+            tbody
+              tr
+                td(width="120", align="left")
+                  - if (crtP > 1)
+                    div.alignleft
+                      a(href="/p/"+ (crtP -1))« 上一页
+                td(width="auto", align="center")
+                  strong.fade
+                    !{crtP} / !{maxP}
+                td(width="120", align="right)
+                  - if (nextP > crtP)
+                    div.alignright
+                      a(href="/p/"+nextP) 下一页 »

@@ -9,7 +9,7 @@ h1,h2,h3,h4,h5,h6{font-weight:normal;font-size:100%}
 q:before,q:after{content:''}
 abbr,acronym{border:0;font-variant:normal}
 input,textarea,select{font-weight:inherit;font-size:inherit;font-family:inherit}
-body{background:#ebebeb url("../images/bg.jpg") repeat;color:#111;font-weight:400;font-size:12px;font-family:"Galdeano","Hiragino Sans GB","Microsoft YaHei",Trebuchet,"Trebuchet MS",Tahoma,"Lucida Grande","Lucida Sans Unicode",Verdana,sans-serif;line-height:1.7}
+body{background:#ebebeb url("images/bg.jpg") repeat;color: #111;font-weight:400;font-size:12px;font-family:"Microsoft Yahei","Hiragino Sans GB",Tahoma,Arial,SimSun,PMingLiu,Verdana,sans-serif;line-height: 1.7;}
 a{color:#3d658d;text-decoration:none}
 a:hover{text-decoration:underline}
 a img:hover{border:0;background:0}
@@ -24,7 +24,7 @@ pre code{padding:0;background-color:transparent}
 .alignright{text-align:right}
 .container{position:relative;overflow:hidden;margin:0 auto;padding:0 5px;width:980px}
 .block{position:relative;overflow:hidden;border:1px solid #ccc;background:#fff;box-shadow:0 0 10px rgba(0,0,0,0.1)}
-[class^="icon-"],[class*=" icon-"]{display:inline-block;width:16px;height:16px;background:url("../images/icons.png") no-repeat -16px -16px;vertical-align:text-top;line-height:16px}
+[class^="icon-"],[class*=" icon-"]{display:inline-block;width:16px;height:16px;background:url("images/icons.png") no-repeat -16px -16px;vertical-align:text-top;line-height:16px}
 .icon-feed{background-position:-16px -16px}
 .icon-weibo{background-position:-48px -16px}
 .icon-twitter{background-position:-80px -16px}
@@ -36,7 +36,7 @@ pre code{padding:0;background-color:transparent}
 #main-header nav ul li{display:inline}
 #main-header nav ul li a{float:left;display:block;margin-left:20px;color:#ddd;font-weight:600;line-height:45px}
 #main-header nav ul li a:hover{color:#fff}
-#main-footer{clear:both;margin-top:20px;padding:10px 0;background:url("../images/footersub.png") repeat-x center top #dcdcdc}
+#main-footer{clear:both;margin-top:20px;padding:10px 0;background:url("images/footersub.png") repeat-x center top #dcdcdc}
 #main-footer p{margin-bottom:0;color:#818181;text-align:left}
 #main.page .content{width:980px}
 .title{margin-bottom:5px;font-weight:bold;font-size:1.8em;font-family:Pmingliu,Mingliu;line-height:1em}
@@ -46,7 +46,8 @@ pre code{padding:0;background-color:transparent}
 #main .post .meta{margin-bottom:15px;color:#777;font-size:10px}
 #main .post{margin-bottom:20px;padding:20px}
 #post-entry .content{margin-bottom:10px;border-bottom:1px dashed #ccc}
-.post .entry{font-size:14px}
+.post .entry{font-size: 15px;line-height: 1.7;}
+.post .entry a,.post .entry a:visited {text-decoration: underline;}
 .post .entry p{margin-bottom:1em}
 .post .entry h1{font-size:18px}
 .post .entry h2{font-size:16px}
@@ -74,7 +75,7 @@ pre code{padding:0;background-color:transparent}
 .sidebar .widget.imgblock{text-align:center}
 .sidebar .widget.imgblock a{display:block;overflow:hidden;line-height:0}
 .sidebar .widget.imgblock .wc{padding:5px}
-#backtop{position:fixed;right:55px;bottom:80px;width:36px;height:36px;background:url('../images/backtop.gif') no-repeat;cursor:pointer}
+#backtop{position:fixed;right:55px;bottom:80px;width:36px;height:36px;background:url('images/backtop.gif') no-repeat;cursor:pointer}
 #backtop:hover{background-position:0 -36px}
 #backtop span{display:none}
 

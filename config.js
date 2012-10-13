@@ -14,6 +14,7 @@ exports.config = {
   cookie_secret: process.env.COOKIE_SECRET ||'a743894a0e',
   auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',
   port : process.env.PORT || 3000,
+  theme : process.env.THEME || 'default',
 
   // Feed Setting
   rss:{

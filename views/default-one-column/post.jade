@@ -1,0 +1,22 @@
+extends layout
+
+append head
+  title #{page_title}
+
+append footer
+  script(src="https://apis.google.com/js/plusone.js")
+  script
+     (function() {
+       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+       dsq.src = 'http://willerce.disqus.com/embed.js';
+       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+
+block content
+  div#main.container.post
+    div.content
+      article.post.block
+        h1.title #{title}
+        div.entry !{content}
+      div#comments.block
+        div#disqus_thread

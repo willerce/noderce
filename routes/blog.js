@@ -36,7 +36,7 @@ exports.index = function (req, res, next) {
         result[i].content = marked(result[i].content);
       }
       runtime.p['p'+req.params[0]] = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage}
-      res.render('index', runtime.p['p'+req.params[0]]);
+      res.render( config.theme + '/index', runtime.p['p'+req.params[0]]);
     });
   });
 };
@@ -52,7 +52,7 @@ exports.post = function (req, res, next) {
     } else {
       post.content = marked(post.content);
       post.page_title = config.name + " › " + post.title;
-      res.render('post', post);
+      res.render(config.theme + '/post', post);
       runtime.post[req.params.slug] = post;
     }
   });
@@ -64,11 +64,11 @@ exports.page = function (req, res, next) {
     if (!err && page != null) {
       page.content = marked(page.content);
       page.page_title = config.name + " › " + page.title;
-      return res.render('page', page);
+      return res.render(config.theme + '/page', page);
     }
     else{
       next();
-    }
+    }ch
   });
 };
 
@@ -78,7 +78,6 @@ exports.feed = function (req, res) {
     res.statusCode = 404;
     return res.send('Please set `rss` in config.js');
   }
-
 
   postDao.findAll(0, parseInt(config.rss.max_rss_items), function (err, result) {
     if (err) {
@@ -105,8 +104,7 @@ exports.feed = function (req, res) {
       rss_obj.channel.item.push({
         title:post.title,
         author:{
-          name:config.rss.author.name,
-          uri:config.rss.author.uri
+          name:config.rss.author.name
         },
         link:config.rss.link + '/post/' + post.slug,
         guid:config.rss.link + '/post/' + post.slug,
@@ -135,7 +133,7 @@ exports.archives = function (req, res) {
       archiveList[year].archives.push(archives[i]);
     }
     archiveList =  archiveList.sort(sortNumber)
-    res.render('archives', {page_title:config.name + " › 文章存档", archives:archiveList});
+    res.render(config.theme + '/archives', {page_title:config.name + " › 文章存档", archives:archiveList});
     runtime.archiveList = archiveList;
   });
 };
@@ -143,7 +141,7 @@ exports.archives = function (req, res) {
 // URL: /404
 exports.pageNotFound = function (req, res) {
   console.log('404 handler..')
-  res.render('404', {
+  res.render(config.theme + '/404', {
     status:404,
     title:'NodeBlog'
   });

@@ -89,7 +89,7 @@ a {
 #nav .quick a {
     color: #fff;
     text-decoration: none;
-    background: url('../images/admin/write.png') no-repeat 0 10px;
+    background: url('images/write.png') no-repeat 0 10px;
     width: 16px;
     height: 35px;
     display: inline-block;
@@ -192,13 +192,13 @@ a {
     margin-right: 20px;
 }
 #post_info .item.title label{
-    background-image: url('../images/admin/title.png');
+    background-image: url('images/title.png');
 }
 #post_info .item.slug label{
-    background-image: url('../images/admin/slug.png');
+    background-image: url('images/slug.png');
 }
 #post_info .item.created label{
-    background-image: url('../images/admin/created.png');
+    background-image: url('images/created.png');
 }
 
 #post_slug,
