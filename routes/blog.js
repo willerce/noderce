@@ -10,7 +10,7 @@ var marked = require('marked');
 var dateFormat = require('dateformat');
 var postDao = require('../dao/post');
 var pageDao = require('../dao/page');
-var runtime = require('../config').runtime;
+var commentDao = require('../dao/comment');
 
 // URL /
 exports.index = function (req, res, next) {
@@ -21,9 +21,9 @@ exports.index = function (req, res, next) {
     var nextPage = currentPage;
     var title = config.name;
     if (currentPage > 1)
-      title += " › 第" + currentPage + "页";
+      title += " â€º ç¬¬" + currentPage + "é¡µ";
 
-    //skin，即起始位置
+    //skinï¼Œå�³èµ·å§‹ä½�ç½®
     var start = ( currentPage - 1) * config.postNum;
 
     if (maxPage < currentPage)
@@ -35,8 +35,8 @@ exports.index = function (req, res, next) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
       }
-      runtime.p['p'+req.params[0]] = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage}
-      res.render( config.theme + '/index', runtime.p['p'+req.params[0]]);
+      var index_obj = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage}
+      res.render( config.theme + '/index', index_obj);
     });
   });
 };
@@ -51,9 +51,16 @@ exports.post = function (req, res, next) {
       next();
     } else {
       post.content = marked(post.content);
-      post.page_title = config.name + " › " + post.title;
-      res.render(config.theme + '/post', post);
-      runtime.post[req.params.slug] = post;
+      var page_title = config.name + " â€º " + post.title;
+
+      commentDao.findByPostid(post._id.toString(),function(err, comments){
+        if(!err){
+          res.render(config.theme + '/post', {page_title: page_title, post:post, comments: comments});
+        }else{
+          res.statusCode = 500;
+          return res.send('500');
+        }
+      });
     }
   });
 };
@@ -63,12 +70,42 @@ exports.page = function (req, res, next) {
   pageDao.get({'slug':req.params.slug}, function (err, page) {
     if (!err && page != null) {
       page.content = marked(page.content);
-      page.page_title = config.name + " › " + page.title;
-      return res.render(config.theme + '/page', page);
+      page.page_title = config.name + " â€º " + page.title;
+      res.render(config.theme + '/page', page);
     }
     else{
       next();
-    }ch
+    }
+  });
+};
+
+// POST URL: /comment
+exports.comment = function(req, res, next){
+  var id = req.body.id;
+  var slug = req.body.slug;
+
+  postDao.get({slug:slug},function(err, post){
+    if(!err && post!=null){
+      var comment = {
+        post_id : req.body.id,
+        author : req.body.author,
+        email : req.body.email,
+        url : req.body.url,
+        content : req.body.content,
+        created: dateFormat(new Date(), "isoDateTime")
+      };
+
+      //TODO 用户输入的验证，必填项，邮箱地址是否正确，URL是否正确（无前缀的自动带上http://）
+
+      commentDao.insert(comment,function(err, comment){
+        if(!err){
+          res.redirect("/post/"+post.slug);
+        }
+      });
+
+    }else{
+      next();
+    }
   });
 };
 
@@ -76,7 +113,7 @@ exports.page = function (req, res, next) {
 exports.feed = function (req, res) {
   if (!config.rss) {
     res.statusCode = 404;
-    return res.send('Please set `rss` in config.js');
+    res.send('Please set `rss` in config.js');
   }
 
   postDao.findAll(0, parseInt(config.rss.max_rss_items), function (err, result) {
@@ -123,7 +160,7 @@ exports.feed = function (req, res) {
 exports.archives = function (req, res) {
   var sortNumber = function (a, b) {
     return a.year < b.year
-  }
+  };
   var archiveList = new Array();
   postDao.all(function (err, archives) {
     for (var i = 0; i < archives.length; i++) {
@@ -133,8 +170,7 @@ exports.archives = function (req, res) {
       archiveList[year].archives.push(archives[i]);
     }
     archiveList =  archiveList.sort(sortNumber)
-    res.render(config.theme + '/archives', {page_title:config.name + " › 文章存档", archives:archiveList});
-    runtime.archiveList = archiveList;
+    res.render(config.theme + '/archives', {page_title:config.name + " â€º æ–‡ç« å­˜æ¡£", archives:archiveList});
   });
 };
 

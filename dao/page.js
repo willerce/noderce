@@ -5,26 +5,22 @@
  */
 
 var db = require('../config.js').db;
-var pageCollection = db.collection('page');
+db.bind('page');
 
 exports.all = function(callback){
-  pageCollection.find().sort({created: -1}).toArray(function(err, result){
+  db.page.find().sort({created: -1}).toArray(function(err, result){
     callback(err,result)
   });
 };
 
 exports.get = function(condition, callback){
-  pageCollection.find(condition).toArray(function(err, result) {
-    if(!err)
-      if(result.length==0)
-        callback(err,null);
-      else
-        callback(err, result[0]);
+  db.page.findOne(condition,function(err, result) {
+    callback(err,result);
   });
 };
 
 exports.insert = function(obj, callback){
-  pageCollection.insert( obj , function(err, result) {
+  db.page.insert( obj , function(err, result) {
     if(!err){
       callback(result);
     }
@@ -32,7 +28,7 @@ exports.insert = function(obj, callback){
 };
 
 exports.update = function(old_slug, page, callback) {
-  pageCollection.update({slug: old_slug}, {$set: page }, function(err, result){
+  db.page.update({slug: old_slug}, {$set: page }, function(err, result){
     callback(err, result);
   })
 };

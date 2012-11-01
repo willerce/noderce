@@ -1,0 +1,47 @@
+extends layout
+
+append head
+  title #{page_title}
+block content
+  div#main.container.post
+    div.content
+      article.post.block
+        h1.title #{post.title}
+        div.meta
+          time #{post.created}
+        div.entry !{post.content}
+      div#comments.block
+        - if(comments.length>0){
+          ol.commentlist
+            - comments.forEach(function(comment){
+              li(id="comment-"+comment._id, class="comment clearfix")
+                .content
+                  .info
+                    a.reviewer(href=comment.url, rel='external nofollow') #{comment.author}
+                    time(datetime=comment.created) #{comment.created.substring(0,10)}
+                  #commentbody-53684.description(itemprop='description')
+                    p !{comment.content}
+            - })
+        - }else{
+          div.empty_comment 暂无回复
+        - }
+
+
+        form#commentform(action="/comment",method='post')
+          #respond.clearfix
+            #reviewer-info
+              .row
+                input#author.textfield(type='text', name='author', value='', size='24', tabindex='1')
+                label.small(for='author') Name (required)
+              .row
+                input#email.textfield(type='text', name='email', value='', size='24', tabindex='2')
+                label.small(for='email') Email (required)
+              .row
+                input#url.textfield(type='text', name='url', value='', size='24', tabindex='3')
+                label.small(for='url') Website
+              .row
+                textarea#comment(name='content', tabindex='4', rows='7', cols='50')
+              .row
+                input#comment-submit.button(name='submit', type='submit', tabindex='5', value='Post Comment')
+                input(name="id",value=post._id,type="hidden")
+                input(name="slug",value=post.slug,type="hidden")

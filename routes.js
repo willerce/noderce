@@ -14,9 +14,11 @@ module.exports = function (app) {
   app.get('/feed', blog.feed);
   app.get('/archives', blog.archives);
   app.get('/page/:slug', blog.page);
+  app.post('/comment', blog.comment);
 
   /* admin */
   app.get('/admin', admin.auth_user, admin.index);
+
   app.get('/admin/login', admin.login);
   app.post('/admin/login', admin.login);
   app.get('/admin/logout', admin.auth_user, admin.logout);
@@ -35,4 +37,4 @@ module.exports = function (app) {
   app.post('/admin/page/edit/:slug', admin.auth_user, admin.pageEdit);
 
   app.get('*', blog.pageNotFound);
-}
+};

@@ -5,51 +5,47 @@
  */
 
 var db = require('../config.js').db;
-var postCollection = db.collection('post');
+db.bind('post');
 
-exports.all = function(callback){
-  postCollection.find().sort({created: -1}).toArray(function(err, result){
-    callback(err,result)
+exports.all = function (callback) {
+  db.post.find().sort({created:-1}).toArray(function (err, result) {
+    callback(err, result)
   });
 };
 
 
-exports.findAll = function(skip, limit, callback){
-  postCollection.find().sort({created: -1}).skip(skip).limit(limit).toArray(function(err, result){
-    callback(err,result)
-  });
-}
-
-exports.get = function(condition, callback){
-  postCollection.find(condition).toArray(function(err, result) {
-    if(!err)
-      if(result.length==0)
-        callback(err,null);
-      else
-        callback(err, result[0]);
+exports.findAll = function (skip, limit, callback) {
+  db.post.find().sort({created:-1}).skip(skip).limit(limit).toArray(function (err, result) {
+    callback(err, result)
   });
 };
 
-exports.insert = function(obj, callback){
-  postCollection.insert( obj , function(err, result) {
-    if(!err){
+exports.get = function (condition, callback) {
+  db.post.findOne(condition,function (err, result) {
+        callback( null, result);
+  });
+};
+
+exports.insert = function (obj, callback) {
+  db.post.insert(obj, function (err, result) {
+    if (!err) {
       callback(result);
     }
   });
 };
 
-exports.update = function(old_slug, post, callback) {
-  postCollection.update({slug: old_slug}, {$set: post }, function(err, result){
+exports.update = function (old_slug, post, callback) {
+  db.post.update({slug:old_slug}, {$set:post }, function (err, result) {
     callback(err, result);
   })
 };
 
-exports.delete = function(slug, callback){
+exports.delete = function (slug, callback) {
 
-}
+};
 
-exports.count = function(callback){
-  postCollection.count({}, function(err, count){
+exports.count = function (callback) {
+  db.post.count({}, function (err, count) {
     callback(err, count);
   });
-}
+};
