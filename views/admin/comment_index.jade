@@ -1,0 +1,30 @@
+doctype 5
+html(lang="zh-cn")
+  head
+    title Noderce 管理中心
+    link(rel='stylesheet', href='/admin/style.css')
+    script(src='/libs/jquery/jquery.min.js')
+  body
+    #wrapper
+
+      #nav
+        ul
+          li
+            a(href="/admin") Home
+            span  ›
+          li
+            a(href="/admin/comment") Comment
+        .quick
+          a(href="/admin/post/write",title="Write Post") <span>Write</span>
+      #comment-list
+        ul
+          - comment_list.forEach(function(item){
+            li
+              a(href="/post?id="+item._id) #{item.author}
+              time #{item.created}
+              div.content !{item.content}
+              .action
+                span.edit
+          - })
+
+      .clearfix

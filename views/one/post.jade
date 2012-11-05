@@ -10,37 +10,36 @@ block content
         div.meta
           time #{post.created}
         div.entry !{post.content}
+      - if(comments.length>0){
       div#comments.block
-        - if(comments.length>0){
-          ol.commentlist
-            - comments.forEach(function(comment){
-              li(id="comment-"+comment._id, class="comment clearfix")
-                .content
-                  .info
-                    a.reviewer(href=comment.url, rel='external nofollow') #{comment.author}
-                    time(datetime=comment.created) #{comment.created.substring(0,10)}
-                  #commentbody-53684.description(itemprop='description')
-                    p !{comment.content}
-            - })
-        - }else{
-          div.empty_comment 暂无回复
-        - }
+        ol.commentlist
+          - for (var i=0;i<comments.length;i++){
+            li(id="comment-"+comments[i]._id, class="comment clearfix")
+              img(width="36",height="36",class="avatar",src=comments[i].avatar,alt="")
+              .content
+                .info
+                  a.reviewer(href=comments[i].url, rel='external nofollow') #{comments[i].author}
+                  time(datetime=comments[i].created) #{comments[i].created.substring(0,10)}
+                  div.floor #{i+1}
+                #commentbody-53684.description(itemprop='description') !{comments[i].content}
+          - }
+      - }
 
-
-        form#commentform(action="/comment",method='post')
+      div#reply.block.inner
+        form#cmtform(action="/comment",method='post')
           #respond.clearfix
             #reviewer-info
               .row
-                input#author.textfield(type='text', name='author', value='', size='24', tabindex='1')
-                label.small(for='author') Name (required)
+                input#author.textfield(type='text', name='a_uthor', value='', size='24', tabindex='1',required='')
+                label.small(for='a_uthor') Name (required)
               .row
-                input#email.textfield(type='text', name='email', value='', size='24', tabindex='2')
-                label.small(for='email') Email (required)
+                input#email.textfield(type='email', name='e_mail', value='', size='24', tabindex='2',required='')
+                label.small(for='e_mail') Email (required)
               .row
-                input#url.textfield(type='text', name='url', value='', size='24', tabindex='3')
-                label.small(for='url') Website
+                input#url.textfield(type='text', name='u_rl', value='', size='24', tabindex='3')
+                label.small(for='u_rl') Website
               .row
-                textarea#comment(name='content', tabindex='4', rows='7', cols='50')
+                textarea#comment(name='c_ontent', tabindex='4', rows='7', cols='50',required='')
               .row
                 input#comment-submit.button(name='submit', type='submit', tabindex='5', value='Post Comment')
                 input(name="id",value=post._id,type="hidden")

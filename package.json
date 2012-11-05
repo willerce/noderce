@@ -10,10 +10,10 @@
   },
   "engines": {
     "node": "0.8.9",
-    "npm": "1.1.41"
+    "npm": "1.1.43"
   },
   "dependencies": {
-    "express": "3.0.0rc4",
+    "express": "3.0.0",
     "jade": "0.27.2",
     "data2xml": "0.5.0",
     "mongoskin": "0.4.1",

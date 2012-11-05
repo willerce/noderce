@@ -6,24 +6,22 @@
 
 var db = require('../config.js').db;
 
-var userCollection = db.collection('user');
+db.user = db.bind('user');
 
-exports.insert = function(user, callback){
-  userCollection.insert(user ,function(err, result){
-    console.log(result);
-    callback(result);
-    db.close();
+exports.insert = function (user, callback) {
+  db.user.insert(user, function (err, result) {
+    callback(err, result);
   });
 };
 
-exports.findAll = function(obj, callback){
-  userCollection.find(obj).toArray(function(err, result){
+exports.findAll = function (query, callback) {
+  db.user.find(query).toArray(function (err, result) {
     callback(err, result);
   });
-}
+};
 
-exports.get = function(name, callback){
-  userCollection.find({name: name}).toArray(function(err, result){
+exports.get = function (name, callback) {
+  db.user.find({name:name}).toArray(function (err, result) {
     callback(err, result[0]);
   });
 };

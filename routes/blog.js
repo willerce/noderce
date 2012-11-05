@@ -8,22 +8,28 @@ var config = require('../config').config;
 var data2xml = require('data2xml');
 var marked = require('marked');
 var dateFormat = require('dateformat');
+var gravatar = require('gravatar');
+
 var postDao = require('../dao/post');
 var pageDao = require('../dao/page');
 var commentDao = require('../dao/comment');
 
+
 // URL /
 exports.index = function (req, res, next) {
   postDao.count(function (err, count) {
+    if(count==0) {
+      res.redirect("/admin/install");
+    };
     var maxPage = parseInt(count / config.postNum) + (count % config.postNum ? 1 : 0);
     var currentPage = isNaN(parseInt(req.params[0])) ? 1 : parseInt(req.params[0]);
     if (currentPage <= 0) currentPage = 1;
     var nextPage = currentPage;
     var title = config.name;
     if (currentPage > 1)
-      title += " â€º ç¬¬" + currentPage + "é¡µ";
+      title += " › 第" + currentPage + "页";
 
-    //skinï¼Œå�³èµ·å§‹ä½�ç½®
+    //skin，即起始位置
     var start = ( currentPage - 1) * config.postNum;
 
     if (maxPage < currentPage)
@@ -36,7 +42,7 @@ exports.index = function (req, res, next) {
         result[i].content = marked(result[i].content);
       }
       var index_obj = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage}
-      res.render( config.theme + '/index', index_obj);
+      res.render(config.theme + '/index', index_obj);
     });
   });
 };
@@ -51,15 +57,20 @@ exports.post = function (req, res, next) {
       next();
     } else {
       post.content = marked(post.content);
-      var page_title = config.name + " â€º " + post.title;
+      var page_title = config.name + " › " + post.title;
 
-      commentDao.findByPostid(post._id.toString(),function(err, comments){
-        if(!err){
-          res.render(config.theme + '/post', {page_title: page_title, post:post, comments: comments});
-        }else{
+      commentDao.findByPostid(post._id.toString(), function (err, comments) {
+
+        for(var i = 0;i<comments.length;i++){
+          comments[i].avatar = gravatar.url(comments[i].email,{s: '36', r: 'pg', d: 'mm'});
+        }
+        if (!err) {
+          res.render(config.theme + '/post', {page_title:page_title, post:post, comments:comments});
+        } else {
           res.statusCode = 500;
           return res.send('500');
         }
+
       });
     }
   });
@@ -70,40 +81,48 @@ exports.page = function (req, res, next) {
   pageDao.get({'slug':req.params.slug}, function (err, page) {
     if (!err && page != null) {
       page.content = marked(page.content);
-      page.page_title = config.name + " â€º " + page.title;
+      page.page_title = config.name + " › " + page.title;
       res.render(config.theme + '/page', page);
     }
-    else{
+    else {
       next();
     }
   });
 };
 
 // POST URL: /comment
-exports.comment = function(req, res, next){
+exports.comment = function (req, res, next) {
   var id = req.body.id;
   var slug = req.body.slug;
 
-  postDao.get({slug:slug},function(err, post){
-    if(!err && post!=null){
+  postDao.get({slug:slug}, function (err, post) {
+    if (!err && post != null) {
       var comment = {
-        post_id : req.body.id,
-        author : req.body.author,
-        email : req.body.email,
-        url : req.body.url,
-        content : req.body.content,
-        created: dateFormat(new Date(), "isoDateTime")
+        post_id:req.body.id,
+        post_slug:req.body.slug,
+        author:req.body.a_uthor,
+        email:req.body.e_mail,
+        url:req.body.u_rl,
+        content:req.body.c_ontent,
+        created:dateFormat(new Date(), "isoDateTime")
       };
 
       //TODO 用户输入的验证，必填项，邮箱地址是否正确，URL是否正确（无前缀的自动带上http://）
+      if (comment.author == "" || comment.email == "") {
+        res.redirect("/post/" + post.slug);
+      }
 
-      commentDao.insert(comment,function(err, comment){
-        if(!err){
-          res.redirect("/post/"+post.slug);
+      if (!comment.url.indexOf('http://') == 0 && !comment.url.indexOf('https://') == 0 && comment.url!="") {//没有带http://或者https://
+        comment.url = "http://" + comment.url;
+      }
+
+      commentDao.insert(comment, function (err, comment) {
+        if (!err) {
+          res.redirect("/post/" + post.slug);
         }
       });
 
-    }else{
+    } else {
       next();
     }
   });
@@ -169,14 +188,14 @@ exports.archives = function (req, res) {
         archiveList[year] = { year:year, archives:[]};
       archiveList[year].archives.push(archives[i]);
     }
-    archiveList =  archiveList.sort(sortNumber)
-    res.render(config.theme + '/archives', {page_title:config.name + " â€º æ–‡ç« å­˜æ¡£", archives:archiveList});
+    archiveList = archiveList.sort(sortNumber)
+    res.render(config.theme + '/archives', {page_title:config.name + " › 文章存档", archives:archiveList});
   });
 };
 
 // URL: /404
 exports.pageNotFound = function (req, res) {
-  console.log('404 handler..')
+  console.log('404 handler, URL'+req.originalUrl);
   res.render(config.theme + '/404', {
     status:404,
     title:'NodeBlog'

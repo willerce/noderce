@@ -8,29 +8,27 @@ var db = require('../config.js').db;
 db.bind('post');
 
 exports.all = function (callback) {
-  db.post.find().sort({created:-1}).toArray(function (err, result) {
+  db.post.find().sort({created:-1, _id:-1}).toArray(function (err, result) {
     callback(err, result)
   });
 };
 
 
 exports.findAll = function (skip, limit, callback) {
-  db.post.find().sort({created:-1}).skip(skip).limit(limit).toArray(function (err, result) {
+  db.post.find().sort({created:-1,_id:-1}).skip(skip).limit(limit).toArray(function (err, result) {
     callback(err, result)
   });
 };
 
 exports.get = function (condition, callback) {
-  db.post.findOne(condition,function (err, result) {
-        callback( null, result);
+  db.post.findOne(condition, function (err, result) {
+    callback(null, result);
   });
 };
 
 exports.insert = function (obj, callback) {
   db.post.insert(obj, function (err, result) {
-    if (!err) {
-      callback(result);
-    }
+    callback(err, null);
   });
 };
 

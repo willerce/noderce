@@ -145,6 +145,25 @@ a {
     display: inline;
 }
 
+#comment-list {
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+#comment-list ul li {
+    border-bottom: 1px dotted #ccc;
+    padding: 5px 0;
+}
+
+#comment-list ul li time {
+    margin-left: 10px;
+    font-size: 10px;
+}
+
+#comment-list ul li .content {
+    margin-top: 10px;
+}
+
 #write_post {
     margin: 0 10px;
 }

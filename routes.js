@@ -18,6 +18,9 @@ module.exports = function (app) {
 
   /* admin */
   app.get('/admin', admin.auth_user, admin.index);
+  app.get('/admin/install', admin.install);
+  app.post('/admin/install', admin.install);
+
 
   app.get('/admin/login', admin.login);
   app.post('/admin/login', admin.login);
@@ -35,6 +38,8 @@ module.exports = function (app) {
   app.post('/admin/page/write', admin.auth_user, admin.pageWrite);
   app.get('/admin/page/edit/:slug', admin.auth_user, admin.pageEdit);
   app.post('/admin/page/edit/:slug', admin.auth_user, admin.pageEdit);
+
+  app.get('/admin/comment', admin.auth_user, admin.commentIndex);
 
   app.get('*', blog.pageNotFound);
 };

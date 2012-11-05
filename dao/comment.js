@@ -9,16 +9,20 @@
 var db = require('../config.js').db;
 db.bind('comment');
 
-exports.insert = function(obj, callback){
-  db.comment.insert(obj, function (err, result) {
-      callback(err,result);
-    }
-  );
+exports.all = function (condition, callback) {
+  db.comment.find(condition).limit(100).sort({created:-1,_id:-1}).toArray(function (err, result) {
+    callback(err, result);
+  });
 };
 
-exports.findByPostid = function(post_id, callback){
-  db.comment.find({post_id: post_id}).toArray(function (err, result) {
-      callback(err,result);
-    }
-  );
+exports.insert = function (obj, callback) {
+  db.comment.insert(obj, function (err, result) {
+    callback(err, result);
+  });
+};
+
+exports.findByPostid = function (post_id, callback) {
+  db.comment.find({post_id:post_id}).sort({created:1}).toArray(function (err, result) {
+    callback(err, result);
+  });
 };

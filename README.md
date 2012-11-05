@@ -9,13 +9,24 @@ noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 
 ##安装
 
-文档编写中。
+克隆项目到本地
+
+    git clone git@github.com:willerce/noderce.git
+
+复制一份config.default.js，保存为 config.js，根据注释，修改参数。
+
+运行  node app.js
+
+访问  yourname.com 后，会自动跳转到  yourname.com/admin/install
+
+设定一个用户名密码，程序初始化后，即可使用
+
 
 ##License
 
 (The MIT License)
 
-Copyright (c) 2011 - 2012 kissjs.org
+Copyright (c) 2012 willerce <willerce@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

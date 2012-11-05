@@ -11,12 +11,12 @@ exports.config = {
   //site settings
   name:'未志',
   version:'0.1',
-  postNum: process.env.POST_NUM || '5',
-  session_secret: process.env.SESSION_SECRET || 'a743894a0e',
-  cookie_secret: process.env.COOKIE_SECRET ||'a743894a0e',
-  auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',
-  port : process.env.PORT || 3000,
-  theme : process.env.THEME || 'one',
+  postNum: process.env.POST_NUM || '5',//每页显示文章个数
+  session_secret: process.env.SESSION_SECRET || 'a743894a0e',//session加密串
+  cookie_secret: process.env.COOKIE_SECRET ||'a743894a0e',//session加密串
+  auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',//cookie 名字
+  port : process.env.PORT || 3000,//端口号
+  theme : process.env.THEME || 'one',//主题名称
 
   // Feed Setting
   rss:{
@@ -36,4 +36,4 @@ exports.config = {
 };
 
 //mongodb settings
-exports.db = mongoskin.db(process.env.MONGOLAB_URI || "mongodb://localhost/noderce");
+exports.db = mongoskin.db(process.env.MONGOLAB_URI || "mongodb://localhost/noderce");//数据库连接串
