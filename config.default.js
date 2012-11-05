@@ -10,7 +10,7 @@ exports.config = {
 
   //site settings
   name:'未志',
-  version:'0.1',
+  version:'0.0.3',
   postNum: process.env.POST_NUM || '5',//每页显示文章个数
   session_secret: process.env.SESSION_SECRET || 'a743894a0e',//session加密串
   cookie_secret: process.env.COOKIE_SECRET ||'a743894a0e',//session加密串

@@ -1,7 +1,7 @@
 {
   "name": "noderce",
   "preferGlobal": "true",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "author": "Willerce.Jen <willerce@gmail.com>",
   "description": "a simple nodejs blog program",

@@ -21,6 +21,12 @@ noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 
 设定一个用户名密码，程序初始化后，即可使用
 
+##主题切换
+
+从 views/one 复制一件出来进行修改。放在 views 中，如： views/two
+
+修改 config.js 中的 theme 的值为你的主题目录名称："two" 即可
+
 
 ##License
 
