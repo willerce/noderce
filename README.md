@@ -27,6 +27,10 @@ noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 
 修改 config.js 中的 theme 的值为你的主题目录名称："two" 即可
 
+##Akismet功能
+
+akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需要到 http://akismet.com/ 申请一个 api key。然后修改 config.js 中的 akismet_key 变量。如果不想开启此功能，请留空。默认为空
+
 
 ##License
 
