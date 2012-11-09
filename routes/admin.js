@@ -4,7 +4,6 @@
  * Time: 11:47 PM
  */
 
-var fs = require('fs');
 var util = require('../lib/util.js');
 var config = require('../config.js').config;
 var userDao = require('../dao/user.js');
@@ -159,6 +158,12 @@ exports.commentIndex = function (req, res) {
   })
 };
 
+exports.commentDelete = function (req, res) {
+  commentDao.deleteById(req.params.id, function (err, result) {
+    res.redirect("/admin/comment");
+  })
+};
+
 //URL: /admin/login
 exports.login = function (req, res) {
   if (req.method == "GET") {
@@ -223,6 +228,7 @@ exports.auth_user = function (req, res, next) {
   }
 };
 
+/*
 exports.disqus = function (req, res) {
   var json = fs.readFileSync('ttt.json', 'utf-8');
 
@@ -268,7 +274,7 @@ exports.disqus = function (req, res) {
   });
 
   res.send("xx");
-};
+};*/
 
 // URL:  /install
 exports.install = function (req, res, next) {

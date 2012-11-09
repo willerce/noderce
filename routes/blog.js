@@ -9,6 +9,7 @@ var data2xml = require('data2xml');
 var marked = require('marked');
 var dateFormat = require('dateformat');
 var gravatar = require('gravatar');
+var akismet = require('akismet').client({ blog:config.url, apiKey:config.akismet_key });
 
 var postDao = require('../dao/post');
 var pageDao = require('../dao/page');
@@ -18,9 +19,10 @@ var commentDao = require('../dao/comment');
 // URL /
 exports.index = function (req, res, next) {
   postDao.count(function (err, count) {
-    if(count==0) {
+    if (count == 0) {
       res.redirect("/admin/install");
-    };
+    }
+    ;
     var maxPage = parseInt(count / config.postNum) + (count % config.postNum ? 1 : 0);
     var currentPage = isNaN(parseInt(req.params[0])) ? 1 : parseInt(req.params[0]);
     if (currentPage <= 0) currentPage = 1;
@@ -59,10 +61,10 @@ exports.post = function (req, res, next) {
       post.content = marked(post.content);
       var page_title = config.name + " › " + post.title;
 
-      commentDao.findByPostid(post._id.toString(), function (err, comments) {
+      commentDao.findByPostId(post._id.toString(), function (err, comments) {
 
-        for(var i = 0;i<comments.length;i++){
-          comments[i].avatar = gravatar.url(comments[i].email,{s: '36', r: 'pg', d: 'mm'});
+        for (var i = 0; i < comments.length; i++) {
+          comments[i].avatar = gravatar.url(comments[i].email, {s:'36', r:'pg', d:'mm'});
         }
         if (!err) {
           res.render(config.theme + '/post', {page_title:page_title, post:post, comments:comments});
@@ -70,7 +72,6 @@ exports.post = function (req, res, next) {
           res.statusCode = 500;
           return res.send('500');
         }
-
       });
     }
   });
@@ -104,20 +105,55 @@ exports.comment = function (req, res, next) {
         email:req.body.e_mail,
         url:req.body.u_rl,
         content:req.body.c_ontent,
-        created:dateFormat(new Date(), "isoDateTime")
+        ip:req.ip,
+        created:dateFormat(new Date(), "isoDateTime"),
+        status:"1"//状态： 1：正常，0：SPAM
       };
 
       //TODO 用户输入的验证，必填项，邮箱地址是否正确，URL是否正确（无前缀的自动带上http://）
-      if (comment.author == "" || comment.email == "") {
+      if (comment.author == "" || comment.email == "" || comment.content == "") {
         res.redirect("/post/" + post.slug);
       }
 
-      if (!comment.url.indexOf('http://') == 0 && !comment.url.indexOf('https://') == 0 && comment.url!="") {//没有带http://或者https://
-        comment.url = "http://" + comment.url;
+
+      var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
+      if(!comment.url.match(regexp)){
+        comment.url = "http://"+comment.url
+        if(!comment.url.match(regexp)){
+          delete comment.url;
+        }
       }
+
+      /*if (!comment.url.indexOf('http://') == 0 && !comment.url.indexOf('https://') == 0 && comment.url != "") {//没有带http://或者https://
+        comment.url = "http://" + comment.url;
+      }*/
 
       commentDao.insert(comment, function (err, comment) {
         if (!err) {
+          akismet.checkSpam({
+            user_ip:comment.ip,
+            permalink: config.url+"/post/"+comment.post_slug,
+            comment_author:comment.author,
+            comment_content:comment.content,
+            comment_author_email:comment.email,
+            comment_author_url:comment.url,
+            comment_type:"comment"
+          }, function (err, spam) {
+            //TODO 保存状态
+            if (spam){
+              console.log('Spam caught.');
+              comment.status="0";//状态： 1：正常，0：SPAM
+              commentDao.save(comment,function(err,result){
+                if(!err)
+                  console.log("save comment status success");
+                else
+                  console.log("save comment status failed");
+              });
+            }
+            else{
+              console.log('Not spam');
+            }
+          });
           res.redirect("/post/" + post.slug);
         }
       });
@@ -195,7 +231,7 @@ exports.archives = function (req, res) {
 
 // URL: /404
 exports.pageNotFound = function (req, res) {
-  console.log('404 handler, URL'+req.originalUrl);
+  console.log('404 handler, URL' + req.originalUrl);
   res.render(config.theme + '/404', {
     status:404,
     title:'NodeBlog'

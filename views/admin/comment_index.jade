@@ -20,11 +20,11 @@ html(lang="zh-cn")
         ul
           - comment_list.forEach(function(item){
             li
-              a(href="/post?id="+item._id) #{item.author}
+              a(href="/post?id="+item.post_id) #{item.author}
               time #{item.created}
+              a.action.delete(href="/admin/comment/delete/"+item._id) Delete
               div.content !{item.content}
-              .action
-                span.edit
+
           - })
 
       .clearfix

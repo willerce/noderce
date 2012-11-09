@@ -18,7 +18,11 @@ block content
               img(width="36",height="36",class="avatar",src=comments[i].avatar,alt="")
               .content
                 .info
+                  -if(typeof comments[i].url == "undefined"){
+                  span.reviewer #{comments[i].author}
+                  - }else{
                   a.reviewer(href=comments[i].url, rel='external nofollow') #{comments[i].author}
+                  -}
                   time(datetime=comments[i].created) #{comments[i].created.substring(0,10)}
                   div.floor #{i+1}
                 #commentbody-53684.description(itemprop='description') !{comments[i].content}
