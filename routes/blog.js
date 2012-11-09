@@ -117,43 +117,46 @@ exports.comment = function (req, res, next) {
 
 
       var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
-      if(!comment.url.match(regexp)){
-        comment.url = "http://"+comment.url
-        if(!comment.url.match(regexp)){
+      if (!comment.url.match(regexp)) {
+        comment.url = "http://" + comment.url
+        if (!comment.url.match(regexp)) {
           delete comment.url;
         }
       }
 
       /*if (!comment.url.indexOf('http://') == 0 && !comment.url.indexOf('https://') == 0 && comment.url != "") {//没有带http://或者https://
-        comment.url = "http://" + comment.url;
-      }*/
+       comment.url = "http://" + comment.url;
+       }*/
 
       commentDao.insert(comment, function (err, comment) {
         if (!err) {
-          akismet.checkSpam({
-            user_ip:comment.ip,
-            permalink: config.url+"/post/"+comment.post_slug,
-            comment_author:comment.author,
-            comment_content:comment.content,
-            comment_author_email:comment.email,
-            comment_author_url:comment.url,
-            comment_type:"comment"
-          }, function (err, spam) {
-            //TODO 保存状态
-            if (spam){
-              console.log('Spam caught.');
-              comment.status="0";//状态： 1：正常，0：SPAM
-              commentDao.save(comment,function(err,result){
-                if(!err)
-                  console.log("save comment status success");
-                else
-                  console.log("save comment status failed");
-              });
-            }
-            else{
-              console.log('Not spam');
-            }
-          });
+          //配置了 akismet key 而且不为空时，则进行 akismet spam检查
+          if (config.akismet_key && config.akismet_key != "") {
+            akismet.checkSpam({
+              user_ip:comment.ip,
+              permalink:config.url + "/post/" + comment.post_slug,
+              comment_author:comment.author,
+              comment_content:comment.content,
+              comment_author_email:comment.email,
+              comment_author_url:comment.url,
+              comment_type:"comment"
+            }, function (err, spam) {
+              //TODO 保存状态
+              if (spam) {
+                console.log('Spam caught.');
+                comment.status = "0";//状态： 1：正常，0：SPAM
+                commentDao.save(comment, function (err, result) {
+                  if (!err)
+                    console.log("save comment status success");
+                  else
+                    console.log("save comment status failed");
+                });
+              }
+              else {
+                console.log('Not spam');
+              }
+            });
+          }
           res.redirect("/post/" + post.slug);
         }
       });

@@ -17,7 +17,7 @@ exports.config = {
   auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',//cookie 名字
   port : process.env.PORT || 3000,//端口号
   theme : process.env.THEME || 'one',//主题名称
-  akismet_key : process.env.AKISMET_KEY || 'yourAskismetKey', //akismet api key
+  akismet_key : process.env.AKISMET_KEY || 'yourAskismetKey', //akismet api key，不开启请设置为空
 
   // Feed Setting
   rss:{
