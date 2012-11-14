@@ -21,6 +21,12 @@ html(lang="zh-cn")
           - comment_list.forEach(function(item){
             li
               a(href="/post?id="+item.post_id) #{item.author}
+              span &nbsp;post comment on&nbsp;
+              - posts.forEach(function(post){
+                - if(post._id==item.post_id){
+                  a(href="/post/"+post.slug) #{post.title}
+                - }
+              - })
               time #{item.created}
               a.action.delete(href="/admin/comment/delete/"+item._id) Delete
               div.content !{item.content}

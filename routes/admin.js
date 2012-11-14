@@ -153,8 +153,10 @@ exports.pageEdit = function (req, res) {
 
 exports.commentIndex = function (req, res) {
   var commnetNum = 10;
-  commentDao.all({}, function (err, result) {
-    res.render('admin/comment_index', {comment_list:result})
+  commentDao.all({}, function (err, comments) {
+    postDao.all(function(err, posts){
+      res.render('admin/comment_index', {comment_list:comments, posts:posts});
+    });
   })
 };
 

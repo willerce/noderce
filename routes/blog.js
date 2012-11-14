@@ -22,7 +22,6 @@ exports.index = function (req, res, next) {
     if (count == 0) {
       res.redirect("/admin/install");
     }
-    ;
     var maxPage = parseInt(count / config.postNum) + (count % config.postNum ? 1 : 0);
     var currentPage = isNaN(parseInt(req.params[0])) ? 1 : parseInt(req.params[0]);
     if (currentPage <= 0) currentPage = 1;
@@ -61,6 +60,11 @@ exports.post = function (req, res, next) {
       post.content = marked(post.content);
       var page_title = config.name + " › " + post.title;
 
+      // TODO 防spam
+      //为了防止spam，这里会人一个cookie出去，在提交comment的时候就会检测这个cookie
+      //cookie规则
+      //文章slug+当前时间
+
       commentDao.findByPostId(post._id.toString(), function (err, comments) {
 
         for (var i = 0; i < comments.length; i++) {
@@ -96,6 +100,10 @@ exports.comment = function (req, res, next) {
   var id = req.body.id;
   var slug = req.body.slug;
 
+  if(id=="" || slug=="" || req.headers['referer'].indexOf(slug)<=0){
+    res.redirect("/fuck-spam-comment");
+  }
+
   postDao.get({slug:slug}, function (err, post) {
     if (!err && post != null) {
       var comment = {
@@ -115,10 +123,9 @@ exports.comment = function (req, res, next) {
         res.redirect("/post/" + post.slug);
       }
 
-
       var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
       if (!comment.url.match(regexp)) {
-        comment.url = "http://" + comment.url
+        comment.url = "http://" + comment.url;
         if (!comment.url.match(regexp)) {
           delete comment.url;
         }
