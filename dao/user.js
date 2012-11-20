@@ -21,7 +21,7 @@ exports.findAll = function (query, callback) {
 };
 
 exports.get = function (name, callback) {
-  db.user.find({name:name}).toArray(function (err, result) {
-    callback(err, result[0]);
+  db.user.findOne({name:name}, function (err, result) {
+    callback(err, result);
   });
 };

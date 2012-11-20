@@ -12,6 +12,8 @@ var pageDao = require('../dao/page.js');
 var commentDao = require('../dao/comment.js');
 var dateFormat = require('dateformat');
 
+var akismet = require('akismet').client({ blog:config.url, apiKey:config.akismet_key });
+
 //URL: /admin
 exports.index = function (req, res) {
   res.render('admin/index');
@@ -109,7 +111,7 @@ exports.pageWrite = function (req, res) {
       title:req.body.title,
       slug:req.body.slug,
       content:req.body.content,
-      created: created
+      created:created
     };
 
     pageDao.insert(page, function (err, result) {
@@ -152,9 +154,9 @@ exports.pageEdit = function (req, res) {
 };
 
 exports.commentIndex = function (req, res) {
-  var commnetNum = 10;
-  commentDao.all({}, function (err, comments) {
-    postDao.all(function(err, posts){
+  var limit = 100;
+  commentDao.all({}, limit, function (err, comments) {
+    postDao.all(function (err, posts) {
       res.render('admin/comment_index', {comment_list:comments, posts:posts});
     });
   })
@@ -165,6 +167,46 @@ exports.commentDelete = function (req, res) {
     res.redirect("/admin/comment");
   })
 };
+
+
+exports.verifyAkismet = function (req, res) {
+  akismet.verifyKey(function (err, verified) {
+    if (verified)
+      res.render('admin/verifyAkismet', {status:true});
+    else
+      res.render('admin/verifyAkismet', {status:false});
+  });
+};
+
+exports.submitSpam = function (req, res) {
+  commentDao.findOne(req.params.id, function (err, comment) {
+    if (!err) {
+      akismet.submitSpam({
+        user_ip:comment.ip,
+        permalink:config.url + "/post/" + comment.post_slug,
+        comment_author:comment.author,
+        comment_content:comment.content,
+        comment_author_email:comment.email,
+        comment_author_url:comment.url,
+        comment_type:"comment",
+        comment_content:comment.content
+      }, function (err) {
+        console.log('Spam reported to Akismet.');
+        comment.status = "0";//状态： 1：正常，0：SPAM
+        commentDao.save(comment, function (err, result) {
+          if (!err)
+            console.log("save comment status success");
+          else
+            console.log("save comment status failed");
+        });
+      });
+    }
+    res.redirect("/admin/comment");
+  });
+
+
+};
+
 
 //URL: /admin/login
 exports.login = function (req, res) {
@@ -231,52 +273,52 @@ exports.auth_user = function (req, res, next) {
 };
 
 /*
-exports.disqus = function (req, res) {
-  var json = fs.readFileSync('ttt.json', 'utf-8');
+ exports.disqus = function (req, res) {
+ var json = fs.readFileSync('ttt.json', 'utf-8');
 
-  var t = JSON.parse(json);
+ var t = JSON.parse(json);
 
-  var cmt = [];
+ var cmt = [];
 
-  postDao.all(function (err, result) {
-    for (var a = result.length - 1; a >= 0; a--) {
-      var post = result[a];
-      console.log('文章：' + post.title);
-      for (var i = 0; i < t.disqus.thread.length; i++) {
-        if (t.disqus.thread[i].link == 'http://willerce.com/post/' + post.slug) {
-          console.log("找到了文章:" + post.title + "，接着找评论");
-          var dsq_id = t.disqus.thread[i]['-dsq:id'];
-          for (var j = 0; j < t.disqus.post.length; j++) {
-            if (t.disqus.post[j].thread['-dsq:id'] == dsq_id) {
-              console.log("找到了:" + post.title + "的评论");
+ postDao.all(function (err, result) {
+ for (var a = result.length - 1; a >= 0; a--) {
+ var post = result[a];
+ console.log('文章：' + post.title);
+ for (var i = 0; i < t.disqus.thread.length; i++) {
+ if (t.disqus.thread[i].link == 'http://willerce.com/post/' + post.slug) {
+ console.log("找到了文章:" + post.title + "，接着找评论");
+ var dsq_id = t.disqus.thread[i]['-dsq:id'];
+ for (var j = 0; j < t.disqus.post.length; j++) {
+ if (t.disqus.post[j].thread['-dsq:id'] == dsq_id) {
+ console.log("找到了:" + post.title + "的评论");
 
-              var comment = {
-                post_id:post._id.toString(),
-                author:t.disqus.post[j].author.name,
-                email:t.disqus.post[j].author.email,
-                content:t.disqus.post[j].message,
-                ip:t.disqus.post[j].ipAddress,
-                created:t.disqus.post[j].createdAt
-              };
-              cmt.push(comment);
-            }
-          }
-        }
-      }
-      if (a <= 0) {
-        commentDao.insert(cmt, function () {
-          if (!err) {
-            console.log('inset comment');
-          } else {
-            console.log(err);
-          }
-        });
-      }
-    }
-  });
+ var comment = {
+ post_id:post._id.toString(),
+ author:t.disqus.post[j].author.name,
+ email:t.disqus.post[j].author.email,
+ content:t.disqus.post[j].message,
+ ip:t.disqus.post[j].ipAddress,
+ created:t.disqus.post[j].createdAt
+ };
+ cmt.push(comment);
+ }
+ }
+ }
+ }
+ if (a <= 0) {
+ commentDao.insert(cmt, function () {
+ if (!err) {
+ console.log('inset comment');
+ } else {
+ console.log(err);
+ }
+ });
+ }
+ }
+ });
 
-  res.send("xx");
-};*/
+ res.send("xx");
+ };*/
 
 // URL:  /install
 exports.install = function (req, res, next) {

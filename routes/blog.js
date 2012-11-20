@@ -42,7 +42,7 @@ exports.index = function (req, res, next) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
       }
-      var index_obj = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage}
+      var index_obj = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage};
       res.render(config.theme + '/index', index_obj);
     });
   });
@@ -53,7 +53,7 @@ exports.post = function (req, res, next) {
   postDao.get({slug:req.params.slug}, function (err, post) {
     if (err) {
       res.statusCode = 500;
-      return res.send('500');
+      res.send('500');
     } else if (post == null) {
       next();
     } else {
@@ -74,7 +74,7 @@ exports.post = function (req, res, next) {
           res.render(config.theme + '/post', {page_title:page_title, post:post, comments:comments});
         } else {
           res.statusCode = 500;
-          return res.send('500');
+          res.send('500');
         }
       });
     }
@@ -100,78 +100,72 @@ exports.comment = function (req, res, next) {
   var id = req.body.id;
   var slug = req.body.slug;
 
-  if(id=="" || slug=="" || req.headers['referer'].indexOf(slug)<=0){
-    res.redirect("/fuck-spam-comment");
-  }
+  if (id == "" || slug == "" || !req.headers['referer'] || req.headers['referer'].indexOf(slug) <= 0) {
+    return res.redirect("/fuck-spam-comment");
+  } else {
+    postDao.get({slug:slug}, function (err, post) {
+      if (!err && post != null) {
+        var comment = {
+          post_id:req.body.id,
+          post_slug:req.body.slug,
+          author:req.body.a_uthor,
+          email:req.body.e_mail,
+          url:req.body.u_rl,
+          content:req.body.c_ontent,
+          ip:req.ip,
+          created:dateFormat(new Date(), "isoDateTime"),
+          status:"1"//状态： 1：正常，0：SPAM
+        };
 
-  postDao.get({slug:slug}, function (err, post) {
-    if (!err && post != null) {
-      var comment = {
-        post_id:req.body.id,
-        post_slug:req.body.slug,
-        author:req.body.a_uthor,
-        email:req.body.e_mail,
-        url:req.body.u_rl,
-        content:req.body.c_ontent,
-        ip:req.ip,
-        created:dateFormat(new Date(), "isoDateTime"),
-        status:"1"//状态： 1：正常，0：SPAM
-      };
+        if (comment.author == "" || comment.email == "" || comment.content == "") {
+          return res.redirect("/post/" + post.slug);
+        }
 
-      //TODO 用户输入的验证，必填项，邮箱地址是否正确，URL是否正确（无前缀的自动带上http://）
-      if (comment.author == "" || comment.email == "" || comment.content == "") {
-        res.redirect("/post/" + post.slug);
-      }
-
-      var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
-      if (!comment.url.match(regexp)) {
-        comment.url = "http://" + comment.url;
+        var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
         if (!comment.url.match(regexp)) {
-          delete comment.url;
-        }
-      }
-
-      /*if (!comment.url.indexOf('http://') == 0 && !comment.url.indexOf('https://') == 0 && comment.url != "") {//没有带http://或者https://
-       comment.url = "http://" + comment.url;
-       }*/
-
-      commentDao.insert(comment, function (err, comment) {
-        if (!err) {
-          //配置了 akismet key 而且不为空时，则进行 akismet spam检查
-          if (config.akismet_key && config.akismet_key != "") {
-            akismet.checkSpam({
-              user_ip:comment.ip,
-              permalink:config.url + "/post/" + comment.post_slug,
-              comment_author:comment.author,
-              comment_content:comment.content,
-              comment_author_email:comment.email,
-              comment_author_url:comment.url,
-              comment_type:"comment"
-            }, function (err, spam) {
-              //TODO 保存状态
-              if (spam) {
-                console.log('Spam caught.');
-                comment.status = "0";//状态： 1：正常，0：SPAM
-                commentDao.save(comment, function (err, result) {
-                  if (!err)
-                    console.log("save comment status success");
-                  else
-                    console.log("save comment status failed");
-                });
-              }
-              else {
-                console.log('Not spam');
-              }
-            });
+          comment.url = "http://" + comment.url;
+          if (!comment.url.match(regexp)) {
+            delete comment.url;
           }
-          res.redirect("/post/" + post.slug);
         }
-      });
 
-    } else {
-      next();
-    }
-  });
+        commentDao.insert(comment, function (err, comment) {
+          if (!err) {
+            //配置了 akismet key 而且不为空时，则进行 akismet spam检查
+            if (config.akismet_key && config.akismet_key != "") {
+              akismet.checkSpam({
+                user_ip:comment.ip,
+                permalink:config.url + "/post/" + comment.post_slug,
+                comment_author:comment.author,
+                comment_content:comment.content,
+                comment_author_email:comment.email,
+                comment_author_url:comment.url,
+                comment_type:"comment"
+              }, function (err, spam) {
+                //TODO 保存状态
+                if (spam) {
+                  console.log('Spam caught.');
+                  comment.status = "0";//状态： 1：正常，0：SPAM
+                  commentDao.save(comment, function (err, result) {
+                    if (!err)
+                      console.log("save comment status success");
+                    else
+                      console.log("save comment status failed");
+                  });
+                }
+                else {
+                  console.log('Not spam');
+                }
+              });
+            }
+            return res.redirect("/post/" + post.slug);
+          }
+        });
+      } else {
+        return next();
+      }
+    });
+  }
 };
 
 // URL: /feed
@@ -226,7 +220,7 @@ exports.archives = function (req, res) {
   var sortNumber = function (a, b) {
     return a.year < b.year
   };
-  var archiveList = new Array();
+  var archiveList = [];
   postDao.all(function (err, archives) {
     for (var i = 0; i < archives.length; i++) {
       var year = new Date(archives[i].created).getFullYear();
@@ -234,7 +228,7 @@ exports.archives = function (req, res) {
         archiveList[year] = { year:year, archives:[]};
       archiveList[year].archives.push(archives[i]);
     }
-    archiveList = archiveList.sort(sortNumber)
+    archiveList = archiveList.sort(sortNumber);
     res.render(config.theme + '/archives', {page_title:config.name + " › 文章存档", archives:archiveList});
   });
 };

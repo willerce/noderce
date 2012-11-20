@@ -9,8 +9,8 @@
 var db = require('../config.js').db;
 db.bind('comment');
 
-exports.all = function (condition, callback) {
-  db.comment.find(condition).limit(100).sort({created:-1,_id:-1}).toArray(function (err, result) {
+exports.all = function (condition, limit, callback) {
+  db.comment.find(condition).limit(limit).sort({created:-1,_id:-1}).toArray(function (err, result) {
     callback(err, result);
   });
 };
@@ -23,6 +23,12 @@ exports.insert = function (obj, callback) {
 
 exports.findByPostId = function (post_id, callback) {
   db.comment.find({post_id:post_id, status: {$ne:"0"}}).sort({created:1}).toArray(function (err, result) {
+    callback(err, result);
+  });
+};
+
+exports.findOne = function(id, callback){
+  db.comment.findOne({_id: db.ObjectID.createFromHexString(id)}, function (err, result) {
     callback(err, result);
   });
 };

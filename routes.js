@@ -41,6 +41,9 @@ module.exports = function (app) {
 
   app.get('/admin/comment', admin.auth_user, admin.commentIndex);
   app.get('/admin/comment/delete/:id', admin.auth_user, admin.commentDelete);
+  app.get('/admin/verifyAkismet', admin.auth_user, admin.verifyAkismet);
+  app.get('/admin/submitSpam/:id', admin.auth_user, admin.submitSpam);
+
 
   app.get('*', blog.pageNotFound);
 };

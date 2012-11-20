@@ -28,9 +28,10 @@ html(lang="zh-cn")
                 - }
               - })
               time #{item.created}
+              span Status: #{item.status}
               a.action.delete(href="/admin/comment/delete/"+item._id) Delete
+              a.action.spam(href="/admin/submitSpam/"+item._id) SPAM
               div.content !{item.content}
-
           - })
 
       .clearfix
