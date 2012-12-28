@@ -1,0 +1,111 @@
+extends layout
+
+append head
+  title #{page_title}
+  script(type="text/javascript")
+    var blockWidth = '300'; // Width of block
+    var blockMargin = '10';  // Space between blocks
+    var blockColumn = '2';  // Columns of expanded block 
+    var smallBlockBg = '#ffffff'; // Background color of block
+    var bigBlockBg = '#f3f3f3'; // Background color of expanded block
+    var heightType = 'nochange'; // For Gallery list page
+
+block content
+  div#content.content_wrap
+    div#single-wrap
+      ////////////////\n//Title / meta\n/////////////
+      h1
+        a(class='sinletitle',href='/post/#{post.slug}',title='#{post.title}') #{post.title}
+      div(class='meta')
+        //
+          span.cate Posted in: 
+            a(herf='#') Default
+          span.line
+        span.date #{post.created}
+      ////////////////\n//Content\n/////////////
+      div.entry !{post.content}
+      //End entry
+      //////////////////////\n//Scoial share icons\n////////////////////
+      ul(class='like_icon_intip insingle clearfix')
+      - if(comments.length>0){
+      ////////////////////
+      //Comments
+      //////////////////// 
+      div.comments_box   
+        span#comments #{comments.length} COMMENTS
+        ol(class='commentlist commentlist-only clearfix')
+          - for (var i=0;i<comments.length;i++){
+            li.commlist-unit
+              div.avatar
+                img(width="36",height="36",class="avatar",src=comments[i].avatar,alt="")
+              div.comm-u-wrap
+                div.comment
+                  p !{comments[i].content}
+                div.comment-meta
+                  span.comment-author
+                    -if(typeof comments[i].url == "undefined"){
+                      a(href='#') #{comments[i].author}
+                    - }else{
+                      a(href=comments[i].url) #{comments[i].author}
+                    - }
+                  span.date #{comments[i].created.substring(0,10)}
+                  //span.reply 
+                  //  a.comment-reply-link(href='href',onclick='#') Reply          
+          - }
+      - }
+      ////////////////////
+      //Reply box
+      ////////////////////
+      span.item_respondbtn
+        a(href='/post/#{post.slug}') LEAVE A REPLY
+      div#respond
+        a#replybox(name='replybox')
+        div#respondwrap
+          form#commentform(action="/comment",method='post')
+            p 
+              input#author.requiredFieldcomm(type='text', name='a_uthor', tabindex='1',required='',placeholder='Name*')
+            p 
+              input#email.email.requiredFieldcomm(type='text', name='e_mail', placeholder='Email*', tabindex='2',required='')
+            p 
+              input#url(type='text', name='u_rl', placeholder='Website', tabindex='3')
+            p.clearfix
+              textarea#comment.requiredFieldcomm(name='c_ontent', tabindex='4', cols="100%", required='')
+            p
+              input#submit.send_btn(name='submit', type='submit', tabindex='5', value='Submit')
+              input(name="id",value=post._id,type="hidden")
+              input(name="slug",value=post.slug,type="hidden")
+            div.clear
+        //End respondwrap
+      //End respond
+      div.clearfix
+    ////////////////
+    //Right Sidebar
+    /////////////
+    div.sidebar_right
+      //
+        div.page_navi
+          a.page_navi_pre(href='#')
+          a.page_navi_next(href='#')
+        ul.sidebar_right_widget
+        li.widget-container.widget_recent_comments
+          h3.widget-title COMMENTS
+          ul#recentcomments
+            li.recentcomments
+              span.avatars
+                img.avatar.avatar-28.photo(alert='',src='http://placehold.it/28x28',height='28',width='28')
+              a(href='#') xxxxxxxxxxxxxxxxxxxx
+            div.clearfix
+        li.widget-container.widget_text
+          h3.widget-title TEXT
+          div.textwidget xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        li.widget-container.widget_archive
+          h3.widget-title ARCHIVES
+          ul
+            li
+              a(href='#', title='November 2012') November 2012
+            li
+              a(href='#', title='October 2012') October 2012
+            li
+              a(href='#', title='September 2012') September 2012
+            li
+              a(href='#', title='August 2012') August 2012
