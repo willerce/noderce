@@ -1,0 +1,23 @@
+extends layout
+
+append head
+  title #{title}
+  script(type="text/javascript")
+    var blockWidth = '300'; // Width of block
+    var blockMargin = '10';  // Space between blocks
+    var blockColumn = '2';  // Columns of expanded block 
+    var smallBlockBg = '#ffffff'; // Background color of block
+    var bigBlockBg = '#f3f3f3'; // Background color of expanded block
+    var heightType = 'nochange'; // For Gallery list page
+
+block content
+  div#content
+    ul#item-wrap.clearfix
+      - posts.forEach(function(item){
+        li(class='item item_standard haslink article magazine',rel="/post/" + item.slug)
+          div(class='layout-stand layout-con-style',)
+            h2
+              a(act='zoom',class='post_title',href='javascript:;') #{item.title}
+            //p !{item.content}
+            a(act='zoom',href='javascript:;',class='readmore') Readmore
+      - })

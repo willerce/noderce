@@ -1,0 +1,27 @@
+#item-wrap li.item, body.single, body.error404 {background-color: #FFF;}
+::selection { background:#ED6E5C; color:#fff; }
+::-moz-selection{ background:#ED6E5C; color:#fff; }
+::-webkit-selection{ background:#ED6E5C; color:#fff; }
+body,#item-wrap{ background:#eee;}
+#logo_text,#logo,#logo_retina{ background-color:#ed6e5c }
+#siderbar{ background-color:#fff; border-right: 2px solid #ccc}
+#navi li a{ color:#666}
+#navi ul li a span.dot{ background-color:#666 }
+#navi ul li:hover a{ color:#ffffff }
+#navi>ul>li:hover,#navi ul li ul.sub-menu li{ background-color:#ed6e5c\9; background-color: rgba(237,110,92,0.8); }
+#navi ul li ul.sub-menu li:hover{ background-color: rgb(237,110,92); }
+#navi ul li ul.sub-menu li{ border-top:1px solid rgb(237,110,92);border-bottom:1px solid rgb(237,110,92);border-left:1px solid rgb(237,110,92); }
+#navi ul li ul.sub-menu li:last-child{ border-right:1px solid rgb(237,110,92); }
+#copyright, #copyright_mobile, #copyright a, #copyright_mobile a{ color:#ccc}
+.textboxsearch{ color:#999 }
+#search span.searchicon { background-color:#999 }
+#prevslide, #nextslide{background-color:#eee}
+#prevslide:hover, #nextslide:hover{ background-color:#ddd}
+#slidecaption{ color:#333;background-color:rgb(238,238,238)}
+#slidecaption a{color:#333;}
+.da-thumbs .gallerylayout a div span h2{ color:#ccc; background-color: #333; }
+.da-thumbs .gallerylayout a div span .more{ color:#fff;}
+#item-wrap li.item .layout-stand .date{ background-color:#333;color:#999 }
+.sidebar_right{ border-left:1px solid #fafafa; }
+.page_navi_pre,.page_navi_next{background-color: #d6d6d6; }
+h3.widget-title,h3.widget-title a{ color:#666; }
