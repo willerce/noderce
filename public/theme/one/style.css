@@ -1,4 +1,4 @@
-﻿html{background:#dcdcdc;color:#000}
+html{background:#dcdcdc;color:#000}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}
 table{border-collapse:collapse;border-spacing:0}
 fieldset,img{border:0}
@@ -24,7 +24,7 @@ pre code{padding:0;background-color:transparent}
 .alignleft{text-align:left}
 .alignright{text-align:right}
 .container{position:relative;overflow:hidden;margin:0 auto;padding:0 5px;width:820px}
-.block{position:relative;overflow:hidden;border:1px solid #ccc;background:#fff;box-shadow:0 0 10px rgba(0,0,0,0.1)}
+.block{position:relative;overflow:hidden;border:1px solid #ccc;background:#fcfcfa;box-shadow:0 0 10px rgba(0,0,0,0.1)}
 .inner {padding:30px;}
 [class^="icon-"],[class*=" icon-"]{display:inline-block;width:16px;height:16px;background:url("images/icons.png") no-repeat -16px -16px;vertical-align:text-top;line-height:16px}
 .icon-feed{background-position:-16px -16px}
@@ -48,8 +48,10 @@ pre code{padding:0;background-color:transparent}
 #main .post .meta{margin-bottom:15px;color:#777;font-size:10px}
 #main .post{margin-bottom:20px;padding:30px}
 #post-entry .content{margin-bottom:10px;border-bottom:1px dashed #ccc}
-.post .entry{font-size: 13px;line-height: 1.9;}
+.post .entry{font-size: 14px;line-height: 1.9;}
 .post .entry p{margin-bottom:1em}
+.post .entry a{padding: 0 2px;}
+.post .entry a:hover{text-decoration: none;background: #c9302f;color: #fff;border-radius: 3px;}
 .post .entry h2,.post .entry h3{margin-bottom: 10px;padding: 4px 0;border-bottom: 1px dashed #ccc;}
 .post .entry h3{font-size:18px}
 .post .entry h3{font-size: 15px;}
@@ -98,6 +100,40 @@ textarea#comment{width:550px;resize:vertical;}
 .comment .description blockquote p{margin-top:0;margin-bottom:10px;}
 .comment .description ul,.comment .description ol{padding-top:10px;padding-left:20px;}
 .comment .description ul li,.comment .description ol li{list-style-position:outside;}
+
+
+@media print, screen and (max-width: 830px) {
+    .container {
+        width: auto;
+        margin:0;
+    }
+
+    .inner {
+        padding: 15px;
+    }
+
+    #main .post {
+        padding: 15px;
+    }
+
+    #backtop {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .commentlist .comment {
+        padding: 10px 15px;
+    }
+
+    #respond .textfield {
+        width: 50%;
+    }
+
+    textarea#comment {
+        width: 95%;
+        resize: vertical;
+    }
+}
 
 .pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}
 @media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}
