@@ -1,11 +1,13 @@
 noderce
 =======
 
-noderce 是一个使用 nodejs 编写的博客程序，使用了 [express](http://expressjs.com/) , [jade](https://github.com/visionmedia/jade) , [mongoskin](https://github.com/kissjs/node-mongoskin) 等第三方框架、模块。使用 [mongodb](http://www.mongodb.org/) 做存储。
+Noderce 是一个使用 nodejs 编写的博客程序，使用了 [express](http://expressjs.com/) , [jade](https://github.com/visionmedia/jade) , [mongoskin](https://github.com/kissjs/node-mongoskin) 等第三方框架、模块。使用 [mongodb](http://www.mongodb.org/) 做存储。
 
-noderce 的功能很简单。去除了自己用不到的标签、分类、友情链接功能，仅有文章、页面、评论功能。
+Noderce 的功能很简单。去除了自己用不到的标签、分类、友情链接功能，仅有文章、页面、评论功能。
 
 目前还在完善中，演示地址： [http://willerce.com](http://willerce.com)
+
+Noderce AppFog 部署指南：[http://willerce.com/post/noderce-deploy-to-appfog](http://willerce.com/post/noderce-deploy-to-appfog)
 
 ##安装
 
@@ -30,7 +32,6 @@ noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 ##Akismet功能
 
 akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需要到 http://akismet.com/ 申请一个 api key。然后修改 config.js 中的 akismet_key 变量。如果不想开启此功能，请留空。默认为空
-
 
 ##感谢
 感谢 [nasawz](https://github.com/nasawz) 为 noderce 提交了第2个主题 shuixin。
