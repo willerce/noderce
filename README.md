@@ -32,6 +32,10 @@ noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需要到 http://akismet.com/ 申请一个 api key。然后修改 config.js 中的 akismet_key 变量。如果不想开启此功能，请留空。默认为空
 
 
+##感谢
+感谢 [nasawz](https://github.com/nasawz) 为 noderce 提交了第2个主题 shuixin。
+
+
 ##License
 
 (The MIT License)
