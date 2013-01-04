@@ -24,18 +24,18 @@ html
           .item.title
             label(for="page_title")
               span Title
-            input(type="text", name ="title", id="page_title", value=title，required="")
+            input(type="text", name ="title", id="page_title", value=title, required="")
           .item.slug
             label(for="page_slug")
               span Slug
-            input(type="text", name ="slug", id="page_slug", value=slug，required="")
+            input(type="text", name ="slug", id="page_slug", value=slug, required="")
           .item.created
             label(for="page_created")
               span Created
-            input(type="text", name ="created", id="page_created", value=created, readonly=''，required="")
+            input(type="text", name ="created", id="page_created", value=created, readonly='', required="")
           div.clearfix
         #content
-          textarea(name="content", id="post_content"，required="") !{content}
+          textarea(name="content", id="post_content", required="") !{content}
         #meta
           input(type="hidden", name="old_slug", id="page_old_slug", value=slug)
           button.btn.btn-small
