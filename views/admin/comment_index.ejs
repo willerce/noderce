@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Noderce 管理中心</title>
+    <link rel="stylesheet" href="/admin/style.css">
+    <script src="/libs/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="nav">
+        <ul>
+          <li><a href="/admin">Home</a></li>
+        </ul>
+        <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
+      </div>
+      <div id='comment-list'>
+      	<ul>
+      		<% comment_list.forEach(function(item){ %>
+      		<li>
+      			<a href='/post?id=<%= item.post_id %>'><%= item.author %></a>
+      			<span>&nbsp;post comment on&nbsp;</span>
+      				<% posts.forEach(function(post){ %>
+      				<% if (post._id == item.post_id){ %>
+      				<a href='/post/<%= post.slug %>'><%= post.title %></a>
+      				<% } %>
+      				<% }); %>
+      				<time><%= item.created %></time>
+      				<span>Status:<%= item.status %></span>
+      				<a id='action delete' href='/admin/comment/delete/<%=item._id%>'>Delete</a>
+      				<a id='action spam' href='/admin/submitSpam/<%=item._id%>'>SPAM</a>
+      				<div id='content'><%= item.content %></div>
+      		<% }); %>
+      	</ul>
+      </div>
+      <div id='clearfix'></div>
+    </div>
+  </body>
+</html>
