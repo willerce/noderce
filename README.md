@@ -15,7 +15,9 @@ Noderce AppFog 部署指南：[http://willerce.com/post/noderce-deploy-to-appfog
 
     git clone git@github.com:willerce/noderce.git
 
-复制一份config.default.js，保存为 config.js，根据注释，修改参数。
+复制一份config.default.js，保存为 config.js，根据注释，修改参数。  
+
+运行 npm install
 
 运行  node app.js
 

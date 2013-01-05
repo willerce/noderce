@@ -16,21 +16,21 @@ var akismet = require('akismet').client({ blog:config.url, apiKey:config.akismet
 
 //URL: /admin
 exports.index = function (req, res) {
-  res.render('admin/index');
+  res.render('admin/index',{layout:false});
 };
 
 // URL: /admin/post
 exports.postIndex = function (req, res) {
   postDao.all(function (err, result) {
     if (!err)
-      res.render('admin/post_index', {post_list:result});
+      res.render('admin/post_index', {layout:false, post_list:result});
   });
 };
 
 // URL : /admin/post/write
 exports.postWrite = function (req, res) {
   if (req.method == 'GET') {//render post write view
-    res.render('admin/post_write');
+    res.render('admin/post_write',{layout:false});
   } else if (req.method == 'POST') {// POST a post
 
     var created = dateFormat(new Date(), "yyyy-mm-dd");
@@ -60,7 +60,7 @@ exports.postEdit = function (req, res) {
     var slug = req.params.slug;
     postDao.get({slug:slug}, function (err, post) {
       if (post != null)
-        res.render('admin/post_edit', post);
+        res.render('admin/post_edit', {layout:false, post:post});
       else
         res.redirect('/admin/post')
     })
@@ -93,14 +93,14 @@ exports.postDelete = function (req, res) {
 exports.pageIndex = function (req, res) {
   pageDao.all(function (err, result) {
     if (!err)
-      res.render('admin/page_index', {page_list:result});
+      res.render('admin/page_index', {layout:false, page_list:result});
   });
 };
 
 // URL : /admin/page/write
 exports.pageWrite = function (req, res) {
   if (req.method == 'GET') {//render post write view
-    res.render('admin/page_write');
+    res.render('admin/page_write',{layout:false});
   } else if (req.method == 'POST') {// POST a post
 
     var created = dateFormat(new Date(), "yyyy-mm-dd");
@@ -130,7 +130,7 @@ exports.pageEdit = function (req, res) {
     var slug = req.params.slug;
     pageDao.get({slug:slug}, function (err, page) {
       if (page != null)
-        res.render('admin/page_edit', page);
+        res.render('admin/page_edit', {layout:false, page:page});
       else
         res.redirect('/admin/page')
     })
@@ -157,7 +157,7 @@ exports.commentIndex = function (req, res) {
   var limit = 100;
   commentDao.all({}, limit, function (err, comments) {
     postDao.all(function (err, posts) {
-      res.render('admin/comment_index', {comment_list:comments, posts:posts});
+      res.render('admin/comment_index', {layout:false, comment_list:comments, posts:posts});
     });
   })
 };
@@ -172,9 +172,9 @@ exports.commentDelete = function (req, res) {
 exports.verifyAkismet = function (req, res) {
   akismet.verifyKey(function (err, verified) {
     if (verified)
-      res.render('admin/verifyAkismet', {status:true});
+      res.render('admin/verifyAkismet', {layout:false, status:true});
     else
-      res.render('admin/verifyAkismet', {status:false});
+      res.render('admin/verifyAkismet', {layout:false, status:false});
   });
 };
 
@@ -211,12 +211,13 @@ exports.submitSpam = function (req, res) {
 //URL: /admin/login
 exports.login = function (req, res) {
   if (req.method == "GET") {
-    res.render("admin/login");
+    res.render("admin/login",{layout:false});
   } else if (req.method == "POST") {
     var name = req.body.name.trim();
     var pass = req.body.pass.trim();
     if (name == '' || pass == '') {
       res.render('admin/login', {
+        layout:false,
         error:'信息不完整。'
       });
       return;
@@ -227,6 +228,7 @@ exports.login = function (req, res) {
       pass = util.md5(pass);
       if (user.password != pass) {
         res.render('admin/login', {
+          layout:false, 
           error:'密码错误。'
         });
         return;
@@ -328,13 +330,13 @@ exports.install = function (req, res, next) {
       if (result.length > 0) {
         /** 已经初始化过了 ***/
         if (req.query['msg'] == "success")
-          res.render('admin/install', {msg:"success"})
+          res.render('admin/install', {layout:false, msg:"success"})
         else
-          res.render('admin/install', {installed:true})
+          res.render('admin/install', {layout:false, installed:true})
       } else {
         /***未初始化过***/
         if (req.method == "GET") {
-          res.render('admin/install');
+          res.render('admin/install',{layout:false});
         } else if (req.method == "POST") {
 
           //将用户输入的帐密插入到 user 表中

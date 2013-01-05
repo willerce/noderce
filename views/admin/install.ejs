@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Noderce 初始化</title>
+    <link rel="stylesheet" href="/admin/style.css">
+    <script src="/libs/jquery.min.js"></script>
+    <style>
+      .main { width: 500px; height: 200px; border: 1px dashed #ccc; padding: 20px; background: #fff; position: absolute; top: 50%; left: 50%; margin-left: -250px; margin-top: -220px; }
+      
+      form label { display: inline-block; width: 50px; text-align: right; margin-right: 10px; }
+      
+      form .item { margin-bottom: 10px; }
+      
+      h2 { font-size: 20px; font-weight: bold; margin-bottom: 10px }
+      
+      .dec { font-size: 13px; color: #999; margin-bottom: 20px; }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h2>Noderce 初始化</h2>
+      <% if(typeof msg != 'undefined'){ %>
+      <p> 初始化成功，请
+        <a href='/admin/login'>登录</a>
+      </p>
+    <% }else if(typeof installed == 'undefined'){ %>
+      <div id='dec'>
+        <p>初始化数据，将创建一个用户，并生成一篇文章及评论。</p>
+        <p>请设置一个用户名密码</p>
+      </div>
+      <form method='POST'>
+        <div id='item'>
+          <label for='name'>用户名</label>
+          <input type='text' maxlength='20' name='name'></input>
+        </div>
+        <div>
+          <label for='password'>密码</label>
+          <input type='password' maxlength='20' name='password'></input>
+        </div>
+        <div>
+          <label></label>
+          <button type='submit'>初始化</button>
+        </div>
+      </form>
+  <% }else{ %>
+      <p>已经初始化过数据库了</p>
+<% } %>
+    </div>
+  </body>
+</html>

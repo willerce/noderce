@@ -6,6 +6,7 @@ var express = require('express');
 var http = require('http');
 var routes = require('./routes');
 var config = require('./config.js').config;
+var partials = require('express-partials');
 
 var app = express();
 var static_dir = __dirname + '/public';
@@ -13,7 +14,8 @@ var static_dir = __dirname + '/public';
 app.configure(function(){
   app.set('port', config.port);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'ejs');
+  app.use(partials());
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
