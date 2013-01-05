@@ -20,6 +20,8 @@
     "marked": "0.2.5",
     "dateformat":"1.0.2-1.2.3",
     "akismet":"0.0.6",
-    "gravatar":"1.0.6"
+    "gravatar":"1.0.6",
+    "express-partials":"0.0.6",
+    "ejs":"0.8.3"
   }
 }

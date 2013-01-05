@@ -42,7 +42,7 @@ exports.index = function (req, res, next) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
       }
-      var index_obj = {title:title, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage};
+      var index_obj = {name:config.name, title:config.name, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage};
       res.render(config.theme + '/index', index_obj);
     });
   });
@@ -71,7 +71,7 @@ exports.post = function (req, res, next) {
           comments[i].avatar = gravatar.url(comments[i].email, {s:'36', r:'pg', d:'mm'});
         }
         if (!err) {
-          res.render(config.theme + '/post', {page_title:page_title, post:post, comments:comments});
+          res.render(config.theme + '/post', {title:page_title, post:post, comments:comments, name:config.name});
         } else {
           res.statusCode = 500;
           res.send('500');
@@ -87,7 +87,7 @@ exports.page = function (req, res, next) {
     if (!err && page != null) {
       page.content = marked(page.content);
       page.page_title = config.name + " › " + page.title;
-      res.render(config.theme + '/page', page);
+      res.render(config.theme + '/page', {page:page, name:config.name, title:page.page_title});
     }
     else {
       next();
@@ -229,7 +229,7 @@ exports.archives = function (req, res) {
       archiveList[year].archives.push(archives[i]);
     }
     archiveList = archiveList.sort(sortNumber);
-    res.render(config.theme + '/archives', {page_title:config.name + " › 文章存档", archives:archiveList});
+    res.render(config.theme + '/archives', {title:config.name + " › 文章存档", archives:archiveList, name:config.name});
   });
 };
 
@@ -237,6 +237,7 @@ exports.archives = function (req, res) {
 exports.pageNotFound = function (req, res) {
   console.log('404 handler, URL' + req.originalUrl);
   res.render(config.theme + '/404', {
+    layout:false,
     status:404,
     title:'NodeBlog'
   });
