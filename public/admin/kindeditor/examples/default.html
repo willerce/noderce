@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Default Examples</title>
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<script charset="utf-8" src="../kindeditor-min.js"></script>
+		<script charset="utf-8" src="../lang/zh_CN.js"></script>
+		<script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[id="post_content"]', {
+					allowFileManager : true
+				});
+
+			});
+		</script>
+	</head>
+	<body>
+		<h3>默认模式</h3>
+		<form>
+			<textarea id="post_content" style="width:800px;height:400px;visibility:hidden;">KindEditor</textarea>
+			<p>
+				<input type="button" name="getHtml" value="取得HTML" />
+				<input type="button" name="isEmpty" value="判断是否为空" />
+				<input type="button" name="getText" value="取得文本(包含img,embed)" />
+				<input type="button" name="selectedHtml" value="取得选中HTML" />
+				<br />
+				<br />
+				<input type="button" name="setHtml" value="设置HTML" />
+				<input type="button" name="setText" value="设置文本" />
+				<input type="button" name="insertHtml" value="插入HTML" />
+				<input type="button" name="appendHtml" value="添加HTML" />
+				<input type="button" name="clear" value="清空内容" />
+				<input type="reset" name="reset" value="Reset" />
+			</p>
+		</form>
+	</body>
+</html>

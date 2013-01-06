@@ -5,6 +5,17 @@
     <link rel="stylesheet" href="/admin/style.css">
     <script src="/libs/jquery.min.js"></script>
     <script src="/libs/cal.js"></script>
+    <script src="/admin/kindeditor/kindeditor-min.js"></script>
+    <script src="/admin/kindeditor/lang/zh_CN.js"></script>
+    <script>
+      var editor;
+      KindEditor.ready(function(K) {
+        editor = K.create('textarea[id="post_content"]', {
+          allowFileManager : true
+        });
+
+      });
+    </script>
   </head>
   <body>
     <div id="wrapper">
