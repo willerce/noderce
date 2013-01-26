@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <title>Noderce 管理中心</title>
-    <link rel="stylesheet" href="/admin/style.css">
-    <script src="/libs/jquery/jquery.min.js"></script>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div id="nav">
-        <ul>
-          <li><a href="/admin">Home</a><span> ›</span></li>
-          <li><a href="/admin/page">Page</a></li>
-        </ul>
-        <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
-      </div>
-      <div id="post-list">
-        <ul>
-          <% page_list.forEach(function(item){ %>
-          <li>
-            <a href='/admin/page/edit/<%=item.slug%>'><%=item.title%></a>
-            <div id='action'>
-              <span id='edit'>
+<head>
+  <title>Noderce 管理中心</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <script src="/libs/jquery/jquery.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="nav">
+    <ul>
+      <li><a href="/admin">Home</a><span> ›</span></li>
+      <li><a href="/admin/page">Page</a></li>
+    </ul>
+    <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
+  </div>
+  <div id="post-list">
+    <ul>
+      <% page_list.forEach(function(item){ %>
+      <li>
+        <a href='/admin/page/edit/<%=item.slug%>'><%=item.title%></a>
+
+        <div class='action'>
+              <span class='edit'>
                 <a href='/page/<%=item.slug%>' target='_blank'>view</a>
               </span>
-            </div>
-          </li>
-        <% }); %></ul>
-      </div>
-      <div id='clearfix'></div>
-    </div>
-  </body>
+        </div>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+  <div class='clearfix'></div>
+</div>
+</body>
 </html>

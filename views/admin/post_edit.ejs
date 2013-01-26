@@ -1,49 +1,50 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <title>Noderce 管理中心</title>
-    <link rel="stylesheet" href="/admin/style.css">
-    <script src="/libs/jquery.min.js"></script>
-    <script src="/libs/cal.js"></script>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div id="nav">
-        <ul>
-          <li><a href="/admin">Home</a></li>
-        </ul>
-        <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
-      </div>
-      <form class='write_post' method='post'>
-        <div class='post_info'>
-          <div id='item title'>
-            <label for='post_titel'>
-              <span>Title</span>
-            </label>
-            <input type='text' name='title' id='post_title' value='<%=post.title%>' required=""></input>
-          </div>
-          <div id='item slug'>
-            <label for='post_slug'>
-              <span>Slug</span>
-            </label>
-            <input type='text' name='slug' id='post_slug' value='<%=post.slug%>' required="">
-          </div>
-          <div id='item created'>
-            <label for='post_created'>
-              <span>Created</span>
-            </label>
-            <input type='text' name='created' id='post_created' value='<%=post.created%>' required=''>
-          </div>
-        </div>
-        <div class='content'>
-          <textarea name='content' id='post_content' required=''><%=post.content%></textarea>
-        </div>
-        <div class='meta'>
-          <input type='hidden' name='old_slug'id="post_old_slug" value='<%=post.slug%>'>
-          <button id='btn btn-small'><a class='post-it'>Edit Done</a></button>
-        </div>
-      </form>
+<head>
+  <title>Noderce 管理中心</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <script src="/libs/jquery.min.js"></script>
+  <script src="/libs/cal.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="nav">
+    <ul>
+      <li><a href="/admin">Home</a></li>
+    </ul>
+    <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
   </div>
+  <form id='write_post' method='post'>
+    <div id='post_info'>
+      <div class='item title'>
+        <label for='post_title'>
+          <span>Title</span>
+        </label>
+        <input type='text' name='title' id='post_title' value='<%=post.title%>' required=""/>
+      </div>
+      <div class='item slug'>
+        <label for='post_slug'>
+          <span>Slug</span>
+        </label>
+        <input type='text' name='slug' id='post_slug' value='<%=post.slug%>' required=""/>
+      </div>
+      <div class='item created'>
+        <label for='post_created'>
+          <span>Created</span>
+        </label>
+        <input type='text' name='created' id='post_created' value='<%=post.created%>' required=''/>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div id='content'>
+      <textarea name='content' id='post_content' required=''><%=post.content%></textarea>
+    </div>
+    <div class='meta'>
+      <input type='hidden' name='old_slug' id="post_old_slug" value='<%=post.slug%>'>
+      <button class='btn btn-small'><a id='post-it'>Edit Done</a></button>
+    </div>
+  </form>
+</div>
 </body>
 <script>
   $('input#post_created').simpleDatepicker({ startdate: 2009, enddate: 2013 });

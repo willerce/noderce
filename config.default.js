@@ -6,7 +6,7 @@
 
 var mongoskin = require('mongoskin');
 
-exports.config = {
+var config = {
 
   //site settings
   name: '未志',
@@ -17,25 +17,31 @@ exports.config = {
   auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',//cookie 名字
   spam_cookie_name: process.env.SPAM_COOKIE_NAME || 'nd_spam',//防spam cookie的名字
   port: process.env.PORT || 3000,//端口号
-  theme: process.env.THEME || 'one',//主题名称
-  akismet_key: process.env.AKISMET_KEY || '', //akismet api key，不开启请设置为空
+  theme: process.env.THEME || 'one'//主题名称
+};
 
-  // Feed Setting
-  rss: {
-    max_rss_items: "5",
-    title: "未志",
-    description: "willerce，写给未来的自己。",
-    link: process.env.RSS_LINK || "http://willerce.com",
-    language: "zh-cn",
-    managingEditor: "willerce@gmail.com (willerce)",
-    webMaster: "willerce@gmail.com (willerce)",
-    generator: "noderce",
-    author: {
-      name: "willerce",
-      uri: "http://willerce.com"
-    }
+config.akismet_options = {
+  apikey: '', // akismet api key，不启用 akismet 请设置为空
+  blog: config.url // required: your root level url
+};
+
+// Feed Config
+config.rss = {
+  max_rss_items: "5",
+  title: "未志",
+  description: "willerce，写给未来的自己。",
+  link: process.env.RSS_LINK || "http://willerce.com",
+  language: "zh-cn",
+  managingEditor: "willerce@gmail.com (willerce)",
+  webMaster: "willerce@gmail.com (willerce)",
+  generator: "noderce",
+  author: {
+    name: "willerce",
+    uri: "http://willerce.com"
   }
 };
+
+exports.config = config;
 
 //mongodb settings for mongolab START
 //如果使用 MongoLab 提供的 MongoDB 服务，请保留这个配置，否则，删除下面这一行

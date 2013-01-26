@@ -1,15 +1,9 @@
-/**
- * User: willerce
- * Date: 7/30/12
- * Time: 12:24 AM
- */
-
 var config = require('../config').config;
 var data2xml = require('data2xml');
 var marked = require('marked');
 var dateFormat = require('dateformat');
 var gravatar = require('gravatar');
-var akismet = require('akismet').client({ blog:config.url, apiKey:config.akismet_key });
+var akismet = require('akismet').client(config.akismet_options);
 
 var postDao = require('../dao/post');
 var pageDao = require('../dao/page');
@@ -117,10 +111,12 @@ exports.comment = function (req, res, next) {
           status:"1"//状态： 1：正常，0：SPAM
         };
 
+        // 非空检查
         if (comment.author == "" || comment.email == "" || comment.content == "") {
           return res.redirect("/post/" + post.slug);
         }
 
+        // URL 格式检查
         var regexp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w\- ./?%&=]*)?/;
         if (!comment.url.match(regexp)) {
           comment.url = "http://" + comment.url;
@@ -131,8 +127,8 @@ exports.comment = function (req, res, next) {
 
         commentDao.insert(comment, function (err, comment) {
           if (!err) {
-            //配置了 akismet key 而且不为空时，则进行 akismet spam检查
-            if (config.akismet_key && config.akismet_key != "") {
+            //配置了 akismet key 而且不为空时，进行 akismet spam检查
+            if (config.akismet_options && config.akismet_options.apikey != "") {
               akismet.checkSpam({
                 user_ip:comment.ip,
                 permalink:config.url + "/post/" + comment.post_slug,
@@ -142,19 +138,16 @@ exports.comment = function (req, res, next) {
                 comment_author_url:comment.url,
                 comment_type:"comment"
               }, function (err, spam) {
-                //TODO 保存状态
+                //发现SPAM
                 if (spam) {
                   console.log('Spam caught.');
-                  comment.status = "0";//状态： 1：正常，0：SPAM
-                  commentDao.save(comment, function (err, result) {
+                  comment[0].status = "0";//状态： 1：正常，0：SPAM
+                  commentDao.save(comment[0], function (err, result) {
                     if (!err)
                       console.log("save comment status success");
                     else
                       console.log("save comment status failed");
                   });
-                }
-                else {
-                  console.log('Not spam');
                 }
               });
             }
@@ -205,7 +198,7 @@ exports.feed = function (req, res) {
         link:config.rss.link + '/post/' + post.slug,
         guid:config.rss.link + '/post/' + post.slug,
         pubDate:dateFormat(new Date(post.created)),
-        lastBuildDate:dateFormat(new Date(post.created)),
+        lastBuildDate:dateFormat(new Date(post.reated)),
         description:marked(post.content)
       });
     }

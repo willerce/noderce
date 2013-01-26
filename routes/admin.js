@@ -274,54 +274,6 @@ exports.auth_user = function (req, res, next) {
   }
 };
 
-/*
- exports.disqus = function (req, res) {
- var json = fs.readFileSync('ttt.json', 'utf-8');
-
- var t = JSON.parse(json);
-
- var cmt = [];
-
- postDao.all(function (err, result) {
- for (var a = result.length - 1; a >= 0; a--) {
- var post = result[a];
- console.log('文章：' + post.title);
- for (var i = 0; i < t.disqus.thread.length; i++) {
- if (t.disqus.thread[i].link == 'http://willerce.com/post/' + post.slug) {
- console.log("找到了文章:" + post.title + "，接着找评论");
- var dsq_id = t.disqus.thread[i]['-dsq:id'];
- for (var j = 0; j < t.disqus.post.length; j++) {
- if (t.disqus.post[j].thread['-dsq:id'] == dsq_id) {
- console.log("找到了:" + post.title + "的评论");
-
- var comment = {
- post_id:post._id.toString(),
- author:t.disqus.post[j].author.name,
- email:t.disqus.post[j].author.email,
- content:t.disqus.post[j].message,
- ip:t.disqus.post[j].ipAddress,
- created:t.disqus.post[j].createdAt
- };
- cmt.push(comment);
- }
- }
- }
- }
- if (a <= 0) {
- commentDao.insert(cmt, function () {
- if (!err) {
- console.log('inset comment');
- } else {
- console.log(err);
- }
- });
- }
- }
- });
-
- res.send("xx");
- };*/
-
 // URL:  /install
 exports.install = function (req, res, next) {
 

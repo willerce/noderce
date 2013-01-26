@@ -1,49 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <title>Noderce 管理中心 > 新建页面</title>
-    <link rel="stylesheet" href="/admin/style.css">
-    <script src="/libs/jquery.min.js"></script>
-    <script src="/libs/cal.js"></script>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div id="nav">
-        <ul>
-          <li><a href="/admin">Home</a></li>
-        </ul>
-        <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
-      </div>
-      <form class='write_post' method='post'>
-      	<div class='post_info'>
-      		<div id='item title'>
-      			<label for='page_titel'>
-      				<span>Title</span>
-      			</label>
-      			<input type='text' name='title' id='page_title' required=""></input>
-      		</div>
-      		<div id='item slug'>
-      			<label for='page_slug'>
-      				<span>Slug</span>
-      			</label>
-      			<input type='text' name='slug' id='page_slug' required="">
-      		</div>
-      		<div id='item created'>
-      			<label for='page_created'>
-      				<span>Created</span>
-      			</label>
-      			<input type='text' name='created' id='page_created' readonly='' required=''>
-      		</div>
-          <div id='clearfix'></div>
-      	</div>
-      	<div class='content'>
-      		<textarea name='content' id='post_content' required=''></textarea>
-      	</div>
-      	<div class='meta'>
-      		<button id='btn btn-small'><a class='post-it'>OK,post it!</a></button>
-      	</div>
-      </form>
+<head>
+  <title>Noderce 管理中心 > 新建页面</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <script src="/libs/jquery.min.js"></script>
+  <script src="/libs/cal.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="nav">
+    <ul>
+      <li><a href="/admin">Home</a></li>
+    </ul>
+    <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
   </div>
+  <form id='write_post' method='post'>
+    <div id='post_info'>
+      <div class='item title'>
+        <label for='page_title'><span>Title</span></label>
+        <input type='text' name='title' id='page_title' required=""/>
+      </div>
+      <div class='item slug'>
+        <label for='page_slug'><span>Slug</span></label>
+        <input type='text' name='slug' id='page_slug' required="">
+      </div>
+      <div class='item created'>
+        <label for='page_created'><span>Created</span></label>
+        <input type='text' name='created' id='page_created' readonly='' required=''>
+      </div>
+      <div class='clearfix'></div>
+    </div>
+    <div id='content'>
+      <textarea name='content' id='post_content' required=''></textarea>
+    </div>
+    <div id='meta'>
+      <button class='btn btn-small'><a id='post-it'>OK,post it!</a></button>
+    </div>
+  </form>
+</div>
 </body>
 <script>
   $('input#page_created').simpleDatepicker({ startdate: 2009, enddate: 2013 });
