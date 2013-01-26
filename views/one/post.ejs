@@ -21,7 +21,7 @@
               <time datetime='<%=comments[i].created%>'><%=comments[i].created.substring(0,10)%></time>
               <div class="floor"><%=i+1%></div>
             </div>
-            <div id="commentbody-53684" class='description' itemprop='description'><%=comments[i].content%></div>
+            <div id="commentbody-53684" class='description' itemprop='description'><%- comments[i].content%></div>
           </div>
         </li>
       <%}%>
