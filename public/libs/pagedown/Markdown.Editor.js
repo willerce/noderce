@@ -51,6 +51,8 @@
         redo: "Redo - Ctrl+Y",
         redomac: "Redo - Ctrl+Shift+Z",
 
+        readmore : "Read More Tag",
+
         help: "Markdown Editing Help"
     };
 
@@ -1492,6 +1494,7 @@
 
             buttons.redo = makeButton("wmd-redo-button", redoTitle, "-220px", null);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
+            buttons.readmore = makeButton("wmd-readmore-button", getString("readmore"), "-260px", bindCommand("doReadMore"));
 
             if (helpOptions) {
                 var helpButton = document.createElement("li");
@@ -2206,7 +2209,11 @@
         chunk.startTag = "----------\n";
         chunk.selection = "";
         chunk.skipLines(2, 1, true);
-    }
+    };
 
-
+    commandProto.doReadMore = function(chunk, postProcessing){
+      chunk.startTag = "<!--more-->\n";
+      chunk.selection = "";
+      chunk.skipLines(1, 1, true);
+    };
 })();

@@ -35,6 +35,9 @@ exports.index = function (req, res, next) {
     postDao.findAll(start, parseInt(config.postNum), function (err, result) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
+        if(result[i].content.indexOf('<!--more-->')>0){
+          result[i].content = result[i].content.substring(0, result[i].content.indexOf('<!--more-->'))+'<div class="ReadMore"><a href="/post/'+result[i].slug+'">[阅读更多]</a></div>';
+        }
       }
       var index_obj = {name: config.name, title: config.name, posts: result, crtP: currentPage, maxP: maxPage, nextP: nextPage};
       res.render(config.theme + '/index', index_obj);
