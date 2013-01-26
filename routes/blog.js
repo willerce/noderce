@@ -52,6 +52,12 @@ exports.post = function (req, res, next) {
       next();
     } else {
       post.content = marked(post.content);
+      //如果不存在 content_html，更新
+      if (!post.content_html) {
+        post.content_html = marked(post.content);
+        postDao.update(post.slug, {content_html: post.content_html}, function () {
+        })
+      }
       var page_title = config.name + " › " + post.title;
 
       commentDao.findByPostId(post._id.toString(), function (err, comments) {
@@ -79,6 +85,12 @@ exports.page = function (req, res, next) {
   pageDao.get({'slug': req.params.slug}, function (err, page) {
     if (!err && page != null) {
       page.content = marked(page.content);
+      //如果不存在 content_html，更新
+      if (!page.content_html) {
+        page.content_html = marked(page.content);
+        pageDao.update(page.slug, {content_html: page.content_html}, function () {
+        })
+      }
       page.page_title = config.name + " › " + page.title;
       res.render(config.theme + '/page', {page: page, name: config.name, title: page.page_title});
     }

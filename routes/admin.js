@@ -11,6 +11,7 @@ var postDao = require('../dao/post.js');
 var pageDao = require('../dao/page.js');
 var commentDao = require('../dao/comment.js');
 var dateFormat = require('dateformat');
+var marked = require('marked');
 
 var akismet = require('akismet').client(config.akismet_options);
 
@@ -41,6 +42,7 @@ exports.postWrite = function (req, res) {
       title:req.body.title,
       slug:req.body.slug,
       content:req.body.content,
+      content_html: marked(req.body.content),
       created:created
     };
 
@@ -74,6 +76,7 @@ exports.postEdit = function (req, res) {
       title:req.body.title,
       slug:req.body.slug,
       content:req.body.content,
+      content_html: marked(req.body.content),
       created:created
     };
     postDao.update(req.body.old_slug, post, function (err) {
@@ -111,6 +114,7 @@ exports.pageWrite = function (req, res) {
       title:req.body.title,
       slug:req.body.slug,
       content:req.body.content,
+      content_html: marked(req.body.content),
       created:created
     };
 
@@ -144,6 +148,7 @@ exports.pageEdit = function (req, res) {
       title:req.body.title,
       slug:req.body.slug,
       content:req.body.content,
+      content_html: marked(req.body.content),
       created:created
     };
     pageDao.update(req.body.old_slug, page, function (err, result) {

@@ -3,7 +3,7 @@
     <article class="post block">
       <h1 class="title"><%=post.title%></h1>
       <div class="meta"><time><%=post.created%></time></div>
-      <div class="entry"><%-post.content%></div>
+      <div class="entry"><%-post.content_html%></div>
     </article>
     <%if(comments.length>0){%>
     <div id="comments" class="block">
