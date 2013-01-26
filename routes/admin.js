@@ -12,7 +12,7 @@ var pageDao = require('../dao/page.js');
 var commentDao = require('../dao/comment.js');
 var dateFormat = require('dateformat');
 
-var akismet = require('akismet').client({ blog:config.url, apiKey:config.akismet_key });
+var akismet = require('akismet').client(config.akismet_options);
 
 //URL: /admin
 exports.index = function (req, res) {
