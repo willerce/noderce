@@ -36,7 +36,7 @@ exports.index = function (req, res, next) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
       }
-      var index_obj = {name:config.name, title:config.name, posts:result, crtP:currentPage, maxP:maxPage, nextP:nextPage};
+      var index_obj = {name: config.name, title: config.name, posts: result, crtP: currentPage, maxP: maxPage, nextP: nextPage};
       res.render(config.theme + '/index', index_obj);
     });
   });
@@ -44,7 +44,7 @@ exports.index = function (req, res, next) {
 
 // URL: /post/slug
 exports.post = function (req, res, next) {
-  postDao.get({slug:req.params.slug}, function (err, post) {
+  postDao.get({slug: req.params.slug}, function (err, post) {
     if (err) {
       res.statusCode = 500;
       res.send('500');
@@ -54,18 +54,17 @@ exports.post = function (req, res, next) {
       post.content = marked(post.content);
       var page_title = config.name + " › " + post.title;
 
-      // TODO 防spam
-      //为了防止spam，这里会人一个cookie出去，在提交comment的时候就会检测这个cookie
-      //cookie规则
-      //文章slug+当前时间
-
       commentDao.findByPostId(post._id.toString(), function (err, comments) {
 
         for (var i = 0; i < comments.length; i++) {
-          comments[i].avatar = gravatar.url(comments[i].email, {s:'36', r:'pg', d:'mm'});
+          if (!comments[i].avatar) {
+            comments[i].avatar = gravatar.url(comments[i].email, {s: '36', r: 'pg', d: 'mm'});
+            commentDao.updateAvater(comments[i]._id.toString(), comments[i].avatar, function () {
+            })
+          }
         }
         if (!err) {
-          res.render(config.theme + '/post', {title:page_title, post:post, comments:comments, name:config.name});
+          res.render(config.theme + '/post', {title: page_title, post: post, comments: comments, name: config.name});
         } else {
           res.statusCode = 500;
           res.send('500');
@@ -77,11 +76,11 @@ exports.post = function (req, res, next) {
 
 // URL: /page/slug
 exports.page = function (req, res, next) {
-  pageDao.get({'slug':req.params.slug}, function (err, page) {
+  pageDao.get({'slug': req.params.slug}, function (err, page) {
     if (!err && page != null) {
       page.content = marked(page.content);
       page.page_title = config.name + " › " + page.title;
-      res.render(config.theme + '/page', {page:page, name:config.name, title:page.page_title});
+      res.render(config.theme + '/page', {page: page, name: config.name, title: page.page_title});
     }
     else {
       next();
@@ -97,18 +96,18 @@ exports.comment = function (req, res, next) {
   if (id == "" || slug == "" || !req.headers['referer'] || req.headers['referer'].indexOf(slug) <= 0) {
     return res.redirect("/fuck-spam-comment");
   } else {
-    postDao.get({slug:slug}, function (err, post) {
+    postDao.get({slug: slug}, function (err, post) {
       if (!err && post != null) {
         var comment = {
-          post_id:req.body.id,
-          post_slug:req.body.slug,
-          author:req.body.a_uthor,
-          email:req.body.e_mail,
-          url:req.body.u_rl,
-          content:req.body.c_ontent,
-          ip:req.ip,
-          created:dateFormat(new Date(), "isoDateTime"),
-          status:"1"//状态： 1：正常，0：SPAM
+          post_id: req.body.id,
+          post_slug: req.body.slug,
+          author: req.body.a_uthor,
+          email: req.body.e_mail,
+          url: req.body.u_rl,
+          content: req.body.c_ontent,
+          ip: req.ip,
+          created: dateFormat(new Date(), "isoDateTime"),
+          status: "1"//状态： 1：正常，0：SPAM
         };
 
         // 非空检查
@@ -125,18 +124,19 @@ exports.comment = function (req, res, next) {
           }
         }
 
+        comment.avatar = gravatar.url(comment.email, {s: '36', r: 'pg', d: 'mm'});
         commentDao.insert(comment, function (err, comment) {
           if (!err) {
             //配置了 akismet key 而且不为空时，进行 akismet spam检查
             if (config.akismet_options && config.akismet_options.apikey != "") {
               akismet.checkSpam({
-                user_ip:comment.ip,
-                permalink:config.url + "/post/" + comment.post_slug,
-                comment_author:comment.author,
-                comment_content:comment.content,
-                comment_author_email:comment.email,
-                comment_author_url:comment.url,
-                comment_type:"comment"
+                user_ip: comment.ip,
+                permalink: config.url + "/post/" + comment.post_slug,
+                comment_author: comment.author,
+                comment_content: comment.content,
+                comment_author_email: comment.email,
+                comment_author_url: comment.url,
+                comment_type: "comment"
               }, function (err, spam) {
                 //发现SPAM
                 if (spam) {
@@ -173,16 +173,16 @@ exports.feed = function (req, res) {
       return next(err);
     }
     var rss_obj = {
-      _attr:{ version:'2.0' },
-      channel:{
-        title:config.rss.title,
-        description:config.rss.description,
-        link:config.rss.link,
-        language:config.rss.language,
-        managingEditor:config.rss.language,
-        webMaster:config.rss.language,
-        generator:config.rss.generator,
-        item:[]
+      _attr: { version: '2.0' },
+      channel: {
+        title: config.rss.title,
+        description: config.rss.description,
+        link: config.rss.link,
+        language: config.rss.language,
+        managingEditor: config.rss.language,
+        webMaster: config.rss.language,
+        generator: config.rss.generator,
+        item: []
       }
     };
 
@@ -191,15 +191,15 @@ exports.feed = function (req, res) {
       post.content = marked(post.content);
 
       rss_obj.channel.item.push({
-        title:post.title,
-        author:{
-          name:config.rss.author.name
+        title: post.title,
+        author: {
+          name: config.rss.author.name
         },
-        link:config.rss.link + '/post/' + post.slug,
-        guid:config.rss.link + '/post/' + post.slug,
-        pubDate:dateFormat(new Date(post.created)),
-        lastBuildDate:dateFormat(new Date(post.reated)),
-        description:marked(post.content)
+        link: config.rss.link + '/post/' + post.slug,
+        guid: config.rss.link + '/post/' + post.slug,
+        pubDate: dateFormat(new Date(post.created)),
+        lastBuildDate: dateFormat(new Date(post.reated)),
+        description: marked(post.content)
       });
     }
     var rss_content = data2xml('rss', rss_obj);
@@ -218,11 +218,11 @@ exports.archives = function (req, res) {
     for (var i = 0; i < archives.length; i++) {
       var year = new Date(archives[i].created).getFullYear();
       if (archiveList[year] === undefined)
-        archiveList[year] = { year:year, archives:[]};
+        archiveList[year] = { year: year, archives: []};
       archiveList[year].archives.push(archives[i]);
     }
     archiveList = archiveList.sort(sortNumber);
-    res.render(config.theme + '/archives', {title:config.name + " › 文章存档", archives:archiveList, name:config.name});
+    res.render(config.theme + '/archives', {title: config.name + " › 文章存档", archives: archiveList, name: config.name});
   });
 };
 
@@ -230,8 +230,8 @@ exports.archives = function (req, res) {
 exports.pageNotFound = function (req, res) {
   console.log('404 handler, URL' + req.originalUrl);
   res.render(config.theme + '/404', {
-    layout:false,
-    status:404,
-    title:'NodeBlog'
+    layout: false,
+    status: 404,
+    title: 'NodeBlog'
   });
 };
