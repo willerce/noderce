@@ -5,12 +5,16 @@
   <link rel="stylesheet" href="/admin/style.css">
   <script src="/libs/jquery.min.js"></script>
   <script src="/libs/cal.js"></script>
+  <script src="/libs/pagedown/Markdown.Converter.js"></script>
+  <script src="/libs/pagedown/Markdown.Sanitizer.js"></script>
+  <script src="/libs/pagedown/Markdown.Editor.js"></script>
 </head>
 <body>
 <div id="wrapper">
   <div id="nav">
     <ul>
-      <li><a href="/admin">Home</a></li>
+      <li><a href="/admin">Home</a><span> ›</span></li>
+      <li><a href="/admin/post/write">New Post</a></li>
     </ul>
     <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
   </div>
@@ -31,14 +35,35 @@
       <div class='clearfix'></div>
     </div>
     <div id='content'>
-      <textarea name='content' id='post_content' required=''></textarea>
+      <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea class="wmd-input post_content" name='content' id="wmd-input" required=''></textarea>
+      </div>
     </div>
     <div id='meta'>
       <button class='btn btn-small'><a id='post-it'>OK,post it!</a></button>
     </div>
+    <div class="clearfix"></div>
+    <div id="preview">
+      <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+    </div>
   </form>
 </div>
-</body>
 <script>
   $('input#post_created').simpleDatepicker({ startdate: 2009, enddate: 2013 });
+  (function () {
+    var converter = Markdown.getSanitizingConverter();
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+
+    window.onbeforeunload = function(){
+      return '你正在编辑日志，确定不保存编辑内容吗？';
+    };
+
+    $("#post-it").click(function(){
+      window.onbeforeunload = null;
+    });
+
+  })();
 </script>
+</body>

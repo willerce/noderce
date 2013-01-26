@@ -5,47 +5,67 @@
   <link rel="stylesheet" href="/admin/style.css">
   <script src="/libs/jquery.min.js"></script>
   <script src="/libs/cal.js"></script>
+  <script src="/libs/pagedown/Markdown.Converter.js"></script>
+  <script src="/libs/pagedown/Markdown.Sanitizer.js"></script>
+  <script src="/libs/pagedown/Markdown.Editor.js"></script>
 </head>
 <body>
 <div id="wrapper">
   <div id="nav">
     <ul>
-      <li><a href="/admin">Home</a></li>
+      <li><a href="/admin">Home</a><span> ›</span></li>
+      <li><a href="/admin/post/edit/<%=post.slug%>">Edit Post</a><span> ›</span></li>
+      <li><a href="/admin/post/edit/<%=post.slug%>"><%=post.title%></a><span> ›</span></li>
     </ul>
     <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
   </div>
   <form id='write_post' method='post'>
     <div id='post_info'>
       <div class='item title'>
-        <label for='post_title'>
-          <span>Title</span>
-        </label>
+        <label for='post_title'><span>Title</span></label>
         <input type='text' name='title' id='post_title' value='<%=post.title%>' required=""/>
       </div>
       <div class='item slug'>
-        <label for='post_slug'>
-          <span>Slug</span>
-        </label>
+        <label for='post_slug'><span>Slug</span></label>
         <input type='text' name='slug' id='post_slug' value='<%=post.slug%>' required=""/>
       </div>
       <div class='item created'>
-        <label for='post_created'>
-          <span>Created</span>
-        </label>
+        <label for='post_created'><span>Created</span></label>
         <input type='text' name='created' id='post_created' value='<%=post.created%>' required=''/>
       </div>
       <div class="clearfix"></div>
     </div>
     <div id='content'>
-      <textarea name='content' id='post_content' required=''><%=post.content%></textarea>
+      <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea class="wmd-input post_content" name='content' id="wmd-input" required=''><%=post.content%></textarea>
+      </div>
     </div>
-    <div class='meta'>
+    <div id='meta'>
       <input type='hidden' name='old_slug' id="post_old_slug" value='<%=post.slug%>'>
       <button class='btn btn-small'><a id='post-it'>Edit Done</a></button>
+    </div>
+    <div class="clearfix"></div>
+    <div id="preview">
+      <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
     </div>
   </form>
 </div>
 </body>
 <script>
   $('input#post_created').simpleDatepicker({ startdate: 2009, enddate: 2013 });
+  (function () {
+    var converter = Markdown.getSanitizingConverter();
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+
+    window.onbeforeunload = function(){
+      return '你正在编辑日志，确定不保存编辑内容吗？';
+    };
+
+    $("#post-it").click(function(){
+      window.onbeforeunload = null;
+    });
+
+  })();
 </script>
