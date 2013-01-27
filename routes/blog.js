@@ -213,7 +213,7 @@ exports.feed = function (req, res) {
         link: config.rss.link + '/post/' + post.slug,
         guid: config.rss.link + '/post/' + post.slug,
         pubDate: dateFormat(new Date(post.created)),
-        lastBuildDate: dateFormat(new Date(post.reated)),
+        lastBuildDate: dateFormat(new Date(post.created)),
         description: marked(post.content)
       });
     }
