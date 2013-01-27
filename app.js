@@ -15,13 +15,13 @@ app.configure(function(){
   app.set('port', config.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.use(express.compress());
   app.use(partials());
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({ secret : config.session_secret }));
-  //app.use(require('./routes/admin.js').auth_user);// custom middleware
 });
 
 app.configure('development', function() {
