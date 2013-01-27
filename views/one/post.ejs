@@ -34,15 +34,15 @@
           <div id="reviewer-info">
             <div class="row">
               <input type="text" name='a_uthor' value='' size='24' tabindex='1' required='' id="author" class="textfield">
-              <label for="a_uthor" class="small">Name (required)</label>
+              <label for="author" class="small">Name (required)</label>
             </div>
             <div class="row">
               <input type="text" name='e_mail' value='' size='24' tabindex='2' required='' id="email" class="textfield">
-              <label for="e_mail" class="small">E-mail (required)</label>
+              <label for="email" class="small">E-mail (required)</label>
             </div>
             <div class="row">
               <input type="text" name='u_rl' value='' size='24' tabindex='3' id="url" class="textfield">
-              <label for="u_rl" class="small">Website</label>
+              <label for="url" class="small">Website</label>
             </div>
             <div class="row">
               <textarea name="c_ontent" id="comment" cols="50" rows="7" tabindex='4' ></textarea>
@@ -58,3 +58,10 @@
     </div>
   </div>
 </div>
+<script src='/libs/prettify/prettify.js' type='text/javascript'></script>
+<script type="text/javascript">
+(function(){
+  $("pre").addClass("prettyprint");
+  prettyPrint();
+})()
+</script>
