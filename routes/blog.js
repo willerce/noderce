@@ -3,7 +3,7 @@ var data2xml = require('data2xml');
 var marked = require('marked');
 var dateFormat = require('dateformat');
 var gravatar = require('gravatar');
-var akismet = require('akismet').client(config.akismet_options);
+var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey});
 
 var postDao = require('../dao/post');
 var pageDao = require('../dao/page');
@@ -35,8 +35,8 @@ exports.index = function (req, res, next) {
     postDao.findAll(start, parseInt(config.postNum), function (err, result) {
       for (var i = 0; i < result.length; i++) {
         result[i].content = marked(result[i].content);
-        if(result[i].content.indexOf('<!--more-->')>0){
-          result[i].content = result[i].content.substring(0, result[i].content.indexOf('<!--more-->'))+'<div class="ReadMore"><a href="/post/'+result[i].slug+'">[阅读更多]</a></div>';
+        if (result[i].content.indexOf('<!--more-->') > 0) {
+          result[i].content = result[i].content.substring(0, result[i].content.indexOf('<!--more-->')) + '<div class="ReadMore"><a href="/post/' + result[i].slug + '">[阅读更多]</a></div>';
         }
       }
       var index_obj = {name: config.name, title: config.name, posts: result, crtP: currentPage, maxP: maxPage, nextP: nextPage};
@@ -141,16 +141,16 @@ exports.comment = function (req, res, next) {
 
         comment.avatar = gravatar.url(comment.email, {s: '36', r: 'pg', d: 'mm'});
         commentDao.insert(comment, function (err, comment) {
-          if (!err) {
+          if (!err && comment && comment.length == 1) {
             //配置了 akismet key 而且不为空时，进行 akismet spam检查
             if (config.akismet_options && config.akismet_options.apikey != "") {
               akismet.checkSpam({
-                user_ip: comment.ip,
-                permalink: config.url + "/post/" + comment.post_slug,
-                comment_author: comment.author,
-                comment_content: comment.content,
-                comment_author_email: comment.email,
-                comment_author_url: comment.url,
+                user_ip: comment[0].ip,
+                permalink: config.url + "/post/" + comment[0].post_slug,
+                comment_author: comment[0].author,
+                comment_content: comment[0].content,
+                comment_author_email: comment[0].email,
+                comment_author_url: comment[0].url,
                 comment_type: "comment"
               }, function (err, spam) {
                 //发现SPAM
