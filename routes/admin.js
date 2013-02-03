@@ -13,7 +13,7 @@ var commentDao = require('../dao/comment.js');
 var dateFormat = require('dateformat');
 var marked = require('marked');
 
-var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey, debug:true});
+var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey, debug: true});
 
 //URL: /admin
 exports.index = function (req, res) {
@@ -142,7 +142,7 @@ exports.pageEdit = function (req, res) {
 
     var created = dateFormat(new Date(), "yyyy-mm-dd");
     if (req.body.created)
-      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd")
+      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd");
 
     var page = {
       title: req.body.title,
@@ -160,9 +160,11 @@ exports.pageEdit = function (req, res) {
 
 exports.commentIndex = function (req, res) {
   var limit = 100;
-  commentDao.all({}, limit, function (err, comments) {
+  var status = req.query['status'];
+  if (!status) status = '1';
+  commentDao.all({status: status}, limit, function (err, comments) {
     postDao.all(function (err, posts) {
-      res.render('admin/comment_index', {layout: false, comment_list: comments, posts: posts});
+      res.render('admin/comment_index', {layout: false, comment_list: comments, posts: posts, status: status});
     });
   })
 };

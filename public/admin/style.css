@@ -385,3 +385,10 @@ button.btn-small a {
 .wmd-preview em {font-style: italic;}
 .wmd-preview ul {list-style-type: disc; margin-left:1.5em;}
 .wmd-preview ol {list-style-type: decimal; margin-left:1.5em;}
+
+/**/
+#comment-status {  padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc; }
+#comment-status a:link, a.city:visited, a.city:active { text-decoration: none; display: inline-block; font-size: 13px; line-height: 1em; padding: 4px 5px; border-radius: 3px; color: #555; }
+#comment-status a:hover { background: #eee; color: #000; text-decoration: none; }
+#comment-status a.current:link, a.current:visited, a.current:active { background: #334; color: #fff; }
+#comment-status a.current:hover { background: #445; color: #fff; }
