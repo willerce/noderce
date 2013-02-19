@@ -40,7 +40,7 @@ exports.index = function (req, res, next) {
         }
       }
       var index_obj = {name: config.name, title: config.name, posts: result, crtP: currentPage, maxP: maxPage, nextP: nextPage};
-      res.render(config.theme + '/index', index_obj);
+      res.render('theme/' + config.theme + '/index', index_obj);
     });
   });
 };
@@ -73,7 +73,7 @@ exports.post = function (req, res, next) {
           }
         }
         if (!err) {
-          res.render(config.theme + '/post', {title: page_title, post: post, comments: comments, name: config.name});
+          res.render('theme/' + config.theme + '/post', {title: page_title, post: post, comments: comments, name: config.name});
         } else {
           res.statusCode = 500;
           res.send('500');
@@ -95,7 +95,7 @@ exports.page = function (req, res, next) {
         })
       }
       page.page_title = config.name + " › " + page.title;
-      res.render(config.theme + '/page', {page: page, name: config.name, title: page.page_title});
+      res.render('theme/' + config.theme + '/page', {page: page, name: config.name, title: page.page_title});
     }
     else {
       next();
@@ -237,14 +237,14 @@ exports.archives = function (req, res) {
       archiveList[year].archives.push(archives[i]);
     }
     archiveList = archiveList.sort(sortNumber);
-    res.render(config.theme + '/archives', {title: config.name + " › 文章存档", archives: archiveList, name: config.name});
+    res.render('theme/' + config.theme + '/archives', {title: config.name + " › 文章存档", archives: archiveList, name: config.name});
   });
 };
 
 // URL: /404
 exports.pageNotFound = function (req, res) {
   console.log('404 handler, URL' + req.originalUrl);
-  res.render(config.theme + '/404', {
+  res.render('theme/' + config.theme + '/404', {
     layout: false,
     status: 404,
     title: 'NodeBlog'

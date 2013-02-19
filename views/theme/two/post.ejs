@@ -1,0 +1,67 @@
+<div id="main" class="container post">
+  <div class="content">
+    <article class="post block">
+      <h1 class="title"><%=post.title%></h1>
+      <div class="meta"><time><%=post.created%></time></div>
+      <div class="entry"><%-post.content_html%></div>
+    </article>
+    <%if(comments.length>0){%>
+    <div id="comments" class="block">
+      <ol class="commentlist">
+        <%for(var i=0;i<comments.length;i++){%>
+        <li id='comment-<%=comments[i]._id%>' class='comment clearfix'>
+          <img src="<%=comments[i].avatar%>" width='36' height='36' class='avatar' alt="">
+          <div class="content">
+            <div class="info">
+              <%if(typeof comments[i].url == "undefined"){%>
+              <span class="reviewer"><%=comments[i].author%></span>
+              <%}else{%>
+              <a href="<%=comments[i].url%>" class="reviewer" url='external nofollow'><%=comments[i].author%></a>
+              <%}%>
+              <time datetime='<%=comments[i].created%>'><%=comments[i].created.substring(0,10)%></time>
+              <div class="floor"><%=i+1%></div>
+            </div>
+            <div id="commentbody-53684" class='description' itemprop='description'><%- comments[i].content%></div>
+          </div>
+        </li>
+      <%}%>
+      </ol>
+    </div>
+    <%}%>
+    <div id="reply" class="block inner">
+      <form action="/comment" method='post' id="cmtform">
+        <div id="respond" class="clearfix">
+          <div id="reviewer-info">
+            <div class="row">
+              <input type="text" name='a_uthor' value='' size='24' tabindex='1' required='' id="author" class="textfield">
+              <label for="author" class="small">Name (required)</label>
+            </div>
+            <div class="row">
+              <input type="text" name='e_mail' value='' size='24' tabindex='2' required='' id="email" class="textfield">
+              <label for="email" class="small">E-mail (required)</label>
+            </div>
+            <div class="row">
+              <input type="text" name='u_rl' value='' size='24' tabindex='3' id="url" class="textfield">
+              <label for="url" class="small">Website</label>
+            </div>
+            <div class="row">
+              <textarea name="c_ontent" id="comment" cols="50" rows="7" tabindex='4' ></textarea>
+            </div>
+            <div class="row">
+              <input id="comment-submit" name='submit' type='submit' tabindex='5' value='Post Comment' class="button">
+              <input type="hidden" name='id'  value='<%=post._id%>'>
+              <input type="hidden" name='slug' value='<%=post.slug%>'>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src='/libs/prettify/prettify.js' type='text/javascript'></script>
+<script type="text/javascript">
+(function(){
+  $("pre").addClass("prettyprint");
+  prettyPrint();
+})()
+</script>

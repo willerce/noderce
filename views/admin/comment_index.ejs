@@ -22,14 +22,15 @@
       	<ul>
       		<% comment_list.forEach(function(item){ %>
       		<li>
+            <input type="checkbox" data-id="<%=item._id%>" />
       			<a href='/post?id=<%= item.post_id %>'><%= item.author %></a>
       			<span>&nbsp;post comment on&nbsp;</span>
             <% posts.forEach(function(post){ %> <% if (post._id == item.post_id){ %> <a href='/post/<%= post.slug %>'><%= post.title %></a> <% } %> <% }); %>
             <time><%= item.created %></time>
-      				<span>Status:<%= item.status %></span>
-      				<a id='action delete' href='/admin/comment/delete/<%=item._id%>'>Delete</a>
-      				<a id='action spam' href='/admin/submitSpam/<%=item._id%>'>SPAM</a>
-      				<div id='content'><%= item.content %></div>
+            <span>Status:<%= item.status %></span>
+            <a class='action delete' href='/admin/comment/delete/<%=item._id%>'>Delete</a>
+            <a class='action spam' href='/admin/submitSpam/<%=item._id%>'>SPAM</a>
+            <div class='content'><%= item.content %></div>
       		<% }); %>
       	</ul>
       </div>
