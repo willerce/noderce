@@ -21,6 +21,7 @@
     "akismet":"0.0.6",
     "gravatar":"1.0.6",
     "express-partials":"0.0.6",
+    "express-helper":"0.0.6",
     "ejs":"0.8.3"
   }
 }
