@@ -219,7 +219,7 @@ exports.submitSpam = function (req, res) {
 //URL: /admin/login
 exports.login = function (req, res) {
   if (req.method == "GET") {
-    res.render("admin/login", {layout: false});
+    res.render("admin/login");
   } else if (req.method == "POST") {
     var name = req.body.name.trim();
     var pass = req.body.pass.trim();
@@ -233,16 +233,20 @@ exports.login = function (req, res) {
 
     //判断用户帐号密码
     userDao.get(name, function (err, user) {
-      pass = util.md5(pass);
-      if (user.password != pass) {
-        res.render('admin/login', {
-          layout: false,
-          error: '密码错误。'
-        });
-        return;
+      if (user) {
+        pass = util.md5(pass);
+        if (user.password != pass) {
+          res.render('admin/login', {
+            layout: false,
+            error: '密码错误。'
+          });
+          return;
+        }
+        gen_session(user, res);// store session cookie
+        res.redirect('/admin');
+      } else {
+        res.redirect('/admin/login');
       }
-      gen_session(user, res);// store session cookie
-      res.redirect('/admin');
     });
   }
 };
