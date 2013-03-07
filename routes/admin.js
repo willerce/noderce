@@ -43,7 +43,8 @@ exports.postWrite = function (req, res) {
       slug: req.body.slug,
       content: req.body.content,
       content_html: marked(req.body.content),
-      created: created
+      created: created,
+      tags: req.body.tags.split(',')
     };
 
     postDao.insert(post, function (err, result) {
@@ -77,7 +78,8 @@ exports.postEdit = function (req, res) {
       slug: req.body.slug,
       content: req.body.content,
       content_html: marked(req.body.content),
-      created: created
+      created: created,
+      tags: req.body.tags.split(',')
     };
     postDao.update(req.body.old_slug, post, function (err) {
       if (!err)

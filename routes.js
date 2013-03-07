@@ -16,6 +16,8 @@ module.exports = function (app) {
   app.get('/page/:slug', blog.page);
   app.post('/comment', blog.comment);
 
+  app.get('/tag/:tag', blog.tag);
+
   /* admin */
   app.get('/admin', admin.auth_user, admin.index);
   app.get('/admin/install', admin.install);

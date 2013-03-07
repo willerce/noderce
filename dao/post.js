@@ -8,13 +8,19 @@ var db = require('../config.js').db;
 db.bind('post');
 
 exports.all = function (callback) {
-  db.post.find({},{"content":0}).sort({created:-1, _id:-1}).toArray(function (err, result) {
+  db.post.find({}, {"content": 0}).sort({created: -1, _id: -1}).toArray(function (err, result) {
     callback(err, result)
   });
 };
 
 exports.findAll = function (skip, limit, callback) {
-  db.post.find().sort({created:-1,_id:-1}).skip(skip).limit(limit).toArray(function (err, result) {
+  db.post.find().sort({created: -1, _id: -1}).skip(skip).limit(limit).toArray(function (err, result) {
+    callback(err, result)
+  });
+};
+
+exports.findByTag = function (tag, skip, limit, callback) {
+  db.post.find({tags: tag }).sort({created: -1, _id: -1}).skip(skip).limit(limit).toArray(function (err, result) {
     callback(err, result)
   });
 };
@@ -32,7 +38,7 @@ exports.insert = function (obj, callback) {
 };
 
 exports.update = function (old_slug, post, callback) {
-  db.post.update({slug:old_slug}, {$set:post }, function (err, result) {
+  db.post.update({slug: old_slug}, {$set: post }, function (err, result) {
     callback(err, result);
   })
 };
@@ -41,8 +47,8 @@ exports.delete = function (slug, callback) {
 
 };
 
-exports.count = function (callback) {
-  db.post.count({}, function (err, count) {
+exports.count = function (condition, callback) {
+  db.post.count(condition, function (err, count) {
     callback(err, count);
   });
 };

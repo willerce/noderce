@@ -207,6 +207,14 @@ a {
     background-image: url('images/created.png');
 }
 
+#post_info .item.tags label{
+    background-image: url('images/tags.png');
+}
+
+#post_info .item.tags{
+    margin-top: 10px;
+}
+
 #post_slug,
 #page_slug{
     width: 300px;
@@ -215,6 +223,10 @@ a {
 #post_created,
 #page_created{
     width: 186px;
+}
+
+#post_tags{
+    width: 1000px;
 }
 
 #content {

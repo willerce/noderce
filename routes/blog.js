@@ -12,7 +12,7 @@ var commentDao = require('../dao/comment');
 
 // URL /
 exports.index = function (req, res, next) {
-  postDao.count(function (err, count) {
+  postDao.count({}, function (err, count) {
     if (count == 0) {
       res.redirect("/admin/install");
     }
@@ -44,6 +44,40 @@ exports.index = function (req, res, next) {
     });
   });
 };
+
+
+// URL /tag/*
+exports.tag = function (req, res, next) {
+  postDao.count({tags: req.params.tag }, function (err, count) {
+    var maxPage = parseInt(count / config.postNum) + (count % config.postNum ? 1 : 0);
+    var currentPage = isNaN(parseInt(req.params[0])) ? 1 : parseInt(req.params[0]);
+    if (currentPage <= 0) currentPage = 1;
+    var nextPage = currentPage;
+    var title = config.name;
+    if (currentPage > 1)
+      title += " › 第" + currentPage + "页";
+
+    //skin，即起始位置
+    var start = ( currentPage - 1) * config.postNum;
+
+    if (maxPage < currentPage)
+      return;
+    else if (maxPage > currentPage)
+      nextPage = parseInt(currentPage) + 1;
+
+    postDao.findByTag(req.params.tag, start, parseInt(config.postNum), function (err, result) {
+      for (var i = 0; i < result.length; i++) {
+        result[i].content = marked(result[i].content);
+        if (result[i].content.indexOf('<!--more-->') > 0) {
+          result[i].content = result[i].content.substring(0, result[i].content.indexOf('<!--more-->')) + '<div class="ReadMore"><a href="/post/' + result[i].slug + '">[阅读更多]</a></div>';
+        }
+      }
+      var index_obj = {name: config.name, title: config.name, posts: result, crtP: currentPage, maxP: maxPage, nextP: nextPage};
+      res.render('theme/' + config.theme + '/index', index_obj);
+    });
+  });
+};
+
 
 // URL: /post/slug
 exports.post = function (req, res, next) {

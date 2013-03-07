@@ -23,15 +23,23 @@
     <div id='post_info'>
       <div class='item title'>
         <label for='post_title'><span>Title</span></label>
-        <input type='text' name='title' id='post_title' value='<%=post.title%>' required=""/>
+        <input type='text' name='title' id='post_title' value='<%=post.title%>' required="" placeholder="标题"/>
       </div>
       <div class='item slug'>
         <label for='post_slug'><span>Slug</span></label>
-        <input type='text' name='slug' id='post_slug' value='<%=post.slug%>' required=""/>
+        <input type='text' name='slug' id='post_slug' value='<%=post.slug%>' required="" placeholder="别名"/>
       </div>
       <div class='item created'>
         <label for='post_created'><span>Created</span></label>
         <input type='text' name='created' id='post_created' value='<%=post.created%>' required=''/>
+      </div>
+      <div class='item tags'>
+        <label for='post_tags'><span>Tags</span></label>
+        <%if(post.tags != undefined){%>
+        <input type='text' name='tags' id='post_tags' value='<%=post.tags%>' required='' placeholder="标签">
+        <%}else{%>
+        <input type='text' name='tags' id='post_tags' required='' placeholder="标签，在英文逗号分割">
+        <%}%>
       </div>
       <div class="clearfix"></div>
     </div>
