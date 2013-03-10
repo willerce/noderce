@@ -44,9 +44,16 @@ pre code{padding:0;background-color:transparent}
 #main-footer{clear:both;margin-top:20px;padding:10px 0;background:url("images/footersub.png") repeat-x center top #dcdcdc}
 #main-footer p{margin-bottom:0;color:#818181;text-align:left}
 .title{margin-bottom:5px;font-weight:bold;font-size:1.8em;font-family:Pmingliu,Mingliu;line-height:1em}
-#main.page h1.title{margin-bottom:10px;padding-bottom:15px;}
+#main.page h1.title,#main.tags h1.title{margin-bottom:10px;padding-bottom:15px;}
 #main .post .meta{margin-bottom:15px;color:#777;font-size:10px}
 #main .post{margin-bottom:20px;padding:30px}
+#main.post .tags {font-size: 12px;}
+#main.tags section {padding: 30px }
+#main.tags article{margin: 10px 0;color: #666;}
+#main.tags article time {margin-right: 8px; color: #666; font-size: 13px;}
+#main.tags article a {font-size: 13px;}
+
+
 #post-entry .content{margin-bottom:10px;border-bottom:1px dashed #ccc}
 .post .entry{font-size: 14px;line-height: 1.9;text-align: justify;}
 .post .entry p{margin-bottom:1em}

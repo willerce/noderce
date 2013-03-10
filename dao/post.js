@@ -19,8 +19,8 @@ exports.findAll = function (skip, limit, callback) {
   });
 };
 
-exports.findByTag = function (tag, skip, limit, callback) {
-  db.post.find({tags: tag }).sort({created: -1, _id: -1}).skip(skip).limit(limit).toArray(function (err, result) {
+exports.findByTag = function (tag, callback) {
+  db.post.find({tags: tag }).sort({created: -1, _id: -1}).toArray(function (err, result) {
     callback(err, result)
   });
 };
