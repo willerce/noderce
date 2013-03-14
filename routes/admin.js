@@ -219,7 +219,7 @@ exports.submitSpam = function (req, res) {
 //URL: /admin/login
 exports.login = function (req, res) {
   if (req.method == "GET") {
-    res.render("admin/login");
+    res.render("admin/login", {layout: false});
   } else if (req.method == "POST") {
     var name = req.body.name.trim();
     var pass = req.body.pass.trim();
