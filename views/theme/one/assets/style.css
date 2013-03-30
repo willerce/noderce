@@ -35,11 +35,11 @@ pre code{padding:0;background-color:transparent}
 .alignright{ float: right;}
 .alignleft{ float: left;}
 
-#main-header{margin-bottom:20px;height:45px;border-bottom:1px solid #84201f;background:#bb3131;background:-moz-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-webkit-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-o-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-ms-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:linear-gradient(to bottom,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);box-shadow:0 1px 10px rgba(0,0,0,0.2)}
-#logo{float:left;color:#f5f5f5;font-size:30px;line-height:45px;}
+#main-header{margin-bottom:20px;height:70px;border-bottom:1px solid #84201f;background:#bb3131;background:-moz-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-webkit-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-o-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:-ms-linear-gradient(top,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);background:linear-gradient(to bottom,#c63a3a 0,#c43837 29%,#c13635 55%,#bd3232 55%,#ba3030 77%,#b32b2b 100%);box-shadow:0 1px 10px rgba(0,0,0,0.2)}
+#logo{float:left;color:#f5f5f5;font-size:30px;line-height:70px;}
 #main-header nav{position:absolute;top:0;right:5px}
 #main-header nav ul li{display:inline}
-#main-header nav ul li a{float:left;display:block;margin-left:20px;color:#ddd;font-weight:600;line-height:45px;font-family: 'Microsoft Yahei';}
+#main-header nav ul li a{float:left;display:block;margin-left:20px;color:#ddd;font-weight:500;line-height:70px;font-family: 'Microsoft Yahei';}
 #main-header nav ul li a:hover{color:#fff}
 #main-footer{clear:both;margin-top:20px;padding:10px 0;background:url("images/footersub.png") repeat-x center top #dcdcdc}
 #main-footer p{margin-bottom:0;color:#818181;text-align:left}

@@ -1,20 +1,18 @@
 <div id="main" class="container page">
-    <div class="content">
-        <article class="post block">
-            <h1 class="title">文章存档</h1>
-            <div class="entry archives">
-                <%archives.forEach(function(year){%>
-                <h2><%=year.year%></h2>
-                <ul>
-                    <%year.archives.forEach(function(item){%>
-                    <li>
-                        <time datetime="<%=item.created%>"><%=item.created%></time>
-                        <a href="/post/<%=item.slug%>"><%=item.title%></a>
-                    </li>
-                    <%})%>
-                </ul>
-                <%})%>
-            </div>
-        </article>
+  <h1 class="title">文章存档</h1>
+  <article class="post block">
+    <div class="entry archives">
+      <%archives.forEach(function(year){%>
+      <h2><%=year.year%></h2>
+      <ul>
+        <%year.archives.forEach(function(item){%>
+        <li>
+          <time datetime="<%=item.created%>"><%=item.created%></time>
+          <a href="/post/<%=item.slug%>"><%=item.title%></a>
+        </li>
+        <%})%>
+      </ul>
+      <%})%>
     </div>
+  </article>
 </div>

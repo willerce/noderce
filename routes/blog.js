@@ -231,7 +231,8 @@ exports.feed = function (req, res) {
         description: marked(post.content)
       });
     }
-    var rss_content = data2xml('rss', rss_obj);
+    var rss_content = data2xml({})('rss', rss_obj);
+    console.log(rss_content);
     res.contentType('application/xml');
     res.send(rss_content);
   });

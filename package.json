@@ -13,15 +13,14 @@
     "npm": "1.1.43"
   },
   "dependencies": {
-    "express": "3.0.0",
-    "data2xml": "0.5.0",
+    "express": "3.1.0",
+    "data2xml": "0.8.0",
     "mongoskin": "0.4.1",
-    "marked": "0.2.7",
-    "dateformat":"1.0.2-1.2.3",
+    "marked": "0.2.8",
+    "dateformat":"1.0.6-1.2.3",
     "akismet":"0.0.6",
     "gravatar":"1.0.6",
     "express-partials":"0.0.6",
-    "express-helper":"0.0.6",
     "ejs":"0.8.3"
   }
 }
