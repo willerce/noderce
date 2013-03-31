@@ -15,7 +15,7 @@
   "dependencies": {
     "express": "3.1.0",
     "data2xml": "0.8.0",
-    "mongoskin": "0.4.1",
+    "mongoskin": "0.5.0",
     "marked": "0.2.8",
     "dateformat":"1.0.6-1.2.3",
     "akismet":"0.0.6",
