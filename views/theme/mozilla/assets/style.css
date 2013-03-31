@@ -427,6 +427,9 @@ textarea#comment {
     background: -webkit-gradient(linear, left top, left bottom, from(#FFF), color-stop(0.05, #63BC68), to(#44A049));
     background: -moz-linear-gradient(top, #FFF, #63BC68 5%, #44A049);
 }
+#no_author {
+    display: none;
+}
 
 .commentlist .comment {
     list-style: none;

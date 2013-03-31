@@ -49,7 +49,7 @@ exports.index = function (req, res, next) {
 // URL /tag/*
 exports.tag = function (req, res, next) {
   postDao.findByTag(req.params.tag, function (err, result) {
-    if(err) return;
+    if (err) return;
     for (var i = 0; i < result.length; i++) {
       result[i].content = marked(result[i].content);
     }
@@ -122,7 +122,13 @@ exports.comment = function (req, res, next) {
   var id = req.body.id;
   var slug = req.body.slug;
 
+  //这是一个隐藏的input，如果有值，说明是垃圾评论机器人
+  var no_author = req.body.author;
+
   if (id == "" || slug == "" || !req.headers['referer'] || req.headers['referer'].indexOf(slug) <= 0) {
+    return res.redirect("/fuck-spam-comment");
+  } else if (no_author !== "") {
+    console.log("no_author not is empty");
     return res.redirect("/fuck-spam-comment");
   } else {
     postDao.get({slug: slug}, function (err, post) {
@@ -232,7 +238,6 @@ exports.feed = function (req, res) {
       });
     }
     var rss_content = data2xml({})('rss', rss_obj);
-    console.log(rss_content);
     res.contentType('application/xml');
     res.send(rss_content);
   });
