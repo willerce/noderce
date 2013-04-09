@@ -108,7 +108,8 @@ pre code {
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    width: 90%;
+    width: 95%;
+    max-width: 1140px;
 }
 .block {
     position: relative;
@@ -200,7 +201,7 @@ pre code {
 #main-footer a {
     color: #eb9f81;
 }
-
+#main {min-height: 100%;}
 .title {
     margin-bottom: 5px;
     font-weight: bold;
@@ -492,6 +493,45 @@ textarea#comment {
 }
 .comment .description ul li, .comment .description ol li {
     list-style-position: outside;
+}
+
+
+@media print, screen and (max-width: 830px) {
+    #main-header{
+        margin-bottom: 0;
+        padding: 0 10px;
+    }
+    .sidebar {
+        display: none;
+    }
+    .container {
+        width: auto;
+        margin:0;
+    }
+    #main .posts {
+        margin: 0 0 26px 0;
+    }
+
+    .inner {
+        padding: 15px;
+    }
+
+    #main .post {
+        padding: 10px;
+    }
+
+    .commentlist .comment {
+        padding: 10px 15px;
+    }
+
+    #respond .textfield {
+        width: 50%;
+    }
+
+    textarea#comment {
+        width: 95%;
+        resize: vertical;
+    }
 }
 
 /* Tomorrow Night Eighties Theme */
