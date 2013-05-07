@@ -17,7 +17,7 @@ var config = {
   auth_cookie_name: process.env.AUTH_COOKIE_NAME || 'nd_secret',//cookie 名字
   spam_cookie_name: process.env.SPAM_COOKIE_NAME || 'nd_spam',//防spam cookie的名字
   port: process.env.PORT || 3000,//端口号
-  theme: process.env.THEME || 'mozilla'//主题名称
+  theme: process.env.THEME || 'one'//主题名称
 };
 
 config.akismet_options = {
