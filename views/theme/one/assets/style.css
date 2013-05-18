@@ -15,9 +15,9 @@ a{color:#3d658d;text-decoration:none}
 a:hover{text-decoration:underline}
 a img:hover{border:0;background:0}
 strong{font-weight:bold}
-code,pre{padding:0 3px 2px;color:#333;font-size:12px;font-family: Menlo,Monaco,Consolas,"Lucida Console","Courier New",monospace}
+code,pre{padding:0 3px 2px;color:#333;font-size:12px;font-family: Menlo,Monaco,Consolas,"Lucida Console","Courier New","Microsoft Yahei",monospace}
 code{padding:3px 4px;background-color:#f5f5f5}
-pre{display:block;margin:0 0 18px;padding:5px 7px;background-color:#F0F0F0;white-space:pre-wrap;font-size:12px;line-height:1.3em}
+pre{display:block;margin:0 0 18px;padding:5px 7px;background-color:#F0F0F0;white-space:pre-wrap;font-size:12px;line-height:1.5em}
 pre.prettyprint{border:none;}
 pre code{padding:0;background-color:transparent}
 ::selection{background:#c9302f;color:#fff;text-shadow:none}
