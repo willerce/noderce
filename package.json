@@ -17,8 +17,9 @@
     "data2xml": "0.9.0",
     "mongoskin": "0.6.0",
     "marked": "0.2.9",
-    "akismet":"0.0.6",
-    "gravatar":"1.0.6",
-    "ejs":"0.8.4"
+    "akismet": "0.0.6",
+    "gravatar": "1.0.6",
+    "ejs": "0.8.4",
+    "moment": "~2.2.1"
   }
 }
