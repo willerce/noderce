@@ -7,7 +7,7 @@
           <a href="/post/<%=item.slug%>"><%=item.title%></a>
         </h2>
         <div class="meta">
-          <time><%=item.created%></time>
+          <time><%=locals.moment(item.created).format("L")%></time>
         </div>
         <div class="entry"><%-item.content%></div>
       </article>

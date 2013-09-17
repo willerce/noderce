@@ -2,7 +2,7 @@
   <div class="content">
     <article class="post block">
       <h1 class="title"><%=post.title%></h1>
-      <div class="meta"><time><%=post.created%></time></div>
+      <div class="meta"><time><%=locals.moment(post.created).format("L")%></time></div>
       <div class="entry"><%-post.content_html%></div>
       <div class="tags">
         <%if(post.tags && post.tags.length > 0){%>
@@ -33,7 +33,7 @@
               <%}else{%>
               <a href="<%=comments[i].url%>" class="reviewer" url='external nofollow'><%=comments[i].author%></a>
               <%}%>
-              <time datetime='<%=comments[i].created%>'><%=comments[i].created.substring(0,10)%></time>
+              <time datetime='<%=comments[i].created%>'><%=locals.moment(comments[i].created).format("L")%></time>
               <div class="floor"><%=i+1%></div>
             </div>
             <div id="commentbody-53684" class='description' itemprop='description'><%- comments[i].content%></div>
@@ -74,5 +74,4 @@
       </form>
     </div>
   </div>
-  <div class="clearfix"></div>
 </div>
