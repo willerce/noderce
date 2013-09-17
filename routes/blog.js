@@ -1,7 +1,7 @@
 var config = require('../config').config;
 var data2xml = require('data2xml');
 var marked = require('marked');
-var dateFormat = require('dateformat');
+var moment = require('moment');
 var gravatar = require('gravatar');
 var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey});
 
@@ -141,7 +141,7 @@ exports.comment = function (req, res, next) {
           url: req.body.u_rl,
           content: req.body.c_ontent,
           ip: req.ip,
-          created: dateFormat(new Date(), "isoDateTime"),
+          created: moment().format(),
           status: "1"//状态： 1：正常，0：SPAM
         };
 
@@ -232,8 +232,8 @@ exports.feed = function (req, res) {
         },
         link: config.rss.link + '/post/' + post.slug,
         guid: config.rss.link + '/post/' + post.slug,
-        pubDate: dateFormat(new Date(post.created)),
-        lastBuildDate: dateFormat(new Date(post.created)),
+        pubDate: moment(post.created).format(),
+        lastBuildDate: moment(post.created).format(),
         description: marked(post.content)
       });
     }

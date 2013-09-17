@@ -10,8 +10,8 @@ var userDao = require('../dao/user.js');
 var postDao = require('../dao/post.js');
 var pageDao = require('../dao/page.js');
 var commentDao = require('../dao/comment.js');
-var dateFormat = require('dateformat');
 var marked = require('marked');
+var moment = require('moment');
 
 var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey, debug: true});
 
@@ -34,9 +34,9 @@ exports.postWrite = function (req, res) {
     res.render('admin/post_write', {layout: false});
   } else if (req.method == 'POST') {// POST a post
 
-    var created = dateFormat(new Date(), "yyyy-mm-dd");
+    var created = moment().format();
     if (req.body.created)
-      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd");
+      created = moment(req.body.created).format();
 
     var post = {
       title: req.body.title,
@@ -69,9 +69,9 @@ exports.postEdit = function (req, res) {
     })
   } else if (req.method == "POST") {
 
-    var created = dateFormat(new Date(), "yyyy-mm-dd");
+    var created = moment().format();
     if (req.body.created)
-      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd");
+      created = moment(req.body.created).format();
 
     var post = {
       title: req.body.title,
@@ -108,9 +108,9 @@ exports.pageWrite = function (req, res) {
     res.render('admin/page_write', {layout: false});
   } else if (req.method == 'POST') {// POST a post
 
-    var created = dateFormat(new Date(), "yyyy-mm-dd");
+    var created = moment().format();
     if (req.body.created)
-      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd")
+      created = moment(req.body.created).format();
 
     var page = {
       title: req.body.title,
@@ -142,9 +142,9 @@ exports.pageEdit = function (req, res) {
     })
   } else if (req.method == "POST") {
 
-    var created = dateFormat(new Date(), "yyyy-mm-dd");
+    var created = moment().format();
     if (req.body.created)
-      created = dateFormat(new Date(req.body.created), "yyyy-mm-dd");
+      created = moment(req.body.created).format();
 
     var page = {
       title: req.body.title,
@@ -318,7 +318,7 @@ exports.install = function (req, res, next) {
                 title: "Hello world!",
                 slug: "hello-world",
                 content: "欢迎使用 noderce. 这是程序自动发布的一篇文章。欢迎 fork noderce : https://github.com/willerce/noderce",
-                created: dateFormat(new Date(), "yyyy-mm-dd")
+                created: moment().format()
               };
 
               postDao.insert(post, function (err, result) {
@@ -331,7 +331,7 @@ exports.install = function (req, res, next) {
                     email: "willerce@gmail.com",
                     url: "http://willerce.com",
                     content: "欢迎使用Noderce，欢迎与我交流Nodejs相关技术、",
-                    created: dateFormat(new Date(), "isoDateTime")
+                    created: moment().format()
                   };
 
 

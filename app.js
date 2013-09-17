@@ -24,6 +24,7 @@ app.configure(function () {
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({ secret: config.session_secret }));
+  app.locals.moment= require('moment')
 });
 
 app.configure('development', function () {
