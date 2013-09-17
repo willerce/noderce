@@ -2,7 +2,7 @@
   <div class="content">
     <article class="post block">
       <h1 class="title"><%=post.title%></h1>
-      <div class="meta"><time><%=locals.moment(post.created).format("L")%></time></div>
+      <div class="meta"><time datetime="<%=locals.moment(post.created).format()%>"><%=locals.moment(post.created).format("L")%></time></div>
       <div class="entry"><%-post.content_html%></div>
       <div class="tags">
         <%if(post.tags && post.tags.length > 0){%>
@@ -25,7 +25,6 @@
         <%for(var i=0;i < comments.length ;i++){%>
         <li id='comment-<%=comments[i]._id%>' class='comment clearfix'>
           <img src="<%=comments[i].avatar%>" width='36' height='36' class='avatar' alt="">
-
           <div class="content">
             <div class="info">
               <%if(typeof comments[i].url == "undefined"){%>
