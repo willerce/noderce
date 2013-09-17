@@ -43,12 +43,12 @@ input.textfield, textarea {
     color: #707b91;
 }
 body {
-    color: #707b91;
+    color: #586276;
     background: #eff0f2;
     height: 100%;
     width: 100%;
     position: relative;
-    font: normal 14px/1.7 "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, "STHeiti", SimSun, "Microsoft Yahei", sans-serif;
+    font: normal 14px/1.7 "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeiti","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;
 }
 a {
     color: #3d658d;
@@ -157,7 +157,7 @@ blockquote {
 .wrapper {
     min-height: 100%;
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 25px;
 }
 #main {
     margin: 50px auto;
@@ -168,19 +168,18 @@ blockquote {
  *****************************/
 
 #main-header {
-    height: 120px;
+    height: 90px;
     background: #fff;
 }
 #logo {
     float: left;
     font-size: 30px;
-    line-height: 45px;
-    margin-top: 37px;
+    line-height: 90px;
     color: #415b76;
 }
 #main-header nav {
     position: absolute;
-    top: 37px;
+    top: 0;
     right: 5px
 }
 #main-header nav ul li {
@@ -190,24 +189,20 @@ blockquote {
     float: left;
     display: block;
     margin-left: 20px;
-    color: #8d95a7;
-    font-weight: 600;
-    line-height: 45px;
+    color: #586276;
+    line-height: 90px;
 }
 #main-header nav ul li a:hover {
     color: #707b91;
 }
 #main-footer {
-    clear: both;
+    color: #707b91;
     margin-top: 20px;
     padding: 10px 0;
     position: absolute;
     width: 100%;
     bottom: 0;
-}
-#main-footer p {
-    margin-bottom: 0;
-    text-align: left
+    font-size: 12px;
 }
 .title {
     margin-bottom: 5px;
