@@ -13,14 +13,14 @@
     "npm": "1.1.43"
   },
   "dependencies": {
-    "express": "3.4.0",
-    "data2xml": "0.9.0",
-    "mongoskin": "0.6.0",
-    "marked": "0.2.9",
-    "akismet": "0.0.6",
-    "gravatar": "1.0.6",
-    "ejs": "0.8.4",
-    "moment": "~2.2.1",
+    "express": "~3.4.7",
+    "data2xml": "~0.9.0",
+    "mongoskin": "~0.6.1",
+    "marked": "~0.2.10",
+    "akismet": "~0.0.10",
+    "gravatar": "~1.0.6",
+    "ejs": "~0.8.5",
+    "moment": "~2.4.",
     "express-partials": "~0.1.1"
   }
 }

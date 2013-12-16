@@ -6,10 +6,10 @@
 
 var util = require('../lib/util.js');
 var config = require('../config.js').config;
-var userDao = require('../dao/user.js');
-var postDao = require('../dao/post.js');
-var pageDao = require('../dao/page.js');
-var commentDao = require('../dao/comment.js');
+var userDao = require('../data/user.js');
+var postDao = require('../data/post.js');
+var pageDao = require('../data/page.js');
+var commentDao = require('../data/comment.js');
 var marked = require('marked');
 var moment = require('moment');
 

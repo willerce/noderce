@@ -5,9 +5,9 @@ var moment = require('moment');
 var gravatar = require('gravatar');
 var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey});
 
-var postDao = require('../dao/post');
-var pageDao = require('../dao/page');
-var commentDao = require('../dao/comment');
+var postDao = require('../data/post');
+var pageDao = require('../data/page');
+var commentDao = require('../data/comment');
 
 
 // URL /
