@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>Noderce Dashboard</title>
+  <!-- Framework CSS -->
+  <link rel="stylesheet" href="./assets/libs/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="./assets/libs/blueprint/print.css" type="text/css" media="print">
+  <!--[if lt IE 8]><link rel="stylesheet" href="./assets/libs/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  <link rel="stylesheet" type="text/css" href="./assets/libs/pagedown/style.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+  <script data-main="app/main" src="./app/libs/require/require.js"></script>
+</head>
+<body>
+<div id="container">
+  <header>
+    <hgroup>
+      <h1>Noderce</h1>
+      <h2>A Node.js Blog Engine</h2>
+    </hgroup>
+    <nav>
+      <h3>管理面板</h3>
+      <ul>
+        <li><a href="#/">概览</a></li>
+      </ul>
+      <h3>文章管理</h3>
+      <ul>
+        <li><a href="#/post/add">新建文章</a></li>
+        <li><a href="#/post">文章列表</a></li>
+      </ul>
+      <h3>页面管理</h3>
+      <ul>
+        <li><a href="#/page/add">新建页面</a></li>
+        <li><a href="#/page">页面列表</a></li>
+      </ul>
+      <h3>评论管理</h3>
+      <ul>
+        <li><a href="#/comment">评论列表</a></li>
+        <li><a href="#/akismet">Akismet</a></li>
+      </ul>
+      <h3>设置</h3>
+      <ul>
+        <li><a href="#/page/add">基础设置</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="main" role="main"></div>
+</div>
+</body>
+</html>

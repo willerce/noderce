@@ -1,0 +1,302 @@
+body {
+    font: 14px helvetica, arial, "Microsoft Yahei", "微软雅黑", sans-serif;
+    line-height: 21px;
+}
+
+/* Scrollbars ------------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbars ------------------------------------------------------------------------------- */
+
+header {
+    background: #3a3f42;
+    bottom: 0;
+    cursor: default;
+    left: 0;
+    overflow-y: scroll;
+    padding: 0 0 30px 0;
+    position: absolute;
+    top: 0;
+    width: 220px;
+}
+
+#main {
+    bottom: 0;
+    left: 220px;
+    margin: 0;
+    overflow-y: scroll;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 40px 40px 60px 40px;
+}
+
+header hgroup {
+    padding: 15px;
+}
+
+header hgroup {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.36);
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.11);
+}
+
+header h1 {
+    color: #fff;
+    font-size: 18px;
+    text-shadow: 0 -1px 0 #000;
+}
+
+header h2 {
+    color: #c7c7c7;
+    font-size: 12px;
+    text-shadow: 0 -1px 0 #000;
+}
+
+header h3 {
+    color: #A4B4B7;
+    font-size: 14px;
+    text-shadow: 0 -1px 0 #000;
+    margin: 15px 0 5px 15px;
+}
+
+header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+header a {
+    box-sizing: border-box;
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    color: #bbb;
+    display: block;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 15px 0 30px;
+    text-shadow: 0 1px 0 #000;
+}
+
+header a:link,
+header a:visited {
+    color: #c7c7c7;
+    text-decoration: none;
+}
+
+header .selected {
+    background: rgba(112, 112, 112, 0.24);
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    color: #fff !important;
+}
+
+header a:hover {
+    background: rgba(112, 112, 112, 0.24);
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    color: #fff !important;
+}
+
+header a:focus {
+    border: 1px solid #0940fd;
+    -webkit-box-shadow: 0 0 4px #0088ff;
+    box-shadow: 0 0 4px #0088ff;
+    outline: none;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 0 10px 0 25px;
+    background: rgba(112, 112, 112, 0.24);
+    color: #fff !important;
+}
+
+header a:active {
+    background: rgba(0, 0, 0, 0.24);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+@-webkit-keyframes highlight {
+    0% {
+        color: #0083E8;
+        text-shadow: 0 0 4px rgba(0, 136, 255, .69);
+    }
+    100% {
+        color: #000;
+        text-shadow: none;
+    }
+}
+
+#main .loading {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+}
+
+/* POST EDIT ------------------------------------------------------------------------------- */
+#post {
+    min-width: 1058px;
+
+}
+#post_info .item {
+    float: left;
+    position: relative;
+}
+#post_info .item input {
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 40px;
+    border: 1px solid #ABADB3;
+    margin: 0;
+    padding: 0;
+}
+
+#post_info .item input:focus,
+#content textarea:focus {
+    outline: none;
+    background: #FFFFDF;
+    border: 1px solid #ABADB3;
+}
+
+#post_info .item label {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    border-right: 1px solid #ABADB3;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background: #eee no-repeat 7px 8px;
+}
+
+#post_info .item label span {
+    display: none;
+}
+
+#post_title,
+#page_title {
+    width: 466px;
+    margin-right: 20px !important;
+}
+#post_info .item.title label {
+    background-image: url('../img/title.png');
+}
+#post_info .item.slug label {
+    background-image: url('../img/slug.png');
+}
+#post_info .item.created label {
+    background-image: url('../img/created.png');
+}
+
+#post_info .item.tags label {
+    background-image: url('../img/tags.png');
+}
+
+#post_info .item.tags {
+    margin-top: 10px;
+}
+
+#post_slug,
+#page_slug {
+    width: 360px;
+    margin-right: 20px !important;
+}
+#post_created,
+#page_created {
+    width: 186px;
+}
+
+#post_tags {
+    width: 1056px;
+}
+
+#content {
+    margin: 10px 0;
+}
+#wmd-button-row {
+    width: 1036px;
+    margin: 0;
+}
+.post_content {
+    font-size: 15px;
+    width: 1046px;
+    height: 450px;
+    padding: 3px 5px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.spinner {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 0.75s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 0.75s;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 0.75s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 0.75s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+}
+.spinner {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    width: 16px;
+    height: 16px;
+    background: url("../img/spinner.png") 50% no-repeat;
+    background-size: 100%;
+}
+.spinner.large {
+    width: 36px;
+    height: 36px;
+    background: url("../img/spinner2x.png") 50% no-repeat;
+    background-size: 100%;
+}
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes rotate {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}

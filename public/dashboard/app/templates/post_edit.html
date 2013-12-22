@@ -1,0 +1,35 @@
+<section id="post" class="posts">
+  <h3>编辑文章</h3>
+  <div class="content">
+    <form id="write_post" method="post">
+      <div id="post_info">
+        <div class="item title">
+          <label for="post_title"><span>Title</span></label>
+          <input type="text" name="title" id="post_title" value="{{=it.title}}"/>
+        </div>
+        <div class="item slug">
+          <label for="post_slug"><span>Slug</span></label>
+          <input type="text" name="slug" id="post_slug" value="{{=it.slug}}" required="">
+        </div>
+        <div class="item created">
+          <label for="post_created"><span>Created</span></label>
+          <input type="text" name="created" id="post_created" value="{{=it.created}}" required="">
+        </div>
+        <div class="item tags">
+          <label for="post_tags"><span>Tags</span></label>
+          <input type="text" name="tags" id="post_tags" value="{{=it.tags}}" placeholder="标签，在英文逗号分割">
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="content">
+        <div class="wmd-panel">
+          <div id="wmd-button-bar"></div>
+          <textarea class="post_content" name="content" id="wmd-input" required="">{{=it.content}}</textarea>
+        </div>
+      </div>
+      <div id="meta">
+        <button id="savePost">保存</button>
+      </div>
+    </form>
+  </div>
+</section>

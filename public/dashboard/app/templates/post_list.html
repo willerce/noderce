@@ -1,0 +1,32 @@
+<section id="post" class="posts">
+  <h3>文章列表</h3>
+  <div class="content">
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>标题</th>
+          <th>别名</th>
+          <th>标签</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{~it :item:index}}
+      <tr data-id="{{=item._id}}">
+        <td>{{=it.length-index}}</td>
+        <td class="var">{{=item.title}}</td>
+        <td>{{=item.slug}}</td>
+        <td>{{=item.tags}}</td>
+        <td>{{=item.created}}</td>
+        <td>
+          <a href="#/post/{{=item._id}}">编辑</a>
+          <a href="#call-to-action-button">删除</a>
+        </td>
+      </tr>
+      {{~}}
+      </tbody>
+    </table>
+  </div>
+</section>
