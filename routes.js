@@ -8,15 +8,6 @@ var blog = require('./routes/blog');
 var admin = require('./routes/admin');
 
 module.exports = function (app) {
-  app.get('/', blog.index);
-  app.get('/post/:slug', blog.post);
-  app.get(/^\/p\/(\d+)$/, blog.index);
-  app.get('/feed', blog.feed);
-  app.get('/archives', blog.archives);
-  app.get('/page/:slug', blog.page);
-  app.post('/comment', blog.comment);
-
-  app.get('/tag/:tag', blog.tag);
 
   /* admin */
   app.get('/admin', admin.auth_user, admin.index);
@@ -46,6 +37,16 @@ module.exports = function (app) {
   app.get('/admin/verifyAkismet', admin.auth_user, admin.verifyAkismet);
   app.get('/admin/submitSpam/:id', admin.auth_user, admin.submitSpam);
 
+  /* blog */
+  app.get('/', blog.index);
+  app.get(/^\/page\/(\d+)$/, blog.index);
+  app.get('/feed', blog.feed);
+  app.get('/archives', blog.archives);
+  app.post('/comment', blog.comment);
+  app.get('/post/:slug', blog.post);
+  app.get('/:slug', blog.page);
+
+  app.get('/tag/:tag', blog.tag);
 
   app.get('*', blog.pageNotFound);
 };
