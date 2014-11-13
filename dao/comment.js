@@ -4,6 +4,8 @@
  * Time: 8:57 PM
  */
 
+var mongoskin = require('mongoskin');
+
 var db = require('../config.js').db;
 db.bind('comment');
 
@@ -26,7 +28,7 @@ exports.findByPostId = function (post_id, callback) {
 };
 
 exports.findOne = function (id, callback) {
-  db.comment.findOne({_id: db.ObjectID.createFromHexString(id)}, function (err, result) {
+  db.comment.findOne({_id: mongoskin.helper.toObjectID(id)}, function (err, result) {
     callback(err, result);
   });
 };
@@ -38,13 +40,13 @@ exports.save = function (obj, callback) {
 };
 
 exports.deleteById = function (id, callback) {
-  db.comment.remove({_id: db.ObjectID.createFromHexString(id)}, function (err, result) {
+  db.comment.remove({_id: mongoskin.helper.toObjectID(id)}, function (err, result) {
     callback(err, result);
   })
 };
 
 exports.updateAvater = function (id, avater, callback) {
-  db.comment.update({_id: db.ObjectID.createFromHexString(id)}, {$set: {avatar:avater} }, function (err, result) {
+  db.comment.update({_id: mongoskin.helper.toObjectID(id)}, {$set: {avatar:avater} }, function (err, result) {
     callback(err, result);
   })
 };
