@@ -35,6 +35,14 @@ Noderce AppFog 部署指南：[http://willerce.com/post/noderce-deploy-to-appfog
 
 akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需要到 http://akismet.com/ 申请一个 api key。然后修改 config.js 中的 akismet_key 变量。如果不想开启此功能，请留空。默认为空
 
+##ChangeLog
+
+####2014-11-13
+
+1. 更新mongoskin版本为1.3.20，不然会报错，因为mongodb的接口已经修改
+2. 修改`db.ObjectID.createFromHexString`为`mongoskin.helper.toObjectID`以适应新版本
+
+
 
 ##License
 
@@ -47,4 +55,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
