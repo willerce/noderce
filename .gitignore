@@ -18,3 +18,4 @@ npm-debug.log
 *.iml
 config.js
 .DS_Store
+/logs
