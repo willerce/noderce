@@ -42,7 +42,11 @@ akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需
 1. 更新mongoskin版本为1.3.20，不然会报错，因为mongodb的接口已经修改
 2. 修改`db.ObjectID.createFromHexString`为`mongoskin.helper.toObjectID`以适应新版本
 
+####2014-11-14
 
+1. 添加log4js调试模块
+2. 添加http请求记录到文件的模块
+3. 给404页面添加404状态码
 
 ##License
 

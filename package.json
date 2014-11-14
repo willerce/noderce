@@ -13,14 +13,16 @@
     "npm": "1.1.43"
   },
   "dependencies": {
-    "express": "3.4.0",
-    "data2xml": "0.9.0",
-    "mongoskin": "1.3.20",
-    "marked": "0.2.9",
     "akismet": "0.0.6",
-    "gravatar": "1.0.6",
+    "data2xml": "0.9.0",
     "ejs": "0.8.4",
+    "express": "3.4.0",
+    "express-partials": "~0.1.1",
+    "gravatar": "1.0.6",
+    "log4js": "^0.6.21",
+    "marked": "0.2.9",
     "moment": "~2.2.1",
-    "express-partials": "~0.1.1"
+    "mongoskin": "1.3.20",
+    "morgan": "^1.5.0"
   }
 }

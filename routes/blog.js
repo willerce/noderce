@@ -264,6 +264,7 @@ exports.archives = function (req, res) {
 // URL: /404
 exports.pageNotFound = function (req, res) {
   console.log('404 handler, URL' + req.originalUrl);
+  res.status(404);
   res.render('theme/' + config.theme + '/404', {
     layout: false,
     status: 404,
