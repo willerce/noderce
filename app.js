@@ -3,7 +3,10 @@
  */
 
 var express = require('express');
-var http = require('http');
+var morgan = require('morgan');
+var fs = require('fs');
+
+// var http = require('http');
 var routes = require('./routes');
 var config = require('./config.js').config;
 var partials = require('express-partials');
@@ -12,6 +15,15 @@ var app = express();
 var static_dir = __dirname + '/public';
 var theme_static_dir = __dirname + '/views/theme/' + config.theme + '/assets';
 var admin_static_dir = __dirname + '/views/admin/assets';
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(__dirname + '/error.log', {flags: 'a'});
+app.use(morgan('short', {
+  stream: accessLogStream,
+  skip: function(req, res){ // 只记录错误和跳转响应
+    return res.statusCode < 300 || res.statusCode == 304;
+  }
+}));
 
 app.configure(function () {
   app.set('port', config.port);
