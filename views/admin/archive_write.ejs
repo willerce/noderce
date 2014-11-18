@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <title>Noderce 管理中心 > 新建分类</title>
+  <link rel="stylesheet" href="/admin/assets/style.css">
+  <script src="/libs/jquery.min.js"></script>
+  <script src="/libs/cal.js"></script>
+  <script src="/libs/pagedown/Markdown.Converter.js"></script>
+  <script src="/libs/pagedown/Markdown.Sanitizer.js"></script>
+  <script src="/libs/pagedown/Markdown.Editor.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="nav">
+    <ul>
+      <li><a href="/admin">Home</a><span> ›</span></li>
+      <li><a href="/admin/archive/write">New Archive</a></li>
+    </ul>
+    <div class="quick"><a href="/admin/archive/write" title="Write Archive"><span>Write</span></a></div>
+  </div>
+  <form id='write_post' method='post' enctype="multipart/form-data">
+    <div id='post_info'>
+      <div class='item title'>
+        <label for='page_title'><span>Name</span></label>
+        <input type='text' name='archiveName' id='page_title' required=""/>
+      </div>
+      <div class='item slug'>
+        <label for='post_slug'><span>Thumbnail</span></label>
+        <input type='file' name='thumbnail' id='post_slug' >
+      </div>
+      <div class='clearfix'></div>
+    </div>
+    <div id='content'>
+      <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea class="wmd-input post_content" name='describe' id="wmd-input" required=''></textarea>
+      </div>
+    </div>
+    <div id='meta'>
+      <button class='btn btn-small'><a id='post-it'>OK,post it!</a></button>
+    </div>
+    <div class="clearfix"></div>
+    <div id="preview">
+      <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+    </div>
+  </form>
+</div>
+</body>
+<script>
+  (function () {
+    var converter = Markdown.getSanitizingConverter();
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+
+    window.onbeforeunload = function(){
+      return '你正在编辑日志，确定不保存编辑内容吗？';
+    };
+
+    $("#post-it").click(function(){
+      window.onbeforeunload = null;
+    });
+
+  })();
+</script>

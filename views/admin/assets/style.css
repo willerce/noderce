@@ -215,6 +215,14 @@ a {
     margin-top: 10px;
 }
 
+#post_info .item.archive{
+    margin-top: 10px;
+    margin-left: 50px;
+}
+.item.archive select{
+    width: 300px;
+}
+
 #post_slug,
 #page_slug{
     width: 300px;
@@ -226,7 +234,7 @@ a {
 }
 
 #post_tags{
-    width: 1000px;
+    width: 650px;
 }
 
 #content {

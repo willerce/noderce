@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <title>Noderce 管理中心</title>
+  <link rel="stylesheet" href="/admin/assets/style.css">
+  <script src="/libs/jquery.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="nav">
+    <ul>
+      <li><a href="/admin">Home</a><span> ›</span></li>
+      <li><a href="/admin/archive">Archive Index</a></li>
+    </ul>
+    <div class="quick"><a href="/admin/archive/write" title="Write Archive"><span>Write</span></a></div>
+  </div>
+  <div id="post-list">
+    <ul>
+      <% archive_list.forEach(function(item){ %>
+      <li>
+        <%=item.archiveName%>
+
+        <%=item.describe%>
+
+        <% if(item.thumbnail){ %>
+        <img src="<%=item.thumbnail%>" alt="img">
+        <% }else{ %>
+        无
+        <% } %>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+  <div class='clearfix'></div>
+</div>
+</body>
+</html>

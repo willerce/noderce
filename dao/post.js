@@ -5,7 +5,9 @@
  */
 
 var db = require('../config.js').db;
-db.bind('post');
+var postDBModel = require('../models/post.js');
+var postModel = new postDBModel.Schema('post');
+db.bind('post').bind(postModel);
 
 exports.all = function (callback) {
   db.post.find({}, {"content": 0}).sort({created: -1, _id: -1}).toArray(function (err, result) {
@@ -21,6 +23,12 @@ exports.findAll = function (skip, limit, callback) {
 
 exports.findByTag = function (tag, callback) {
   db.post.find({tags: tag }).sort({created: -1, _id: -1}).toArray(function (err, result) {
+    callback(err, result)
+  });
+};
+
+exports.findByArchive = function (archive, callback) {
+  db.post.find({refArchive: archive }).sort({created: -1, _id: -1}).toArray(function (err, result) {
     callback(err, result)
   });
 };

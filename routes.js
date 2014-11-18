@@ -35,6 +35,12 @@ module.exports = function (app) {
   app.post('/admin/post/edit/:slug', admin.auth_user, admin.postEdit);
   app.post('/admin/post/delete/:slug', admin.auth_user, admin.postDelete);
 
+  app.get('/admin/archive', admin.auth_user, admin.archiveIndex);
+  app.get('/admin/archive/write', admin.auth_user, admin.archiveWrite);
+  app.post('/admin/archive/write', admin.auth_user, admin.archiveWrite);
+  app.get('/admin/archive/edit/:name', admin.auth_user, admin.archiveEdit);
+  app.get('/admin/archive/edit/:name', admin.auth_user, admin.archiveEdit);
+
   app.get('/admin/page', admin.auth_user, admin.pageIndex);
   app.get('/admin/page/write', admin.auth_user, admin.pageWrite);
   app.post('/admin/page/write', admin.auth_user, admin.pageWrite);
