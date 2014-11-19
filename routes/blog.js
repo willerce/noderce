@@ -6,6 +6,7 @@ var gravatar = require('gravatar');
 var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey});
 
 var postDao = require('../dao/post');
+var archiveDao = require('../dao/archive');
 var pageDao = require('../dao/page');
 var commentDao = require('../dao/comment');
 
@@ -248,16 +249,29 @@ exports.archives = function (req, res) {
   var sortNumber = function (a, b) {
     return a.year < b.year
   };
-  var archiveList = [];
-  postDao.all(function (err, archives) {
-    for (var i = 0; i < archives.length; i++) {
-      var year = new Date(archives[i].created).getFullYear();
-      if (archiveList[year] === undefined)
-        archiveList[year] = { year: year, archives: []};
-      archiveList[year].archives.push(archives[i]);
-    }
-    archiveList = archiveList.sort(sortNumber);
+  var archiveList = {};
+  archiveDao.all(function (err, result) {
+
+    for (var i = result.length - 1; i >= 0; i--) {
+      if (archiveList[result[i]] === undefined)
+          archiveList[result[i]] = { archives: result[i], posts: []};
+      postDao.findByArchive(result[i], function(err, result){
+        archiveList[result[i]].posts = result;
+      });
+    };
+
     res.render('theme/' + config.theme + '/archives', {title: config.name + " › 文章存档", archives: archiveList, name: config.name});
+
+    /*postDao.all(function (err, posts) {
+      for (var i = 0; i < posts.length; i++) {
+        // var year = new Date(posts[i].created).getFullYear();
+        if (archiveList[year] === undefined)
+          archiveList[year] = { year: year, posts: []};
+        archiveList[year].posts.push(posts[i]);
+      }
+      archiveList = archiveList.sort(sortNumber);
+      res.render('theme/' + config.theme + '/archives', {title: config.name + " › 文章存档", archives: archiveList, name: config.name});
+    });*/
   });
 };
 

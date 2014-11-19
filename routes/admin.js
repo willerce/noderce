@@ -5,6 +5,7 @@
  */
 
 var fs = require('fs');
+
 var util = require('../lib/util.js');
 var config = require('../config.js').config;
 var userDao = require('../dao/user.js');
@@ -173,6 +174,7 @@ exports.findUpload=function(req,res){
     var readStream = fs.createReadStream(tmp_path)
     var writeStream = fs.createWriteStream(target_path);
     readStream.pipe(writeStream);
+
     readStream.on('end',function() {
         fs.unlinkSync(tmp_path);
       //  res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes' + "target_path" + target_path);
