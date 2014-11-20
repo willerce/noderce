@@ -40,7 +40,7 @@ exports.postWrite = function (req, res) {
     archiveDao.all(function (err, result) {
       archives = result;
       res.render('admin/post_write', {layout: false, archive_list: archives});
-    })
+    });
   } else if (req.method == 'POST') {// POST a post
 
     var created = moment().format();
@@ -69,13 +69,19 @@ exports.postWrite = function (req, res) {
 
 // URL : /admin/post/edit
 exports.postEdit = function (req, res) {
+  var id = req.params.id;
   if (req.method == "GET") {
-    var slug = req.params.slug;
-    postDao.get({slug: slug}, function (err, post) {
-      if (post != null)
-        res.render('admin/post_edit', {layout: false, post: post});
-      else
-        res.redirect('/admin/post')
+    postDao.get({_id: id}, function (err, post) {
+      if (post != null){
+        // 获取类别
+        var archives = [];
+        archiveDao.all(function (err, result) {
+          archives = result;
+          res.render('admin/post_edit', {layout: false, archive_list: archives, post: post});
+        });
+      }else{
+        res.redirect('/admin/post');
+      }
     })
   } else if (req.method == "POST") {
 
@@ -89,9 +95,10 @@ exports.postEdit = function (req, res) {
       content: req.body.content,
       content_html: marked(req.body.content),
       created: created,
-      tags: req.body.tags.split(',')
+      tags: req.body.tags.split(','),
+      refArchive: req.body.refArchive
     };
-    postDao.update(req.body.old_slug, post, function (err) {
+    postDao.update(id, post, function (err) {
       if (!err)
         res.redirect('/admin/post/edit/' + post.slug + "?msg=success");
     });
@@ -99,8 +106,14 @@ exports.postEdit = function (req, res) {
 };
 
 exports.postDelete = function (req, res) {
-  if (req.method == "GET") {
-
+  if (req.method == "POST") {
+    var id = req.params.id;
+    postDao.delete(id, function(err, result){
+      if(!err)
+        res.json({status: 'ok'});
+      else
+        res.json({status: 'error'});
+    });
   }
 };
 
@@ -199,6 +212,30 @@ exports.archiveEdit = function (req, res) {
     archiveDao.update(req.body.name, archive, function (err, result) {
       if (!err)
         res.redirect('/admin/archive/edit/' + archive.name + "?msg=success");
+    });
+  }
+}
+
+// URL: /admin/archive/delete
+exports.archiveDelete = function (req, res) {
+  if(req.method == 'POST'){
+    var id = req.params.id;
+    archiveDao.delete(id, function(err, result){
+      // 将具有该分类的文章的分类置空
+      postDao.findByArchive(id, function(error, res){
+        var archive = {
+          refArchive: ''
+        };
+        for (var i = 0; i < res.length; i++) {
+          postDao.update(res[i]._id.toString(), archive, function(e, result){
+            if(e) console.log(e);
+          });
+        }
+      });
+      if(!err)
+        res.json({status: 'ok'});
+      else
+        res.json({status: 'error'});
     });
   }
 }

@@ -45,14 +45,16 @@ exports.insert = function (obj, callback) {
   });
 };
 
-exports.update = function (old_slug, post, callback) {
-  db.post.update({slug: old_slug}, {$set: post }, function (err, result) {
+exports.update = function (id, post, callback) {
+  db.post.updateById(id, {$set: post }, function (err, result) {
     callback(err, result);
   })
 };
 
-exports.delete = function (slug, callback) {
-
+exports.delete = function (id, callback) {
+  db.post.removeById(id, function(err, result){
+    callback(err, result);
+  });
 };
 
 exports.count = function (condition, callback) {

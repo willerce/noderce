@@ -38,8 +38,10 @@ exports.update = function (old_name, archive, callback) {
   })
 };
 
-exports.delete = function (slug, callback) {
-
+exports.delete = function (id, callback) {
+  db.postArchive.removeById(id, function(err, result){
+    callback(err, result);
+  });
 };
 
 exports.count = function (condition, callback) {
