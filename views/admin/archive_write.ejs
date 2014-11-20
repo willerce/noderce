@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>Noderce 管理中心 > 新建页面</title>
+  <title>Noderce 管理中心 > 新建分类</title>
   <link rel="stylesheet" href="/admin/assets/style.css">
   <script src="/libs/jquery.min.js"></script>
   <script src="/libs/cal.js"></script>
@@ -14,30 +14,26 @@
   <div id="nav">
     <ul>
       <li><a href="/admin">Home</a><span> ›</span></li>
-      <li><a href="/admin/page/write">New Page</a></li>
+      <li><a href="/admin/archive/write">New Archive</a></li>
     </ul>
-    <div class="quick"><a href="/admin/post/write" title="Write Post"><span>Write</span></a></div>
+    <div class="quick"><a href="/admin/archive/write" title="Write Archive"><span>Write</span></a></div>
   </div>
-  <form id='write_post' method='post'>
+  <form id='write_post' method='post' enctype="multipart/form-data">
     <div id='post_info'>
       <div class='item title'>
-        <label for='page_title'><span>Title</span></label>
-        <input type='text' name='title' id='page_title' required=""/>
+        <label for='page_title'><span>Name</span></label>
+        <input type='text' name='archiveName' id='page_title' required=""/>
       </div>
       <div class='item slug'>
-        <label for='page_slug'><span>Slug</span></label>
-        <input type='text' name='slug' id='page_slug' required="">
-      </div>
-      <div class='item created'>
-        <label for='page_created'><span>Created</span></label>
-        <input type='text' name='created' id='page_created' readonly='' required=''>
+        <label for='post_slug'><span>Thumbnail</span></label>
+        <input type='file' name='thumbnail' id='post_slug' >
       </div>
       <div class='clearfix'></div>
     </div>
     <div id='content'>
       <div class="wmd-panel">
         <div id="wmd-button-bar"></div>
-        <textarea class="wmd-input post_content" name='content' id="wmd-input" required=''></textarea>
+        <textarea class="wmd-input post_content" name='describe' id="wmd-input" required=''></textarea>
       </div>
     </div>
     <div id='meta'>
@@ -51,7 +47,6 @@
 </div>
 </body>
 <script>
-  $('input#post_created').simpleDatepicker({ startdate: 2000, enddate: 2050 });
   (function () {
     var converter = Markdown.getSanitizingConverter();
     var editor = new Markdown.Editor(converter);

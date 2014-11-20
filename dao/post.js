@@ -5,7 +5,9 @@
  */
 
 var db = require('../config.js').db;
-db.bind('post');
+var postDBModel = require('../models/post.js');
+var postModel = new postDBModel.Schema('post');
+db.bind('post').bind(postModel);
 
 exports.all = function (callback) {
   db.post.find({}, {"content": 0}).sort({created: -1, _id: -1}).toArray(function (err, result) {
@@ -25,6 +27,12 @@ exports.findByTag = function (tag, callback) {
   });
 };
 
+exports.findByArchive = function (archive, callback) {
+  db.post.find({refArchive: archive }).sort({created: -1, _id: -1}).toArray(function (err, result) {
+    callback(err, result)
+  });
+};
+
 exports.get = function (condition, callback) {
   db.post.findOne(condition, function (err, result) {
     callback(null, result);
@@ -37,14 +45,16 @@ exports.insert = function (obj, callback) {
   });
 };
 
-exports.update = function (old_slug, post, callback) {
-  db.post.update({slug: old_slug}, {$set: post }, function (err, result) {
+exports.update = function (id, post, callback) {
+  db.post.updateById(id, {$set: post }, function (err, result) {
     callback(err, result);
   })
 };
 
-exports.delete = function (slug, callback) {
-
+exports.delete = function (id, callback) {
+  db.post.removeById(id, function(err, result){
+    callback(err, result);
+  });
 };
 
 exports.count = function (condition, callback) {

@@ -3,10 +3,10 @@
         <article class="post block">
             <h1 class="title">文章存档</h1>
             <div class="entry archives">
-                <%archives.forEach(function(year){%>
-                <h2><%=year.year%></h2>
+                <%archives.forEach(function(archive){%>
+                <h2><%=archive.archiveName%></h2>
                 <ul>
-                    <%year.archives.forEach(function(item){%>
+                    <%archive.posts.forEach(function(item){%>
                     <li>
                         <time datetime="<%=item.created%>"><%=locals.moment(item.created).format("MM/DD")%></time>
                         <a href="/post/<%=item.slug%>"><%=item.title%></a>

@@ -4,14 +4,18 @@
  * Time: 11:47 PM
  */
 
+var fs = require('fs');
+
 var util = require('../lib/util.js');
 var config = require('../config.js').config;
 var userDao = require('../dao/user.js');
 var postDao = require('../dao/post.js');
+var archiveDao = require('../dao/archive.js');
 var pageDao = require('../dao/page.js');
 var commentDao = require('../dao/comment.js');
 var marked = require('marked');
 var moment = require('moment');
+var formidable = require('formidable');
 
 var akismet = require('akismet').client({blog: config.akismet_options.blog, apiKey: config.akismet_options.apikey, debug: true});
 
@@ -31,7 +35,12 @@ exports.postIndex = function (req, res) {
 // URL : /admin/post/write
 exports.postWrite = function (req, res) {
   if (req.method == 'GET') {//render post write view
-    res.render('admin/post_write', {layout: false});
+    // 获取类别
+    var archives = [];
+    archiveDao.all(function (err, result) {
+      archives = result;
+      res.render('admin/post_write', {layout: false, archive_list: archives});
+    });
   } else if (req.method == 'POST') {// POST a post
 
     var created = moment().format();
@@ -44,7 +53,8 @@ exports.postWrite = function (req, res) {
       content: req.body.content,
       content_html: marked(req.body.content),
       created: created,
-      tags: req.body.tags.split(',')
+      tags: req.body.tags.split(','),
+      refArchive: req.body.refArchive
     };
 
     postDao.insert(post, function (err, result) {
@@ -59,13 +69,19 @@ exports.postWrite = function (req, res) {
 
 // URL : /admin/post/edit
 exports.postEdit = function (req, res) {
+  var id = req.params.id;
   if (req.method == "GET") {
-    var slug = req.params.slug;
-    postDao.get({slug: slug}, function (err, post) {
-      if (post != null)
-        res.render('admin/post_edit', {layout: false, post: post});
-      else
-        res.redirect('/admin/post')
+    postDao.get({_id: id}, function (err, post) {
+      if (post != null){
+        // 获取类别
+        var archives = [];
+        archiveDao.all(function (err, result) {
+          archives = result;
+          res.render('admin/post_edit', {layout: false, archive_list: archives, post: post});
+        });
+      }else{
+        res.redirect('/admin/post');
+      }
     })
   } else if (req.method == "POST") {
 
@@ -79,9 +95,10 @@ exports.postEdit = function (req, res) {
       content: req.body.content,
       content_html: marked(req.body.content),
       created: created,
-      tags: req.body.tags.split(',')
+      tags: req.body.tags.split(','),
+      refArchive: req.body.refArchive
     };
-    postDao.update(req.body.old_slug, post, function (err) {
+    postDao.update(id, post, function (err) {
       if (!err)
         res.redirect('/admin/post/edit/' + post.slug + "?msg=success");
     });
@@ -89,10 +106,139 @@ exports.postEdit = function (req, res) {
 };
 
 exports.postDelete = function (req, res) {
-  if (req.method == "GET") {
-
+  if (req.method == "POST") {
+    var id = req.params.id;
+    postDao.delete(id, function(err, result){
+      if(!err)
+        res.json({status: 'ok'});
+      else
+        res.json({status: 'error'});
+    });
   }
 };
+
+// URL: /admin/archive
+exports.archiveIndex = function (req, res) {
+  archiveDao.all(function (err, result) {
+    if(!err)
+      res.render('admin/archive_index', {layout: false, archive_list: result});
+  });
+};
+
+// URL: /admin/archive/write
+exports.archiveWrite = function (req, res) {
+  if (req.method == 'GET') {
+    res.render('admin/archive_write');
+  } else if(req.method == 'POST') {
+    var thumb = '';
+    if(Object.getOwnPropertyNames(req.files).length){
+       exports.findUpload(req,res);
+       thumb = '/upload/' + req.files.thumbnail.name;
+    }
+
+    var archive = {
+      archiveName: req.body.archiveName,
+      describe: req.body.describe,
+      thumbnail: thumb
+    };
+    archiveDao.insert(archive, function (err, result) {
+      if(!err){
+        res.redirect('/admin/archive');
+      }else{
+        console.log(err);
+      }
+    });
+
+    /*var form = new formidable.IncomingForm();
+    form.uploadDir = './public/upload';
+
+    form.parse(req, function(err, fields, files){
+      console.log('解析完毕');
+      var thumb = '';
+      // 修复直接访问/upload不正确的问题
+      if(Object.getOwnPropertyNames(files).length){
+        // fs.renameSync(files.thumbnail.path, 'D:\\test.png');
+        thumb = files.thumbnail.path;
+      }
+
+      var archive = {
+        archiveName: req.body.archiveName,
+        describe: req.body.describe,
+        thumbnail: thumb
+      };
+      archiveDao.insert(archive, function (err, result) {
+        if(!err){
+          res.redirect('/admin/archive');
+        }else{
+          console.log(err);
+        }
+      });
+    });*/
+  }
+};
+
+// 文件上传
+exports.findUpload=function(req,res){
+    var tmp_path = req.files.thumbnail.path;
+    console.log("temp_path->"+tmp_path);
+    // 指定文件上传后的目录 - 示例为"images"目录。
+    var target_path = './public/upload/' + req.files.thumbnail.name;
+    console.log(target_path);
+    var readStream = fs.createReadStream(tmp_path)
+    var writeStream = fs.createWriteStream(target_path);
+    readStream.pipe(writeStream);
+
+    readStream.on('end',function() {
+        fs.unlinkSync(tmp_path);
+      //  res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes' + "target_path" + target_path);
+    });
+}
+
+exports.archiveEdit = function (req, res) {
+  if (req.method == "GET") {
+    var name = req.params.name;
+    archiveDao.get({archiveName: name}, function (err, archive) {
+      if (archive != null)
+        res.render('admin/archive_edit', {layout: false, archive: archive});
+      else
+        res.redirect('/admin/archive');
+    })
+  } else if (req.method == "POST") {
+
+    var archive = {
+      archiveName: req.body.archiveName,
+      describe: req.body.describe
+    };
+    archiveDao.update(req.body.name, archive, function (err, result) {
+      if (!err)
+        res.redirect('/admin/archive/edit/' + archive.name + "?msg=success");
+    });
+  }
+}
+
+// URL: /admin/archive/delete
+exports.archiveDelete = function (req, res) {
+  if(req.method == 'POST'){
+    var id = req.params.id;
+    archiveDao.delete(id, function(err, result){
+      // 将具有该分类的文章的分类置空
+      postDao.findByArchive(id, function(error, res){
+        var archive = {
+          refArchive: ''
+        };
+        for (var i = 0; i < res.length; i++) {
+          postDao.update(res[i]._id.toString(), archive, function(e, result){
+            if(e) console.log(e);
+          });
+        }
+      });
+      if(!err)
+        res.json({status: 'ok'});
+      else
+        res.json({status: 'error'});
+    });
+  }
+}
 
 // URL: /admin/page
 exports.pageIndex = function (req, res) {

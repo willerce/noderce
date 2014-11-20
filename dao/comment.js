@@ -7,7 +7,9 @@
 var mongoskin = require('mongoskin');
 
 var db = require('../config.js').db;
-db.bind('comment');
+var commentDBModel = require('../models/comment.js');
+var commentModel = new commentDBModel.Schema('comment');
+db.bind('comment').bind(commentModel);
 
 exports.all = function (condition, limit, callback) {
   db.comment.find(condition).limit(limit).sort({created: -1, _id: -1}).toArray(function (err, result) {
