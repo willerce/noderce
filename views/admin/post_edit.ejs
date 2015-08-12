@@ -41,14 +41,6 @@
         <input type='text' name='tags' id='post_tags' required='' placeholder="标签，在英文逗号分割">
         <%}%>
       </div>
-      <div class='item archive'>
-        <select name="refArchive" id="refArchive">
-          <option value="">请选择类别</option>
-          <% archive_list.forEach(function(item){ %>
-          <option value="<%=item._id%>" <%if(post.refArchive == item._id.toString()){%>selected<%}%>><%=item.archiveName%></option>
-          <% }); %>
-        </select>
-      </div>
       <div class="clearfix"></div>
     </div>
     <div id='content'>
@@ -69,7 +61,7 @@
 </div>
 </body>
 <script>
-  $('input#post_created').simpleDatepicker({ startdate: 2000, enddate: 2050 });
+  $('input#post_created').simpleDatepicker({ startdate: 2009, enddate: 2013 });
   (function () {
     var converter = Markdown.getSanitizingConverter();
     var editor = new Markdown.Editor(converter);

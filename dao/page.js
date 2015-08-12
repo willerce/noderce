@@ -5,9 +5,7 @@
  */
 
 var db = require('../config.js').db;
-var pageDBModel = require('../models/page.js');
-var pageModel = new pageDBModel.Schema('page');
-db.bind('page').bind(pageModel);
+db.bind('page');
 
 exports.all = function (callback) {
   db.page.find().sort({created:-1}).toArray(function (err, result) {
