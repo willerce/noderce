@@ -9,7 +9,7 @@ Noderce 的功能很简单。去除了自己用不到的标签、分类、友情
 
 Noderce AppFog 部署指南：[http://willerce.com/post/noderce-deploy-to-appfog](http://willerce.com/post/noderce-deploy-to-appfog)
 
-## 安装
+##安装
 
 克隆项目到本地
 
@@ -25,34 +25,28 @@ Noderce AppFog 部署指南：[http://willerce.com/post/noderce-deploy-to-appfog
 
 设定一个用户名密码，程序初始化后，即可使用
 
-## 主题切换
+##主题切换
 
 从 views/one 复制一件出来进行修改。放在 views 中，如： views/two
 
 修改 config.js 中的 theme 的值为你的主题目录名称："two" 即可
 
-## Akismet功能
+##Akismet功能
 
 akismet 可以帮助你拒绝绝大部分的 spam 评论，建议开启。你需要到 http://akismet.com/ 申请一个 api key。然后修改 config.js 中的 akismet_key 变量。如果不想开启此功能，请留空。默认为空
 
-## ChangeLog
+##ChangeLog
 
-#### 2014-11-13
+####2014-11-13
 
 1. 更新mongoskin版本为1.3.20，不然会报错，因为mongodb的接口已经修改
 2. 修改`db.ObjectID.createFromHexString`为`mongoskin.helper.toObjectID`以适应新版本
 
-#### 2014-11-14
+####2014-11-14
 
 1. 添加log4js调试模块
 2. 添加http请求记录到文件的模块
 3. 给404页面添加404状态码
-
-
-#### 2014-11-20
-
-1. 添加分类功能
-2. 修改日期插件（SimpleDatepicker）bug，讲起止年份改为2000-2015
 
 ##License
 
